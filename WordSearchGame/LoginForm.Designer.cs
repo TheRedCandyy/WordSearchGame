@@ -97,7 +97,6 @@ namespace WordSearchGame
             this.txt_box_Login_UserName.Size = new System.Drawing.Size(266, 33);
             this.txt_box_Login_UserName.TabIndex = 9;
             this.txt_box_Login_UserName.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txt_box_Login_UserName.TextChanged += new System.EventHandler(this.txt_box_Login_UserName_TextChanged);
             // 
             // txt_box_Login_Password
             // 
@@ -107,7 +106,6 @@ namespace WordSearchGame
             this.txt_box_Login_Password.Size = new System.Drawing.Size(266, 33);
             this.txt_box_Login_Password.TabIndex = 10;
             this.txt_box_Login_Password.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txt_box_Login_Password.TextChanged += new System.EventHandler(this.txt_box_Login_Password_TextChanged);
             // 
             // Login_QuitButton
             // 

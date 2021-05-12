@@ -48,7 +48,7 @@ namespace WordSearchGame
         //Back Btn
         private void Button_Login_Back_Click(object sender, EventArgs e)
         {
-            var quitMsgBox = MessageBox.Show("Do you wanto to cancel?", "Cancel Login", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            var quitMsgBox = MessageBox.Show("Are you Sure?", "Cancel Login", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (quitMsgBox == DialogResult.Yes)
             {
                 this.Close();
@@ -56,16 +56,6 @@ namespace WordSearchGame
         }
         //Login Btn
         private void Button_Login_Click(object sender, EventArgs e)
-        {
-
-        }
-        //Txt Box Username
-        private void txt_box_Login_UserName_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-        //Txt Box Password
-        private void txt_box_Login_Password_TextChanged(object sender, EventArgs e)
         {
 
         }
