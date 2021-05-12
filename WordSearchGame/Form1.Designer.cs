@@ -59,8 +59,6 @@ namespace WordSearchGame
             this.softwareToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.authorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.QuitButton = new System.Windows.Forms.Button();
-            this.MinimizeButton = new System.Windows.Forms.Button();
             this.ButtonsPanel = new System.Windows.Forms.Panel();
             this.Quit_Button_Bottom = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
@@ -69,6 +67,8 @@ namespace WordSearchGame
             this.button1 = new System.Windows.Forms.Button();
             this.GamePanel = new System.Windows.Forms.TableLayoutPanel();
             this.WordsPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.MinimizeButton = new System.Windows.Forms.Button();
+            this.QuitButton = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.ButtonsPanel.SuspendLayout();
             this.SuspendLayout();
@@ -137,6 +137,7 @@ namespace WordSearchGame
             this.administrationToolStripMenuItem.Name = "administrationToolStripMenuItem";
             this.administrationToolStripMenuItem.Size = new System.Drawing.Size(198, 26);
             this.administrationToolStripMenuItem.Text = "Administration";
+            this.administrationToolStripMenuItem.Click += new System.EventHandler(this.administrationToolStripMenuItem_Click);
             // 
             // createToolStripMenuItem
             // 
@@ -283,34 +284,6 @@ namespace WordSearchGame
             this.authorsToolStripMenuItem.Name = "authorsToolStripMenuItem";
             this.authorsToolStripMenuItem.Size = new System.Drawing.Size(197, 26);
             this.authorsToolStripMenuItem.Text = "Authors";
-            // 
-            // QuitButton
-            // 
-            this.QuitButton.BackgroundImage = global::WordSearchGame.Properties.Resources.close_window_50px;
-            this.QuitButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.QuitButton.FlatAppearance.BorderSize = 0;
-            this.QuitButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.QuitButton.Location = new System.Drawing.Point(994, 0);
-            this.QuitButton.Margin = new System.Windows.Forms.Padding(5);
-            this.QuitButton.Name = "QuitButton";
-            this.QuitButton.Size = new System.Drawing.Size(30, 30);
-            this.QuitButton.TabIndex = 1;
-            this.QuitButton.UseVisualStyleBackColor = true;
-            this.QuitButton.Click += new System.EventHandler(this.QuitButton_Click);
-            // 
-            // MinimizeButton
-            // 
-            this.MinimizeButton.BackgroundImage = global::WordSearchGame.Properties.Resources.minimize_window_50px;
-            this.MinimizeButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.MinimizeButton.FlatAppearance.BorderSize = 0;
-            this.MinimizeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.MinimizeButton.Location = new System.Drawing.Point(954, 0);
-            this.MinimizeButton.Margin = new System.Windows.Forms.Padding(5);
-            this.MinimizeButton.Name = "MinimizeButton";
-            this.MinimizeButton.Size = new System.Drawing.Size(30, 30);
-            this.MinimizeButton.TabIndex = 2;
-            this.MinimizeButton.UseVisualStyleBackColor = true;
-            this.MinimizeButton.Click += new System.EventHandler(this.MinimizeButton_Click);
             // 
             // ButtonsPanel
             // 
@@ -463,6 +436,34 @@ namespace WordSearchGame
             this.WordsPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5.263157F));
             this.WordsPanel.Size = new System.Drawing.Size(261, 684);
             this.WordsPanel.TabIndex = 7;
+            // 
+            // MinimizeButton
+            // 
+            this.MinimizeButton.BackgroundImage = global::WordSearchGame.Properties.Resources.minimize_window_50px;
+            this.MinimizeButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.MinimizeButton.FlatAppearance.BorderSize = 0;
+            this.MinimizeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.MinimizeButton.Location = new System.Drawing.Point(954, 0);
+            this.MinimizeButton.Margin = new System.Windows.Forms.Padding(5);
+            this.MinimizeButton.Name = "MinimizeButton";
+            this.MinimizeButton.Size = new System.Drawing.Size(30, 30);
+            this.MinimizeButton.TabIndex = 2;
+            this.MinimizeButton.UseVisualStyleBackColor = true;
+            this.MinimizeButton.Click += new System.EventHandler(this.MinimizeButton_Click);
+            // 
+            // QuitButton
+            // 
+            this.QuitButton.BackgroundImage = global::WordSearchGame.Properties.Resources.close_window_50px;
+            this.QuitButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.QuitButton.FlatAppearance.BorderSize = 0;
+            this.QuitButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.QuitButton.Location = new System.Drawing.Point(994, 0);
+            this.QuitButton.Margin = new System.Windows.Forms.Padding(5);
+            this.QuitButton.Name = "QuitButton";
+            this.QuitButton.Size = new System.Drawing.Size(30, 30);
+            this.QuitButton.TabIndex = 1;
+            this.QuitButton.UseVisualStyleBackColor = true;
+            this.QuitButton.Click += new System.EventHandler(this.QuitButton_Click);
             // 
             // Form1
             // 
