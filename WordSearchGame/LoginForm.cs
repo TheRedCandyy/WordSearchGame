@@ -39,7 +39,7 @@ namespace WordSearchGame
 
         private void QuitButton_Click(object sender, EventArgs e)
         {
-            var quitMsgBox = MessageBox.Show("Do you wanto to cancel?", "Cancel Login", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            var quitMsgBox = MessageBox.Show("Are you Sure?", "Cancel Login", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (quitMsgBox == DialogResult.Yes)
             {
                 this.Close();
