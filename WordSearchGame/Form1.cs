@@ -125,5 +125,11 @@ namespace WordSearchGame
                 Application.Exit();
             }
         }
+
+        private void administrationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LoginForm LoginFrm = new LoginForm(); //Instance Login Form
+            LoginFrm.ShowDialog();  //Call Login Form
+        }
     }
 }
