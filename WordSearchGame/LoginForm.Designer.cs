@@ -104,6 +104,7 @@ namespace WordSearchGame
             this.txt_box_Login_Password.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_box_Login_Password.Location = new System.Drawing.Point(68, 219);
             this.txt_box_Login_Password.Name = "txt_box_Login_Password";
+            this.txt_box_Login_Password.PasswordChar = '*';
             this.txt_box_Login_Password.Size = new System.Drawing.Size(266, 33);
             this.txt_box_Login_Password.TabIndex = 10;
             this.txt_box_Login_Password.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
