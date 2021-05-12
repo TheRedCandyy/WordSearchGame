@@ -36,6 +36,7 @@ namespace WordSearchGame
             this.txt_box_Login_UserName = new System.Windows.Forms.TextBox();
             this.txt_box_Login_Password = new System.Windows.Forms.TextBox();
             this.Login_QuitButton = new System.Windows.Forms.Button();
+            this.Label_Tentativas_Restantes = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // Button_Login_Back
@@ -45,7 +46,7 @@ namespace WordSearchGame
             this.Button_Login_Back.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Button_Login_Back.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Button_Login_Back.ForeColor = System.Drawing.Color.White;
-            this.Button_Login_Back.Location = new System.Drawing.Point(206, 338);
+            this.Button_Login_Back.Location = new System.Drawing.Point(204, 327);
             this.Button_Login_Back.Name = "Button_Login_Back";
             this.Button_Login_Back.Size = new System.Drawing.Size(130, 50);
             this.Button_Login_Back.TabIndex = 5;
@@ -60,7 +61,7 @@ namespace WordSearchGame
             this.Button_Login.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Button_Login.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Button_Login.ForeColor = System.Drawing.Color.White;
-            this.Button_Login.Location = new System.Drawing.Point(70, 338);
+            this.Button_Login.Location = new System.Drawing.Point(68, 327);
             this.Button_Login.Name = "Button_Login";
             this.Button_Login.Size = new System.Drawing.Size(130, 50);
             this.Button_Login.TabIndex = 6;
@@ -72,7 +73,7 @@ namespace WordSearchGame
             // 
             this.Label_Login_UserName.AutoSize = true;
             this.Label_Login_UserName.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label_Login_UserName.Location = new System.Drawing.Point(126, 73);
+            this.Label_Login_UserName.Location = new System.Drawing.Point(124, 54);
             this.Label_Login_UserName.Name = "Label_Login_UserName";
             this.Label_Login_UserName.Size = new System.Drawing.Size(159, 32);
             this.Label_Login_UserName.TabIndex = 7;
@@ -82,7 +83,7 @@ namespace WordSearchGame
             // 
             this.Label_Login_Password.AutoSize = true;
             this.Label_Login_Password.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label_Login_Password.Location = new System.Drawing.Point(135, 192);
+            this.Label_Login_Password.Location = new System.Drawing.Point(133, 173);
             this.Label_Login_Password.Name = "Label_Login_Password";
             this.Label_Login_Password.Size = new System.Drawing.Size(138, 32);
             this.Label_Login_Password.TabIndex = 8;
@@ -92,7 +93,7 @@ namespace WordSearchGame
             // txt_box_Login_UserName
             // 
             this.txt_box_Login_UserName.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_box_Login_UserName.Location = new System.Drawing.Point(70, 119);
+            this.txt_box_Login_UserName.Location = new System.Drawing.Point(68, 100);
             this.txt_box_Login_UserName.Name = "txt_box_Login_UserName";
             this.txt_box_Login_UserName.Size = new System.Drawing.Size(266, 33);
             this.txt_box_Login_UserName.TabIndex = 9;
@@ -101,8 +102,9 @@ namespace WordSearchGame
             // txt_box_Login_Password
             // 
             this.txt_box_Login_Password.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_box_Login_Password.Location = new System.Drawing.Point(70, 238);
+            this.txt_box_Login_Password.Location = new System.Drawing.Point(68, 219);
             this.txt_box_Login_Password.Name = "txt_box_Login_Password";
+            this.txt_box_Login_Password.PasswordChar = '*';
             this.txt_box_Login_Password.Size = new System.Drawing.Size(266, 33);
             this.txt_box_Login_Password.TabIndex = 10;
             this.txt_box_Login_Password.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -121,12 +123,23 @@ namespace WordSearchGame
             this.Login_QuitButton.UseVisualStyleBackColor = true;
             this.Login_QuitButton.Click += new System.EventHandler(this.QuitButton_Click);
             // 
+            // Label_Tentativas_Restantes
+            // 
+            this.Label_Tentativas_Restantes.AutoSize = true;
+            this.Label_Tentativas_Restantes.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Label_Tentativas_Restantes.Location = new System.Drawing.Point(65, 265);
+            this.Label_Tentativas_Restantes.Name = "Label_Tentativas_Restantes";
+            this.Label_Tentativas_Restantes.Size = new System.Drawing.Size(142, 17);
+            this.Label_Tentativas_Restantes.TabIndex = 12;
+            this.Label_Tentativas_Restantes.Text = "Tentativas Restantes:";
+            // 
             // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(204)))), ((int)(((byte)(178)))));
             this.ClientSize = new System.Drawing.Size(400, 400);
+            this.Controls.Add(this.Label_Tentativas_Restantes);
             this.Controls.Add(this.Login_QuitButton);
             this.Controls.Add(this.txt_box_Login_Password);
             this.Controls.Add(this.txt_box_Login_UserName);
@@ -156,5 +169,6 @@ namespace WordSearchGame
         private System.Windows.Forms.TextBox txt_box_Login_UserName;
         private System.Windows.Forms.TextBox txt_box_Login_Password;
         private System.Windows.Forms.Button Login_QuitButton;
+        private System.Windows.Forms.Label Label_Tentativas_Restantes;
     }
 }

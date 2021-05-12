@@ -24,6 +24,11 @@ namespace WordSearchGame
         Button[,] gameBtn = new Button[15, 15];
         CheckBox[] wordsCheck = new CheckBox[19];
         Label[] wordsLabel = new Label[19];
+
+        //Administration credentials
+        public string adminUserName = "admin";
+        public string adminPassword = "1234";
+
         public Form1()
         {
             InitializeComponent();
@@ -126,9 +131,13 @@ namespace WordSearchGame
             }
         }
 
+        /**
+        * Butão do menu bar que permite fazer login como administrador
+        **/
+
         private void administrationToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            LoginForm LoginFrm = new LoginForm(); //Instance Login Form
+            LoginForm LoginFrm = new LoginForm(adminUserName, adminPassword); //Instance Login Form
             LoginFrm.ShowDialog();  //Call Login Form
         }
     }
