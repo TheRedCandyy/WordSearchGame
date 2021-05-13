@@ -21,7 +21,7 @@ namespace WordSearchGame
         Color buttonColorNormal = Color.FromArgb(127, 85, 57); //Castanho escuro
         Color buttonColorRed = Color.FromArgb(174, 32, 18); //Vermelho
         Color[] btnColors = new Color[19]; //Array para guardar as cores que vao ser utilizadas nos butões
-        int colorIndex; //Variavel que guarda o index das cores
+        static int colorIndex = 0; //Variavel que guarda o index das cores
 
         //Arrays de objetos dinamicos
         Button[,] gameBtn = new Button[15, 15];
@@ -75,6 +75,9 @@ namespace WordSearchGame
             {"a","t","d","e","o","e","s","t","e","t","e","p","t","e","p" },
             {"d","c","o","b","r","a","k","t","q","t","e","p","t","e","p" }
         };
+
+        Color cor = Color.FromArgb(100, 100, 100);
+
         public Form1()
         {
             InitializeComponent();
@@ -99,7 +102,7 @@ namespace WordSearchGame
                 for (int y = 0; y < 15; y++)
                 {
                     gameBtn[x, y] = new Button();
-                    gameBtn[x, y].Text = board[x,y].ToUpper();
+                    gameBtn[x, y].Text = "X";
                     gameBtn[x, y].FlatStyle = FlatStyle.Flat;
                     gameBtn[x, y].FlatAppearance.BorderSize = 0;
                     gameBtn[x, y].BackColor = Color.Transparent;
@@ -147,7 +150,7 @@ namespace WordSearchGame
             Button clickedButton = (Button)sender;
             clickedButton.BackColor = btnColors[colorIndex];
 
-            word += clickedButton.Text;
+            word += clickedButton.Text.ToLower();
             for (int i = 0; i < words.Length; i++)
             {
                 if (word.Equals(words[i]))
@@ -173,15 +176,31 @@ namespace WordSearchGame
          **/
         public void generateColors()
         {
+            Color[] colorPallet =
+            {
+                Color.FromArgb(255, 173, 173),
+                Color.FromArgb(255, 214, 165),
+                Color.FromArgb(253, 255, 182),
+                Color.FromArgb(202, 255, 191),
+                Color.FromArgb(155, 246, 255),
+                Color.FromArgb(160, 196, 255),
+                Color.FromArgb(189, 178, 255),
+                Color.FromArgb(255, 198, 255),
+                Color.FromArgb(255, 255, 252),
+                Color.FromArgb(38, 70, 83),
+                Color.FromArgb(42, 157, 143),
+                Color.FromArgb(233, 196, 106),
+                Color.FromArgb(244, 162, 97),
+                Color.FromArgb(231, 111, 81),
+                Color.FromArgb(149, 213, 178),
+                Color.FromArgb(27, 67, 50),
+                Color.FromArgb(199, 125, 255),
+                Color.FromArgb(36, 0, 70),
+                Color.FromArgb(247, 209, 205)
+            };
             for (int i = 0; i < words.Length; i++)
             {
-                rd = new Random();
-                btnColors[i] = new Color();
-                int red, blue, green;
-                red = rd.Next(255);
-                blue = rd.Next(255);
-                green = rd.Next(255);
-                btnColors[i] = Color.FromArgb(red, green, blue);
+                btnColors[i] = colorPallet[i];
             }
         }
 
@@ -224,6 +243,7 @@ namespace WordSearchGame
                 for (int y = 0; y < 15; y++)
                 {
                     gameBtn[x, y].Enabled = true;
+                    gameBtn[x, y].Text = board[x, y].ToUpper();
                 }
             }
         }
