@@ -61,10 +61,10 @@ namespace WordSearchGame
             this.authorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ButtonsPanel = new System.Windows.Forms.Panel();
             this.Quit_Button_Bottom = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.LastMove_Button = new System.Windows.Forms.Button();
+            this.Stats_Button = new System.Windows.Forms.Button();
+            this.PlayerName_Button = new System.Windows.Forms.Button();
+            this.NewGame_Button = new System.Windows.Forms.Button();
             this.GamePanel = new System.Windows.Forms.TableLayoutPanel();
             this.WordsPanel = new System.Windows.Forms.TableLayoutPanel();
             this.MinimizeButton = new System.Windows.Forms.Button();
@@ -289,10 +289,10 @@ namespace WordSearchGame
             // ButtonsPanel
             // 
             this.ButtonsPanel.Controls.Add(this.Quit_Button_Bottom);
-            this.ButtonsPanel.Controls.Add(this.button4);
-            this.ButtonsPanel.Controls.Add(this.button3);
-            this.ButtonsPanel.Controls.Add(this.button2);
-            this.ButtonsPanel.Controls.Add(this.button1);
+            this.ButtonsPanel.Controls.Add(this.LastMove_Button);
+            this.ButtonsPanel.Controls.Add(this.Stats_Button);
+            this.ButtonsPanel.Controls.Add(this.PlayerName_Button);
+            this.ButtonsPanel.Controls.Add(this.NewGame_Button);
             this.ButtonsPanel.Location = new System.Drawing.Point(0, 724);
             this.ButtonsPanel.Name = "ButtonsPanel";
             this.ButtonsPanel.Size = new System.Drawing.Size(1024, 94);
@@ -313,61 +313,63 @@ namespace WordSearchGame
             this.Quit_Button_Bottom.UseVisualStyleBackColor = false;
             this.Quit_Button_Bottom.Click += new System.EventHandler(this.Quit_Button_Bottom_Click);
             // 
-            // button4
+            // LastMove_Button
             // 
-            this.button4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(85)))), ((int)(((byte)(57)))));
-            this.button4.FlatAppearance.BorderSize = 0;
-            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button4.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button4.ForeColor = System.Drawing.Color.White;
-            this.button4.Location = new System.Drawing.Point(640, 24);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(150, 50);
-            this.button4.TabIndex = 3;
-            this.button4.Text = "Last Move";
-            this.button4.UseVisualStyleBackColor = false;
+            this.LastMove_Button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(85)))), ((int)(((byte)(57)))));
+            this.LastMove_Button.FlatAppearance.BorderSize = 0;
+            this.LastMove_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.LastMove_Button.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LastMove_Button.ForeColor = System.Drawing.Color.White;
+            this.LastMove_Button.Location = new System.Drawing.Point(640, 24);
+            this.LastMove_Button.Name = "LastMove_Button";
+            this.LastMove_Button.Size = new System.Drawing.Size(150, 50);
+            this.LastMove_Button.TabIndex = 3;
+            this.LastMove_Button.Text = "Last Move";
+            this.LastMove_Button.UseVisualStyleBackColor = false;
+            this.LastMove_Button.Click += new System.EventHandler(this.LastMove_Button_Click);
             // 
-            // button3
+            // Stats_Button
             // 
-            this.button3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(85)))), ((int)(((byte)(57)))));
-            this.button3.FlatAppearance.BorderSize = 0;
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.ForeColor = System.Drawing.Color.White;
-            this.button3.Location = new System.Drawing.Point(440, 24);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(150, 50);
-            this.button3.TabIndex = 2;
-            this.button3.Text = "Statistics";
-            this.button3.UseVisualStyleBackColor = false;
+            this.Stats_Button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(85)))), ((int)(((byte)(57)))));
+            this.Stats_Button.FlatAppearance.BorderSize = 0;
+            this.Stats_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Stats_Button.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Stats_Button.ForeColor = System.Drawing.Color.White;
+            this.Stats_Button.Location = new System.Drawing.Point(440, 24);
+            this.Stats_Button.Name = "Stats_Button";
+            this.Stats_Button.Size = new System.Drawing.Size(150, 50);
+            this.Stats_Button.TabIndex = 2;
+            this.Stats_Button.Text = "Statistics";
+            this.Stats_Button.UseVisualStyleBackColor = false;
             // 
-            // button2
+            // PlayerName_Button
             // 
-            this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(85)))), ((int)(((byte)(57)))));
-            this.button2.FlatAppearance.BorderSize = 0;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.ForeColor = System.Drawing.Color.White;
-            this.button2.Location = new System.Drawing.Point(240, 24);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(150, 50);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "Player Name";
-            this.button2.UseVisualStyleBackColor = false;
+            this.PlayerName_Button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(85)))), ((int)(((byte)(57)))));
+            this.PlayerName_Button.FlatAppearance.BorderSize = 0;
+            this.PlayerName_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.PlayerName_Button.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PlayerName_Button.ForeColor = System.Drawing.Color.White;
+            this.PlayerName_Button.Location = new System.Drawing.Point(240, 24);
+            this.PlayerName_Button.Name = "PlayerName_Button";
+            this.PlayerName_Button.Size = new System.Drawing.Size(150, 50);
+            this.PlayerName_Button.TabIndex = 1;
+            this.PlayerName_Button.Text = "Player Name";
+            this.PlayerName_Button.UseVisualStyleBackColor = false;
             // 
-            // button1
+            // NewGame_Button
             // 
-            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(85)))), ((int)(((byte)(57)))));
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(30, 24);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(150, 50);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "New Game";
-            this.button1.UseVisualStyleBackColor = false;
+            this.NewGame_Button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(85)))), ((int)(((byte)(57)))));
+            this.NewGame_Button.FlatAppearance.BorderSize = 0;
+            this.NewGame_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.NewGame_Button.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.NewGame_Button.ForeColor = System.Drawing.Color.White;
+            this.NewGame_Button.Location = new System.Drawing.Point(30, 24);
+            this.NewGame_Button.Name = "NewGame_Button";
+            this.NewGame_Button.Size = new System.Drawing.Size(150, 50);
+            this.NewGame_Button.TabIndex = 0;
+            this.NewGame_Button.Text = "New Game";
+            this.NewGame_Button.UseVisualStyleBackColor = false;
+            this.NewGame_Button.Click += new System.EventHandler(this.NewGame_Button_Click);
             // 
             // GamePanel
             // 
@@ -530,10 +532,10 @@ namespace WordSearchGame
         private System.Windows.Forms.Button MinimizeButton;
         private System.Windows.Forms.Panel ButtonsPanel;
         private System.Windows.Forms.Button Quit_Button_Bottom;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button LastMove_Button;
+        private System.Windows.Forms.Button Stats_Button;
+        private System.Windows.Forms.Button PlayerName_Button;
+        private System.Windows.Forms.Button NewGame_Button;
         private System.Windows.Forms.TableLayoutPanel GamePanel;
         private System.Windows.Forms.TableLayoutPanel WordsPanel;
     }
