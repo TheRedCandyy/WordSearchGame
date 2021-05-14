@@ -87,6 +87,10 @@ namespace WordSearchGame
 
         Color cor = Color.FromArgb(100, 100, 100);
 
+        //Administration credentials
+        public string adminUserName = "admin";
+        public string adminPassword = "1234";
+
         public Form1()
         {
             InitializeComponent();
