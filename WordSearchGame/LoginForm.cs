@@ -78,7 +78,7 @@ namespace WordSearchGame
                 if ( quitMsgBox == DialogResult.Retry ){ //If there are attemps left and the user wants to retry
                     txt_box_Login_UserName.Text = "";    //Reset textbox text
                     txt_box_Login_Password.Text = "";    //Reset textbox text
-                    txt_box_Login_Password.Focus();      //Focus on username textbox
+                    txt_box_Login_UserName.Focus();      //Focus on username textbox
                     Label_Tentativas_Restantes.Text = "Tentativas Restantes: " + numTrys; //Chanch the label that shows the number of attemps that are left
                 }
                 else

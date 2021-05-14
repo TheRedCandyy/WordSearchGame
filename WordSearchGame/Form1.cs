@@ -140,5 +140,15 @@ namespace WordSearchGame
             LoginForm LoginFrm = new LoginForm(adminUserName, adminPassword); //Instance Login Form
             LoginFrm.ShowDialog();  //Call Login Form
         }
+
+        /**
+        * Butão do menu bar que permite inserir um username
+        **/
+        private void playerNameToolStripMenuItem_Click(object sender, EventArgs e)
+        { 
+            admit_UserName_Form userNameForm = new admit_UserName_Form();
+            userNameForm.ShowDialog();  
+        }
+
     }
 }
