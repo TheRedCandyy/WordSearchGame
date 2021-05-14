@@ -320,5 +320,14 @@ namespace WordSearchGame
         {
 
         }
+        /**
+        * Butão do menu bar que permite fazer login como administrador
+        **/
+
+        private void administrationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LoginForm LoginFrm = new LoginForm(adminUserName, adminPassword); //Instance Login Form
+            LoginFrm.ShowDialog();  //Call Login Form
+        }
     }
 }
