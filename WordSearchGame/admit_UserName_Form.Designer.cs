@@ -115,6 +115,7 @@ namespace WordSearchGame
             this.Name = "admit_UserName_Form";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Username";
+            this.Load += new System.EventHandler(this.admit_UserName_Form_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -86,5 +86,10 @@ namespace WordSearchGame
             var newPlayerSuccsess = MessageBox.Show("Welcome " + playerName + "\nHave a good Game ", "Succsess", MessageBoxButtons.OK);
             this.Close();
         }
+
+        private void admit_UserName_Form_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
