@@ -352,6 +352,7 @@ namespace WordSearchGame
             this.LastMove_Button.TabIndex = 3;
             this.LastMove_Button.Text = "Last Move";
             this.LastMove_Button.UseVisualStyleBackColor = false;
+            this.LastMove_Button.Click += new System.EventHandler(this.LastMove_Button_Click);
             // 
             // Stats_Button
             // 

@@ -28,11 +28,20 @@ namespace WordSearchGame
         CheckBox[] wordsCheck = new CheckBox[19];
         Label[] wordsLabel = new Label[19];
 
+        //Arraylists das classes
+        List<Moves> lm = new List<Moves>();
+        List<Player> lp = new List<Player>();
+        List<Words> lw = new List<Words>();
+
+
         //Instanciador de randoms
         Random rd;
 
         //Palavra a ser selecionada
         String word = "";
+
+        //Contador de jogadas
+        int jogadas = 0;
 
         String[] words =
         {
@@ -106,6 +115,7 @@ namespace WordSearchGame
                     gameBtn[x, y].FlatStyle = FlatStyle.Flat;
                     gameBtn[x, y].FlatAppearance.BorderSize = 0;
                     gameBtn[x, y].BackColor = Color.Transparent;
+                    gameBtn[x, y].Name = x + "," + y;
                     gameBtn[x, y].Width = 110;
                     gameBtn[x, y].Height = 110;
                     gameBtn[x, y].Enabled = false;
@@ -147,10 +157,47 @@ namespace WordSearchGame
          **/
         private void btnClick(object sender, EventArgs e)
         {
+            Moves move;
             Button clickedButton = (Button)sender;
-            clickedButton.BackColor = btnColors[colorIndex];
+            //Receber as coordenadas do butao clicado
+            int x = Convert.ToInt32(clickedButton.Name.Split(',')[0]);
+            int y = Convert.ToInt32(clickedButton.Name.Split(',')[1]);
 
-            word += clickedButton.Text.ToLower();
+            if (jogadas != 0)
+            {
+                if (jogadas == 1)
+                {
+                    if (x > lm[lm.Count-1].CoordX + 1 || x < lm[lm.Count-1].CoordX -1)
+                    {
+                        resetWord();
+                    }else if(y > lm[lm.Count - 1].CoordY + 1 || y < lm[lm.Count - 1].CoordY - 1)
+                    {
+                        resetWord();
+                    }
+                }
+                else
+                {
+                    /*if(!(lm[lm.Count - 1].CoordY - 1 == lm[lm.Count - 2].CoordY))//Se for horizontal
+                    {
+                        resetWord();
+                    }
+                    else if(!(lm[lm.Count - 1].CoordX - 1 == lm[lm.Count - 2].CoordX))//Se for vertical
+                    {
+                        resetWord();
+                    }*/
+                }
+            }
+
+            clickedButton.BackColor = btnColors[colorIndex];
+            word += clickedButton.Text.ToLower(); //Adiciona o texto do botao à palavra a ser construida
+
+            //Adiciona esta jogada à classe `moves` que guarda todas as jogadas
+            move = new Moves(jogadas, "PLAYER", x, y, word);
+            lm.Add(move);
+
+            jogadas++;
+
+            //Verifica se a palavra a ser construida é igual a alguma das palavras escolhidas
             for (int i = 0; i < words.Length; i++)
             {
                 if (word.Equals(words[i]))
@@ -159,6 +206,22 @@ namespace WordSearchGame
                     break;
                 }
             }
+        }
+
+        public void resetWord()
+        {
+            for (int x = 0; x < 15; x++)
+            {
+                for (int y = 0; y < 15; y++)
+                {
+                    if(gameBtn[x,y].BackColor == btnColors[colorIndex])
+                    {
+                        jogadas--;
+                        gameBtn[x, y].BackColor = Color.Transparent;
+                    }
+                }
+            }
+            MessageBox.Show(jogadas.ToString());
         }
 
         /**
@@ -238,6 +301,7 @@ namespace WordSearchGame
 
         private void NewGame_Button_Click(object sender, EventArgs e)
         {
+            jogadas = 0;
             for (int x = 0; x < 15; x++)
             {
                 for (int y = 0; y < 15; y++)
@@ -246,6 +310,11 @@ namespace WordSearchGame
                     gameBtn[x, y].Text = board[x, y].ToUpper();
                 }
             }
+        }
+
+        private void LastMove_Button_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
