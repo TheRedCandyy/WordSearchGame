@@ -86,7 +86,7 @@ namespace WordSearchGame
         };
 
         Color cor = Color.FromArgb(100, 100, 100);
-
+        
         //Administration credentials
         public string adminUserName = "admin";
         public string adminPassword = "1234";
@@ -302,6 +302,7 @@ namespace WordSearchGame
                 Application.Exit();
             }
         }
+
 
         private void NewGame_Button_Click(object sender, EventArgs e)
         {
