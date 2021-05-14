@@ -58,8 +58,8 @@
     <Compile Include="LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Moves.cs" />
     <Compile Include="Player.cs" />
-    <Compile Include="Plays.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Words.cs" />
