@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -33,7 +34,6 @@ namespace WordSearchGame
         List<Player> lp = new List<Player>();
         List<Words> lw = new List<Words>();
 
-
         //Instanciador de randoms
         Random rd;
 
@@ -42,6 +42,9 @@ namespace WordSearchGame
 
         //Contador de jogadas
         int jogadas = 0;
+
+        //Guarda a direcao que a palavra atual esta a tomar
+        String direcaoPalavra = "";
 
         String[] words =
         {
@@ -95,14 +98,13 @@ namespace WordSearchGame
         {
             InitializeComponent();
             menuStrip1.BackColor = backgroundColor; //Colocar a cor de fundo do menu strip com o castanho claro
-            drawButtons();
-            drawWords();
             generateColors();
+            drawWords();
+            drawButtons();
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
         }
 
         /**
@@ -164,37 +166,105 @@ namespace WordSearchGame
             Moves move;
             Button clickedButton = (Button)sender;
             //Receber as coordenadas do butao clicado
-            int x = Convert.ToInt32(clickedButton.Name.Split(',')[0]);
-            int y = Convert.ToInt32(clickedButton.Name.Split(',')[1]);
-
+            int x = Convert.ToInt32(clickedButton.Name.Split(',')[1]);
+            int y = Convert.ToInt32(clickedButton.Name.Split(',')[0]);
+            
             if (jogadas != 0)
             {
+                if (x == lm[lm.Count - 1].CoordX && y == lm[lm.Count - 1].CoordY)
+                {
+                    return;
+                }
                 if (jogadas == 1)
                 {
                     if (x > lm[lm.Count-1].CoordX + 1 || x < lm[lm.Count-1].CoordX -1)
                     {
                         resetWord();
+                        return;
                     }else if(y > lm[lm.Count - 1].CoordY + 1 || y < lm[lm.Count - 1].CoordY - 1)
                     {
                         resetWord();
+                        return;
+                    }
+                    if(x - 1 == lm[lm.Count - 1].CoordX && y == lm[lm.Count - 1].CoordY)
+                    {
+                        direcaoPalavra = "Direita";
+                    }
+                    else if (x + 1 == lm[lm.Count - 1].CoordX && y == lm[lm.Count - 1].CoordY)
+                    {
+                        direcaoPalavra = "Esquerda";
+                    }
+                    else if (x == lm[lm.Count - 1].CoordX && y - 1 == lm[lm.Count - 1].CoordY)
+                    {
+                        direcaoPalavra = "Baixo";
+                    }
+                    else if (x == lm[lm.Count - 1].CoordX && y + 1 == lm[lm.Count - 1].CoordY)
+                    {
+                        direcaoPalavra = "Cima";
+                    }
+                    else if (x + 1 == lm[lm.Count - 1].CoordX && y + 1 == lm[lm.Count - 1].CoordY)
+                    {
+                        direcaoPalavra = "CimaEsquerda";
+                    }
+                    else if (x + 1 == lm[lm.Count - 1].CoordX && y - 1 == lm[lm.Count - 1].CoordY)
+                    {
+                        direcaoPalavra = "BaixoEsquerda";
+                    }
+                    else if (x - 1 == lm[lm.Count - 1].CoordX && y + 1 == lm[lm.Count - 1].CoordY)
+                    {
+                        direcaoPalavra = "CimaDireita";
+                    }
+                    else if (x - 1 == lm[lm.Count - 1].CoordX && y - 1 == lm[lm.Count - 1].CoordY)
+                    {
+                        direcaoPalavra = "BaixoDireita";
                     }
                 }
                 else
                 {
-                    /*if(!(lm[lm.Count - 1].CoordY - 1 == lm[lm.Count - 2].CoordY))//Se for horizontal
+                    if (direcaoPalavra.Equals("Baixo") && (x != lm[lm.Count - 1].CoordX || y - 1 != lm[lm.Count - 1].CoordY))
                     {
                         resetWord();
+                        return;
                     }
-                    else if(!(lm[lm.Count - 1].CoordX - 1 == lm[lm.Count - 2].CoordX))//Se for vertical
+                    if (direcaoPalavra.Equals("Cima") && (x != lm[lm.Count - 1].CoordX || y + 1 != lm[lm.Count - 1].CoordY))
                     {
                         resetWord();
-                    }*/
+                        return;
+                    }
+                    if (direcaoPalavra.Equals("Esquerda") && (x + 1 != lm[lm.Count - 1].CoordX || y != lm[lm.Count - 1].CoordY))
+                    {
+                        resetWord();
+                        return;
+                    }
+                    if (direcaoPalavra.Equals("Direita") && (x - 1 != lm[lm.Count - 1].CoordX || y != lm[lm.Count - 1].CoordY))
+                    {
+                        resetWord();
+                        return;
+                    }
+                    if (direcaoPalavra.Equals("CimaEsquerda") && (x + 1 != lm[lm.Count - 1].CoordX || y + 1 != lm[lm.Count - 1].CoordY))
+                    {
+                        resetWord();
+                        return;
+                    }
+                    if (direcaoPalavra.Equals("BaixoEsquerda") && (x + 1 != lm[lm.Count - 1].CoordX || y - 1 != lm[lm.Count - 1].CoordY))
+                    {
+                        resetWord();
+                        return;
+                    }
+                    if (direcaoPalavra.Equals("CimaDireita") && (x - 1 != lm[lm.Count - 1].CoordX || y + 1 != lm[lm.Count - 1].CoordY))
+                    {
+                        resetWord();
+                        return;
+                    }
+                    if (direcaoPalavra.Equals("BaixoDireita") && (x - 1 != lm[lm.Count - 1].CoordX || y - 1 != lm[lm.Count - 1].CoordY))
+                    {
+                        resetWord();
+                        return;
+                    }
                 }
             }
-
             clickedButton.BackColor = btnColors[colorIndex];
             word += clickedButton.Text.ToLower(); //Adiciona o texto do botao à palavra a ser construida
-
             //Adiciona esta jogada à classe `moves` que guarda todas as jogadas
             move = new Moves(jogadas, "PLAYER", x, y, word);
             lm.Add(move);
@@ -225,7 +295,7 @@ namespace WordSearchGame
                     }
                 }
             }
-            MessageBox.Show(jogadas.ToString());
+            word = "";
         }
 
         /**
@@ -236,6 +306,7 @@ namespace WordSearchGame
             colorIndex++;
             word = "";
             wordsCheck[checkBoxIndex].Checked = true;
+            jogadas = 0;
         }
 
         /**
@@ -307,19 +378,27 @@ namespace WordSearchGame
         private void NewGame_Button_Click(object sender, EventArgs e)
         {
             jogadas = 0;
+            word = "";
+            //Limpa os butões
             for (int x = 0; x < 15; x++)
             {
                 for (int y = 0; y < 15; y++)
                 {
                     gameBtn[x, y].Enabled = true;
                     gameBtn[x, y].Text = board[x, y].ToUpper();
+                    gameBtn[x, y].BackColor = Color.Transparent;
                 }
             }
+            //Limpa as palavras
+            for (int i = 0; i < words.Length; i++)
+            {
+                wordsCheck[i].Checked = false;
+            }
+            lm.Clear();
         }
 
         private void LastMove_Button_Click(object sender, EventArgs e)
         {
-
         }
         /**
         * Butão do menu bar que permite fazer login como administrador
