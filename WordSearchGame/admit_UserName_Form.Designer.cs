@@ -49,7 +49,7 @@ namespace WordSearchGame
             this.Button_UserName_Apply.TabIndex = 8;
             this.Button_UserName_Apply.Text = "Apply";
             this.Button_UserName_Apply.UseVisualStyleBackColor = false;
-            this.Button_UserName_Apply.Click += new System.EventHandler(this.Button_UserName_Apply_Click);
+            this.Button_UserName_Apply.Click += new System.EventHandler(this.Button_UserName_Apply_Click_1);
             // 
             // Button_UserName_Back
             // 

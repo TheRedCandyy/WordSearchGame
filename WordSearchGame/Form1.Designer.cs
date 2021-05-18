@@ -86,6 +86,7 @@ namespace WordSearchGame
             this.menuStrip1.Size = new System.Drawing.Size(1024, 31);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
+            this.menuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuStrip1_ItemClicked);
             // 
             // beACreatorToolStripMenuItem
             // 
