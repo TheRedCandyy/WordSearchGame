@@ -26,10 +26,6 @@ namespace WordSearchGame
         private string[] playTimes; //Play's history
         private int[] numPlays;     //Stores all the play ID's that have been played
 
-        public Player()
-        {
-        }
-
         public Player(string name)
         {
             this.name = name;

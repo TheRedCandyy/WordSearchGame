@@ -16,8 +16,6 @@ namespace WordSearchGame
         public admit_UserName_Form()
         {
             InitializeComponent();
-            txt_box_UserName.Text = ""; //Clears the textbox
-            txt_box_UserName.Focus();   //Focus on the textbox
         }
         /*
         * "Back" button 
@@ -44,7 +42,8 @@ namespace WordSearchGame
         
         private void admit_UserName_Form_Load(object sender, EventArgs e)
         {
-
+            txt_box_UserName.Text = ""; //Clears the textbox
+            txt_box_UserName.Focus();   //Focus on the textbox
         }
 
         private void Button_UserName_Apply_Click_1(object sender, EventArgs e)

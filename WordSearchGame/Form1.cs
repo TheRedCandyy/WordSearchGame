@@ -363,7 +363,6 @@ namespace WordSearchGame
                 { 
                     foreach (Player Plyr in lp)  //Runs all the players in class player and see if that username is already in use
                     {
-                        MessageBox.Show("Entrei no foreach");
                         AuxPlayerName = Plyr.Nome;
 
                         //Check if the name already exists
@@ -397,11 +396,6 @@ namespace WordSearchGame
                     }//End Foreach
                 }//End Main ELSE
             }//End While
-        }
-
-        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-            
         }
     }
 }
