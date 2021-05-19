@@ -377,7 +377,9 @@ namespace WordSearchGame
             }
         }
 
-
+        /**
+         * Botão do menu sul que inicia um novo jogo
+         **/
         private void NewGame_Button_Click(object sender, EventArgs e)
         {
             jogadas = 0;
@@ -400,13 +402,23 @@ namespace WordSearchGame
             lm.Clear();
         }
 
+        /**
+         * Butão do menu sul que faz o rewind da ultima jogada
+         **/
         private void LastMove_Button_Click(object sender, EventArgs e)
         {
+            if(jogadas != 0)
+            {
+                jogadas--;
+                word = word.Substring(0, word.Length - 1);
+                gameBtn[lm[lm.Count - 1].CoordY, lm[lm.Count - 1].CoordX].BackColor = Color.Transparent;
+                lm.RemoveAt(lm.Count - 1);
+            }
         }
+
         /**
         * Butão do menu bar que permite fazer login como administrador
         **/
-
         private void administrationToolStripMenuItem_Click(object sender, EventArgs e)
         {
             LoginForm LoginFrm = new LoginForm(adminUserName, adminPassword); //Instance Login Form
