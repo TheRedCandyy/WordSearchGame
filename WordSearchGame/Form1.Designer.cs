@@ -268,12 +268,14 @@ namespace WordSearchGame
             this.devLanguageToolStripMenuItem.Name = "devLanguageToolStripMenuItem";
             this.devLanguageToolStripMenuItem.Size = new System.Drawing.Size(197, 26);
             this.devLanguageToolStripMenuItem.Text = "Dev Language";
+            this.devLanguageToolStripMenuItem.Click += new System.EventHandler(this.devLanguageToolStripMenuItem_Click);
             // 
             // softwareToolStripMenuItem
             // 
             this.softwareToolStripMenuItem.Name = "softwareToolStripMenuItem";
             this.softwareToolStripMenuItem.Size = new System.Drawing.Size(197, 26);
             this.softwareToolStripMenuItem.Text = "Software";
+            this.softwareToolStripMenuItem.Click += new System.EventHandler(this.softwareToolStripMenuItem_Click);
             // 
             // toolStripSeparator7
             // 
@@ -285,6 +287,7 @@ namespace WordSearchGame
             this.authorsToolStripMenuItem.Name = "authorsToolStripMenuItem";
             this.authorsToolStripMenuItem.Size = new System.Drawing.Size(197, 26);
             this.authorsToolStripMenuItem.Text = "Authors";
+            this.authorsToolStripMenuItem.Click += new System.EventHandler(this.authorsToolStripMenuItem_Click);
             // 
             // ButtonsPanel
             // 
