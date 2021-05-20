@@ -488,5 +488,32 @@ namespace WordSearchGame
                 }//End Main ELSE
             }//End While
         }
+
+        /**
+         * Abre o form about com os dados da linguagem de desenvolvimento
+         **/
+        private void devLanguageToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AboutForm about = new AboutForm(1);
+            about.ShowDialog();
+        }
+
+        /**
+         * Abre o form about com os dados do software
+         **/
+        private void softwareToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AboutForm about = new AboutForm(2);
+            about.ShowDialog();
+        }
+
+        /**
+         * Abre o form about com os dados sobre os autores do programa
+         **/
+        private void authorsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AboutForm about = new AboutForm(3);
+            about.ShowDialog();
+        }
     }
 }
