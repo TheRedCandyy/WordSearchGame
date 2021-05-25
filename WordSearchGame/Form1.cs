@@ -378,12 +378,62 @@ namespace WordSearchGame
         }
 
         /**
+         * Função que roda a matriz que contem as letras 
+         **/
+        private string[,] rotateBoard(int randNum, string[,] board)
+        {
+            string[,] newBoard = new string[15, 15];
+            int k, j, l;
+            switch (randNum)
+            {
+                case 1:
+                    for (j = 0; j < 15; j++)
+                    {
+                        for (k = 0, l = 14; k < 15; k++, l--)
+                        {
+                            newBoard[l, j] = board[k, j];
+                        }
+                    }
+                    break;
+                case 2:
+                    for (j = 0; j < 15; j++)
+                    {
+                        for (k = 0, l = 14; k < 15; k++, l--)
+                        {
+                            newBoard[j, k] = board[j, l];
+                        }
+                    }
+                    break;
+                case 3:
+                    for (j = 0; j < 15; j++)
+                    {
+                        for (k = 0, l = 14; k < 15; k++, l--)
+                        {
+                            newBoard[k, j] = board[j, l];
+                        }
+                    }
+                    break;
+                default:
+                    break;
+            }
+            return newBoard;
+        }
+
+        /**
          * Botão do menu sul que inicia um novo jogo
          **/
         private void NewGame_Button_Click(object sender, EventArgs e)
         {
             jogadas = 0;
             word = "";
+            //Gera um número random de 0 a 3 inclusive
+            rd = new Random();
+            int randNum = rd.Next(4);
+            MessageBox.Show(randNum.ToString());
+            if (randNum != 0) //Se o número for diferente de 0 vai rodar para um dos lados, se for igual a 0 fica igual
+            {
+                board = rotateBoard(randNum, board);
+            }
             //Limpa os butões
             for (int x = 0; x < 15; x++)
             {
