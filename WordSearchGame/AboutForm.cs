@@ -36,6 +36,11 @@ namespace WordSearchGame
                                       "Alexandre Tavares\n" +
                                       "Diogo Guedes";
                     break;
+                case 4:
+                    Title_Label.Text = "Missing UserName";
+                    Text_Label.Text = "Please insert a userName";
+
+                    break;
                 default:
                     Title_Label.Text = "Title";
                     Text_Label.Text = "Text";
@@ -51,6 +56,11 @@ namespace WordSearchGame
         private void About_OkayButton_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void AboutForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
