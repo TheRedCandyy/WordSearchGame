@@ -461,8 +461,6 @@ namespace WordSearchGame
                     for (int y = 0; y < 15; y++)
                     {
                         gameBtn[x, y].Enabled = false;
-                        gameBtn[x, y].Text = "X";
-                        gameBtn[x, y].BackColor = Color.Transparent;
                     }
                 }
                 gameState = false;
