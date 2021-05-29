@@ -124,9 +124,6 @@ namespace WordSearchGame
             drawButtons();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-        }
         /**
        * Função que chama um form que adminte um username
        * Verifica se esse username já se encontra registado ou não
@@ -242,7 +239,7 @@ namespace WordSearchGame
                     minutos++;
 
                 }
-                if (segundos % 10 == 0)
+                if (segundos  % 10 == 0)
                 {
                     pseudoSegundos++;
                     segundos = 0;
@@ -253,7 +250,7 @@ namespace WordSearchGame
                 {
                     Label_clock.Text = "Tempo: " + minutos.ToString() + ":" + pseudoSegundos.ToString() + segundos.ToString();
                 });
-                Thread.Sleep(1000);
+                Thread.Sleep(500);
             }
         }
 
