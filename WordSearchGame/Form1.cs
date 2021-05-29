@@ -18,7 +18,7 @@ namespace WordSearchGame
          **/
 
         //Cores utilizadas
-        Color backgroundColor = Color.FromArgb(237, 224, 212); //Castanho claro
+        public static Color backgroundColor = Color.FromArgb(237, 224, 212); //Castanho claro
         Color buttonColorNormal = Color.FromArgb(127, 85, 57); //Castanho escuro
         Color buttonColorRed = Color.FromArgb(174, 32, 18); //Vermelho
         Color[] btnColors = new Color[19]; //Array para guardar as cores que vao ser utilizadas nos butões
@@ -41,7 +41,7 @@ namespace WordSearchGame
         String word = "";
 
         //Nome do jogador 
-        public static string playerName;
+        public static string playerName = "";
 
         //Contador de jogadas
         int jogadas = 0;
@@ -486,57 +486,6 @@ namespace WordSearchGame
             admit_UserName_Form userNameForm = new admit_UserName_Form();
             userNameForm.ShowDialog();
 
-            while ( ct != false)
-            {
-                Console.WriteLine(lp.Count);
-                if (lp.Count == 0) //If there is no names on the list
-                {
-                    //A new player is added to the list
-                    Player newPLyr = new Player(playerName); //A new player is created
-                    lp.Add(newPLyr); //The new player is added to the list
-
-                    //Success Message
-                    var newPlayerSuccsess = MessageBox.Show("Welcome " + playerName + "\nHave a good Game ", "Succsess", MessageBoxButtons.OK);
-
-                    ct = false; //Ends the While
-                }
-                else
-                { 
-                    foreach (Player Plyr in lp)  //Runs all the players in class player and see if that username is already in use
-                    {
-                        AuxPlayerName = Plyr.Nome;
-
-                        //Check if the name already exists
-                        if (AuxPlayerName.Equals(playerName)) //If there is a match
-                        {
-                            //That name is already taken
-                            //Error message
-                            var nameAlreadyExists = MessageBox.Show("This name is already in use\nPlease insert another name ?", "UserName already Exists", MessageBoxButtons.RetryCancel, MessageBoxIcon.Warning);
-
-                            if (nameAlreadyExists == DialogResult.Cancel)// If the user wants to cancel the operation
-                            {
-                                ct = false;
-                            }
-                            if (nameAlreadyExists == DialogResult.Retry) //If the user wants to retray to insert a name
-                            {
-                                userNameForm.ShowDialog();
-                            }
-                        }//End Main IF
-                        else
-                        {
-                            //If the name is NOT taken
-                            //A new player is added to the list
-                            Player newPLyr = new Player(playerName); //A new player is created
-                            lp.Add(newPLyr); //The new player is added to the list
-
-                            //Success Message
-                            var newPlayerSuccsess = MessageBox.Show("Welcome " + playerName + "\nHave a good Game ", "Succsess", MessageBoxButtons.OK);
-                        
-                            ct = false; //Ends the While
-                        }
-                    }//End Foreach
-                }//End Main ELSE
-            }//End While
         }
 
         /**

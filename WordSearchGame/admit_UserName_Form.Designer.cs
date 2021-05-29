@@ -43,9 +43,9 @@ namespace WordSearchGame
             this.Button_UserName_Apply.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Button_UserName_Apply.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Button_UserName_Apply.ForeColor = System.Drawing.Color.White;
-            this.Button_UserName_Apply.Location = new System.Drawing.Point(33, 157);
+            this.Button_UserName_Apply.Location = new System.Drawing.Point(30, 170);
             this.Button_UserName_Apply.Name = "Button_UserName_Apply";
-            this.Button_UserName_Apply.Size = new System.Drawing.Size(129, 32);
+            this.Button_UserName_Apply.Size = new System.Drawing.Size(136, 32);
             this.Button_UserName_Apply.TabIndex = 8;
             this.Button_UserName_Apply.Text = "Apply";
             this.Button_UserName_Apply.UseVisualStyleBackColor = false;
@@ -58,9 +58,9 @@ namespace WordSearchGame
             this.Button_UserName_Back.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Button_UserName_Back.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Button_UserName_Back.ForeColor = System.Drawing.Color.White;
-            this.Button_UserName_Back.Location = new System.Drawing.Point(169, 157);
+            this.Button_UserName_Back.Location = new System.Drawing.Point(172, 170);
             this.Button_UserName_Back.Name = "Button_UserName_Back";
-            this.Button_UserName_Back.Size = new System.Drawing.Size(129, 32);
+            this.Button_UserName_Back.Size = new System.Drawing.Size(136, 32);
             this.Button_UserName_Back.TabIndex = 7;
             this.Button_UserName_Back.Text = "Back";
             this.Button_UserName_Back.UseVisualStyleBackColor = false;
@@ -72,7 +72,7 @@ namespace WordSearchGame
             this.UserName_QuitButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.UserName_QuitButton.FlatAppearance.BorderSize = 0;
             this.UserName_QuitButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.UserName_QuitButton.Location = new System.Drawing.Point(300, 1);
+            this.UserName_QuitButton.Location = new System.Drawing.Point(306, 2);
             this.UserName_QuitButton.Margin = new System.Windows.Forms.Padding(5);
             this.UserName_QuitButton.Name = "UserName_QuitButton";
             this.UserName_QuitButton.Size = new System.Drawing.Size(30, 30);
@@ -83,19 +83,19 @@ namespace WordSearchGame
             // txt_box_UserName
             // 
             this.txt_box_UserName.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_box_UserName.Location = new System.Drawing.Point(33, 84);
+            this.txt_box_UserName.Location = new System.Drawing.Point(30, 106);
             this.txt_box_UserName.Name = "txt_box_UserName";
-            this.txt_box_UserName.Size = new System.Drawing.Size(266, 33);
+            this.txt_box_UserName.Size = new System.Drawing.Size(278, 33);
             this.txt_box_UserName.TabIndex = 11;
             this.txt_box_UserName.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // Label_Login_UserName
             // 
             this.Label_Login_UserName.AutoSize = true;
-            this.Label_Login_UserName.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label_Login_UserName.Location = new System.Drawing.Point(98, 38);
+            this.Label_Login_UserName.Font = new System.Drawing.Font("Century Gothic", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Label_Login_UserName.Location = new System.Drawing.Point(91, 54);
             this.Label_Login_UserName.Name = "Label_Login_UserName";
-            this.Label_Login_UserName.Size = new System.Drawing.Size(159, 32);
+            this.Label_Login_UserName.Size = new System.Drawing.Size(169, 36);
             this.Label_Login_UserName.TabIndex = 10;
             this.Label_Login_UserName.Text = "User Name";
             // 
@@ -104,7 +104,7 @@ namespace WordSearchGame
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(204)))), ((int)(((byte)(178)))));
-            this.ClientSize = new System.Drawing.Size(344, 201);
+            this.ClientSize = new System.Drawing.Size(338, 222);
             this.Controls.Add(this.txt_box_UserName);
             this.Controls.Add(this.Label_Login_UserName);
             this.Controls.Add(this.UserName_QuitButton);
