@@ -232,6 +232,13 @@ namespace WordSearchGame
                 }
                 segundos++;
 
+                if (segundos % 10 == 0)
+                {
+                    pseudoSegundos++;
+                    segundos = 0;
+                }
+
+
                 if (pseudoSegundos > 5)
                 {
                     segundos = 0;
@@ -239,18 +246,13 @@ namespace WordSearchGame
                     minutos++;
 
                 }
-                if (segundos  % 10 == 0)
-                {
-                    pseudoSegundos++;
-                    segundos = 0;
-                }
 
                 //A cada tick do relógio (1 segundo)
                 Invoke((MethodInvoker)delegate ()
                 {
                     Label_clock.Text = "Tempo: " + minutos.ToString() + ":" + pseudoSegundos.ToString() + segundos.ToString();
                 });
-                Thread.Sleep(500);
+                Thread.Sleep(1000);
             }
         }
 
