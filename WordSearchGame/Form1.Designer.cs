@@ -65,6 +65,7 @@ namespace WordSearchGame
             this.Stats_Button = new System.Windows.Forms.Button();
             this.PlayerName_Button = new System.Windows.Forms.Button();
             this.NewGame_Button = new System.Windows.Forms.Button();
+            this.Label_clock = new System.Windows.Forms.Label();
             this.GamePanel = new System.Windows.Forms.TableLayoutPanel();
             this.WordsPanel = new System.Windows.Forms.TableLayoutPanel();
             this.MinimizeButton = new System.Windows.Forms.Button();
@@ -296,6 +297,7 @@ namespace WordSearchGame
             this.ButtonsPanel.Controls.Add(this.Stats_Button);
             this.ButtonsPanel.Controls.Add(this.PlayerName_Button);
             this.ButtonsPanel.Controls.Add(this.NewGame_Button);
+            this.ButtonsPanel.Controls.Add(this.Label_clock);
             this.ButtonsPanel.Location = new System.Drawing.Point(0, 724);
             this.ButtonsPanel.Name = "ButtonsPanel";
             this.ButtonsPanel.Size = new System.Drawing.Size(1024, 94);
@@ -337,7 +339,7 @@ namespace WordSearchGame
             this.Stats_Button.FlatAppearance.BorderSize = 0;
             this.Stats_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Stats_Button.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Stats_Button.ForeColor = System.Drawing.Color.White;
+            this.Stats_Button.ForeColor = System.Drawing.Color.Transparent;
             this.Stats_Button.Location = new System.Drawing.Point(440, 24);
             this.Stats_Button.Name = "Stats_Button";
             this.Stats_Button.Size = new System.Drawing.Size(150, 50);
@@ -358,6 +360,7 @@ namespace WordSearchGame
             this.PlayerName_Button.TabIndex = 1;
             this.PlayerName_Button.Text = "Player Name";
             this.PlayerName_Button.UseVisualStyleBackColor = false;
+            this.PlayerName_Button.Click += new System.EventHandler(this.PlayerName_Button_Click);
             // 
             // NewGame_Button
             // 
@@ -373,6 +376,19 @@ namespace WordSearchGame
             this.NewGame_Button.Text = "New Game";
             this.NewGame_Button.UseVisualStyleBackColor = false;
             this.NewGame_Button.Click += new System.EventHandler(this.NewGame_Button_Click);
+            // 
+            // Label_clock
+            // 
+            this.Label_clock.AutoSize = true;
+            this.Label_clock.Enabled = false;
+            this.Label_clock.Font = new System.Drawing.Font("Century Gothic", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Label_clock.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(85)))), ((int)(((byte)(57)))));
+            this.Label_clock.Location = new System.Drawing.Point(250, 24);
+            this.Label_clock.Name = "Label_clock";
+            this.Label_clock.Size = new System.Drawing.Size(170, 56);
+            this.Label_clock.TabIndex = 5;
+            this.Label_clock.Text = "label1";
+            this.Label_clock.Visible = false;
             // 
             // GamePanel
             // 
@@ -490,10 +506,10 @@ namespace WordSearchGame
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Main_Form";
-            this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ButtonsPanel.ResumeLayout(false);
+            this.ButtonsPanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -541,6 +557,7 @@ namespace WordSearchGame
         private System.Windows.Forms.Button NewGame_Button;
         private System.Windows.Forms.TableLayoutPanel GamePanel;
         private System.Windows.Forms.TableLayoutPanel WordsPanel;
+        private System.Windows.Forms.Label Label_clock;
     }
 }
 

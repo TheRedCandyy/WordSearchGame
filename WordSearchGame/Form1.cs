@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Threading;
 
 namespace WordSearchGame
 {
@@ -45,6 +46,23 @@ namespace WordSearchGame
 
         //Contador de jogadas
         int jogadas = 0;
+
+        //Thread 
+        Thread trhd;
+
+        //Cancel token
+        CancellationTokenSource cts;
+
+        //Timer
+        System.Timers.Timer timer2;
+
+        //Time data
+        private int segundos = 0;
+        private int minutos = 0;
+        private int pseudoSegundos = 0;
+
+        //Indicador de jogo Ativo
+        private static bool gameState = false;
 
         //Guarda a direcao que a palavra atual esta a tomar
         String direcaoPalavra = "";
@@ -106,8 +124,70 @@ namespace WordSearchGame
             drawButtons();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        /**
+       * Função que chama um form que adminte um username
+       * Verifica se esse username já se encontra registado ou não
+       **/
+        private void newUserName()
         {
+            string AuxPlayerName = "";
+            bool ct = true;
+
+            admit_UserName_Form userNameForm = new admit_UserName_Form();
+            userNameForm.ShowDialog();
+
+            while (ct == true)
+            {
+                if (lp.Count == 0) //If there is no names on the list
+                {
+                    //A new player is added to the list
+                    Player newPLyr = new Player(playerName); //A new player is created
+                    lp.Add(newPLyr); //The new player is added to the list
+
+                    //Success Message
+                    var newPlayerSuccsess = MessageBox.Show("Welcome " + playerName + "\nHave a good Game ", "Succsess", MessageBoxButtons.OK);
+
+                    ct = false; //Ends the While
+                }
+                else
+                {
+                    foreach (Player Plyr in lp)  //Runs all the players in class player and see if that username is already in use
+                    {
+                        AuxPlayerName = Plyr.Nome;
+
+                        //Check if the name already exists
+                        if (AuxPlayerName.Equals(playerName)) //If there is a match
+                        {
+                            //That name is already taken
+                            //Error message
+                            var nameAlreadyExists = MessageBox.Show("This name is already in use\nPlease insert another name ?", "UserName already Exists", MessageBoxButtons.RetryCancel, MessageBoxIcon.Warning);
+
+                            if (nameAlreadyExists == DialogResult.Cancel)// If the user wants to cancel the operation
+                            {
+                                ct = false;
+                            }
+                            if (nameAlreadyExists == DialogResult.Retry) //If the user wants to retray to insert a name
+                            {
+                                userNameForm.ShowDialog();
+                            }
+                        }//End Main IF
+                        else
+                        {
+                            //If the name is NOT taken
+                            //A new player is added to the list
+                            Player newPLyr = new Player(playerName); //A new player is created
+                            lp.Add(newPLyr); //The new player is added to the list
+
+                            //Success Message
+                            var newPlayerSuccsess = MessageBox.Show("Welcome " + playerName + "\nHave a good Game ", "Succsess", MessageBoxButtons.OK);
+
+                            ct = false; //Ends the While
+                            break;
+                        }
+                    }//End Foreach
+                }//End Main ELSE
+            }//End While
+
         }
 
         /**
@@ -132,6 +212,47 @@ namespace WordSearchGame
                     gameBtn[x, y].Click += new EventHandler(this.btnClick);
                     this.GamePanel.Controls.Add(gameBtn[x, y], y, x);
                 }
+            }
+        }
+
+        /**
+        * Função que escreve o tempo decorrida na label 
+        **/
+        private void StartClock(object obj)
+        {
+            while (true)
+            {
+                CancellationToken token = (CancellationToken)obj;
+                if (token.IsCancellationRequested)
+                {
+                    segundos = 0;
+                    pseudoSegundos = 0;
+                    minutos = 0;
+                    return;
+                }
+                segundos++;
+
+                if (segundos % 10 == 0)
+                {
+                    pseudoSegundos++;
+                    segundos = 0;
+                }
+
+
+                if (pseudoSegundos > 5)
+                {
+                    segundos = 0;
+                    pseudoSegundos = 0;
+                    minutos++;
+
+                }
+
+                //A cada tick do relógio (1 segundo)
+                Invoke((MethodInvoker)delegate ()
+                {
+                    Label_clock.Text = "Tempo: " + minutos.ToString() + ":" + pseudoSegundos.ToString() + segundos.ToString();
+                });
+                Thread.Sleep(1000);
             }
         }
 
@@ -310,6 +431,27 @@ namespace WordSearchGame
             word = "";
             wordsCheck[checkBoxIndex].Checked = true;
             jogadas = 0;
+            string tempoJogada = "";
+
+            for(int ct = 0; ct<wordsCheck.Length; ct++)
+            {
+                if(wordsCheck[ct].Checked == true) //Verifica se ainda há palavras por concluir 
+                    return;
+
+                else //Se as palavras estiverem todas concluidas
+                {
+                    //Reset a thread
+                    cts.Cancel();
+                    cts.Dispose();
+
+                    tempoJogada = minutos + ":" + pseudoSegundos + segundos;
+
+                    //Criado um novo registo de jogador
+                    Player newPlayer = new Player(playerName, tempoJogada, jogadas);
+                    //Adiciona-se o jogador à lista de jogadores 
+                    lp.Add(newPlayer);
+                }
+            }
         }
 
         /**
@@ -370,10 +512,26 @@ namespace WordSearchGame
          **/
         private void Quit_Button_Bottom_Click(object sender, EventArgs e)
         {
-            var quitMsgBox = MessageBox.Show("Are you sure you want to leave?", "Quit Game", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-            if (quitMsgBox == DialogResult.Yes)
+            if(gameState == false)
             {
-                Application.Exit();
+                var quitMsgBox = MessageBox.Show("Are you sure you want to leave?", "Quit Game", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (quitMsgBox == DialogResult.Yes)
+                {
+                    Application.Exit();
+                }
+            }
+            else
+            {
+                gameState = false;
+                //timer2.Stop();
+                cts.Cancel();
+                cts.Dispose();
+
+                //Torna os Botões visiveis e acessiveis
+                PlayerName_Button.Visible = true;
+                Stats_Button.Visible = true;
+                Label_clock.Visible = false;
+                Quit_Button_Bottom.Text = "Quit Game";
             }
         }
 
@@ -424,6 +582,8 @@ namespace WordSearchGame
          **/
         private void NewGame_Button_Click(object sender, EventArgs e)
         {
+            //Verificar se existe username 
+            if (playerName.Equals(""))
             jogadas = 0;
             word = "";
             //Gera um número random de 0 a 3 inclusive
@@ -437,19 +597,56 @@ namespace WordSearchGame
             //Limpa os butões
             for (int x = 0; x < 15; x++)
             {
-                for (int y = 0; y < 15; y++)
+                AboutForm about = new AboutForm(4);
+                about.ShowDialog();
+            }
+            else { //Se existir username 
+                //Se a thread ainda estiver a correr
+                if (gameState == true)
                 {
-                    gameBtn[x, y].Enabled = true;
-                    gameBtn[x, y].Text = board[x, y].ToUpper();
-                    gameBtn[x, y].BackColor = Color.Transparent;
+                    //Stop a thread
+                    cts.Cancel();
+                    cts.Dispose();
                 }
+
+                //Modo de jogo passa a ser true = Em jogo
+                gameState = true;
+
+                //Esconder os Butões
+                PlayerName_Button.Hide();
+                Stats_Button.Hide();
+                //Muda o texto do botão de "Sair"
+                Quit_Button_Bottom.Text = "Stop";
+
+                //Ativação da label
+                Label_clock.Text = "";
+                Label_clock.Visible = true;
+
+                //Instanciacao do Token
+                cts = new CancellationTokenSource();
+                //Inicalizacao da thread
+                ThreadPool.QueueUserWorkItem(new WaitCallback(StartClock), cts.Token);
+
+
+                jogadas = 0;
+                word = "";
+                //Limpa os butões
+                for (int x = 0; x < 15; x++)
+                {
+                    for (int y = 0; y < 15; y++)
+                    {
+                        gameBtn[x, y].Enabled = true;
+                        gameBtn[x, y].Text = board[x, y].ToUpper();
+                        gameBtn[x, y].BackColor = Color.Transparent;
+                    }
+                }
+                //Limpa as palavras
+                for (int i = 0; i < words.Length; i++)
+                {
+                    wordsCheck[i].Checked = false;
+                }
+                lm.Clear();
             }
-            //Limpa as palavras
-            for (int i = 0; i < words.Length; i++)
-            {
-                wordsCheck[i].Checked = false;
-            }
-            lm.Clear();
         }
 
         /**
@@ -475,16 +672,13 @@ namespace WordSearchGame
             LoginFrm.ShowDialog();  //Call Login Form
         }
 
+       
+
         /**
         * Butão do menu bar que permite inserir um username
         **/
         private void playerNameToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string AuxPlayerName = "";
-            bool ct = true;
-
-            admit_UserName_Form userNameForm = new admit_UserName_Form();
-            userNameForm.ShowDialog();
 
         }
 
@@ -513,6 +707,11 @@ namespace WordSearchGame
         {
             AboutForm about = new AboutForm(3);
             about.ShowDialog();
+        }
+
+        private void PlayerName_Button_Click(object sender, EventArgs e)
+        {
+            newUserName();
         }
     }
 }
