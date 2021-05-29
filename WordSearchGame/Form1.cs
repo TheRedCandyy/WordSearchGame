@@ -19,7 +19,7 @@ namespace WordSearchGame
          **/
 
         //Cores utilizadas
-        Color backgroundColor = Color.FromArgb(237, 224, 212); //Castanho claro
+        public static Color backgroundColor = Color.FromArgb(237, 224, 212); //Castanho claro
         Color buttonColorNormal = Color.FromArgb(127, 85, 57); //Castanho escuro
         Color buttonColorRed = Color.FromArgb(174, 32, 18); //Vermelho
         Color[] btnColors = new Color[19]; //Array para guardar as cores que vao ser utilizadas nos butões
@@ -679,9 +679,7 @@ namespace WordSearchGame
         **/
         private void playerNameToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //Chama a função que admite o username e verifica se este já existe ou não
-            newUserName();
-            
+
         }
 
         /**

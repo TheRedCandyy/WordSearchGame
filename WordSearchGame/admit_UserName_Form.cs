@@ -13,6 +13,8 @@ namespace WordSearchGame
 {
     public partial class admit_UserName_Form : Form
     {
+        bool checkForUser;
+        int ct = 0;
         public admit_UserName_Form()
         {
             InitializeComponent();
@@ -42,14 +44,47 @@ namespace WordSearchGame
         
         private void admit_UserName_Form_Load(object sender, EventArgs e)
         {
-            txt_box_UserName.Text = ""; //Clears the textbox
-            txt_box_UserName.Focus();   //Focus on the textbox
+            if (Form1.playerName.Equals(""))
+            {
+                checkForUser = false;
+
+                txt_box_UserName.Enabled = true;
+                txt_box_UserName.Text = "";
+                txt_box_UserName.BackColor = Color.White;
+
+                Button_UserName_Apply.Text = "Apply";
+            }
+
+            else
+            {
+                checkForUser = true;
+
+                txt_box_UserName.BackColor = Form1.backgroundColor;
+                txt_box_UserName.Enabled = false;
+                txt_box_UserName.Text = Form1.playerName;
+
+                Button_UserName_Apply.Text = "Change Name";
+            }
         }
 
         private void Button_UserName_Apply_Click_1(object sender, EventArgs e)
         {
-            Form1.playerName = txt_box_UserName.Text;
-            this.Close();
+            if(checkForUser == false)
+            {
+                Form1.playerName = txt_box_UserName.Text;
+                checkForUser = true;
+
+                MessageBox.Show("Welcome " + txt_box_UserName.Text + "\nHave a good Game ", "Succsess", MessageBoxButtons.OK);
+                   
+                this.Close();
+            }
+            else 
+            {
+                checkForUser = false;
+                this.Controls.Clear();
+                this.InitializeComponent();
+
+            }
         }
     }
 }
