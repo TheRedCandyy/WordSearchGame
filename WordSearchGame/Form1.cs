@@ -8,7 +8,6 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Threading;
 
 namespace WordSearchGame
 {
@@ -584,18 +583,6 @@ namespace WordSearchGame
         {
             //Verificar se existe username 
             if (playerName.Equals(""))
-            jogadas = 0;
-            word = "";
-            //Gera um número random de 0 a 3 inclusive
-            rd = new Random();
-            int randNum = rd.Next(4);
-            MessageBox.Show(randNum.ToString());
-            if (randNum != 0) //Se o número for diferente de 0 vai rodar para um dos lados, se for igual a 0 fica igual
-            {
-                board = rotateBoard(randNum, board);
-            }
-            //Limpa os butões
-            for (int x = 0; x < 15; x++)
             {
                 AboutForm about = new AboutForm(4);
                 about.ShowDialog();
@@ -630,6 +617,13 @@ namespace WordSearchGame
 
                 jogadas = 0;
                 word = "";
+                //Gera um número random de 0 a 3 inclusive
+                rd = new Random();
+                int randNum = rd.Next(4);
+                if (randNum != 0) //Se o número for diferente de 0 vai rodar para um dos lados, se for igual a 0 fica igual
+                {
+                    board = rotateBoard(randNum, board);
+                }
                 //Limpa os butões
                 for (int x = 0; x < 15; x++)
                 {
