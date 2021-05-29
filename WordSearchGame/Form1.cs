@@ -124,72 +124,6 @@ namespace WordSearchGame
         }
 
         /**
-       * Função que chama um form que adminte um username
-       * Verifica se esse username já se encontra registado ou não
-       **/
-        private void newUserName()
-        {
-            string AuxPlayerName = "";
-            bool ct = true;
-
-            admit_UserName_Form userNameForm = new admit_UserName_Form();
-            userNameForm.ShowDialog();
-
-            while (ct == true)
-            {
-                if (lp.Count == 0) //If there is no names on the list
-                {
-                    //A new player is added to the list
-                    Player newPLyr = new Player(playerName); //A new player is created
-                    lp.Add(newPLyr); //The new player is added to the list
-
-                    //Success Message
-                    var newPlayerSuccsess = MessageBox.Show("Welcome " + playerName + "\nHave a good Game ", "Succsess", MessageBoxButtons.OK);
-
-                    ct = false; //Ends the While
-                }
-                else
-                {
-                    foreach (Player Plyr in lp)  //Runs all the players in class player and see if that username is already in use
-                    {
-                        AuxPlayerName = Plyr.Nome;
-
-                        //Check if the name already exists
-                        if (AuxPlayerName.Equals(playerName)) //If there is a match
-                        {
-                            //That name is already taken
-                            //Error message
-                            var nameAlreadyExists = MessageBox.Show("This name is already in use\nPlease insert another name ?", "UserName already Exists", MessageBoxButtons.RetryCancel, MessageBoxIcon.Warning);
-
-                            if (nameAlreadyExists == DialogResult.Cancel)// If the user wants to cancel the operation
-                            {
-                                ct = false;
-                            }
-                            if (nameAlreadyExists == DialogResult.Retry) //If the user wants to retray to insert a name
-                            {
-                                userNameForm.ShowDialog();
-                            }
-                        }//End Main IF
-                        else
-                        {
-                            //If the name is NOT taken
-                            //A new player is added to the list
-                            Player newPLyr = new Player(playerName); //A new player is created
-                            lp.Add(newPLyr); //The new player is added to the list
-
-                            //Success Message
-                            var newPlayerSuccsess = MessageBox.Show("Welcome " + playerName + "\nHave a good Game ", "Succsess", MessageBoxButtons.OK);
-
-                            ct = false; //Ends the While
-                            break;
-                        }
-                    }//End Foreach
-                }//End Main ELSE
-            }//End While
-
-        }
-
-        /**
          * Função que desenha os butões inicialmente
          **/
         private void drawButtons()
@@ -521,6 +455,16 @@ namespace WordSearchGame
             }
             else
             {
+                //Limpa os butões
+                for (int x = 0; x < 15; x++)
+                {
+                    for (int y = 0; y < 15; y++)
+                    {
+                        gameBtn[x, y].Enabled = false;
+                        gameBtn[x, y].Text = "X";
+                        gameBtn[x, y].BackColor = Color.Transparent;
+                    }
+                }
                 gameState = false;
                 //timer2.Stop();
                 cts.Cancel();
@@ -531,6 +475,7 @@ namespace WordSearchGame
                 Stats_Button.Visible = true;
                 Label_clock.Visible = false;
                 Quit_Button_Bottom.Text = "Quit Game";
+
             }
         }
 
@@ -673,7 +618,8 @@ namespace WordSearchGame
         **/
         private void playerNameToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            admit_UserName_Form userNameForm = new admit_UserName_Form();
+            userNameForm.ShowDialog();
         }
 
         /**
@@ -705,7 +651,8 @@ namespace WordSearchGame
 
         private void PlayerName_Button_Click(object sender, EventArgs e)
         {
-            newUserName();
+            admit_UserName_Form userNameForm = new admit_UserName_Form();
+            userNameForm.ShowDialog();
         }
     }
 }
