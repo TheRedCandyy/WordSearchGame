@@ -50,7 +50,6 @@ namespace WordSearchGame
             loadListBox();
             //Carregar o record do jogo
             loadRecord();
-
         }
         public void loadControlPlayer(string playerName)
         {
