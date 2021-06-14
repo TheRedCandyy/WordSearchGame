@@ -10,6 +10,7 @@ using System.Windows.Forms;
 
 namespace WordSearchGame
 {
+
     public partial class SelectCategory : Form
     {
         public static string category;
