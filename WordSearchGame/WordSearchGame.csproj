@@ -109,6 +109,7 @@
     </Compile>
     <Compile Include="SelectCategory.Designer.cs">
       <DependentUpon>SelectCategory.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControlPlayer.cs">
       <SubType>UserControl</SubType>
     </Compile>
