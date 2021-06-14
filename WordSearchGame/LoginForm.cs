@@ -67,6 +67,7 @@ namespace WordSearchGame
             {
                 //Success Message
                 MessageBox.Show("Login Successful !\n\nBem Vindo " + adminUserName, "Login complete", MessageBoxButtons.OK);
+                Form1.adminMode = true;
                 this.Close();
             }
             else { numTrys--; } //Decrease the number of attempts left

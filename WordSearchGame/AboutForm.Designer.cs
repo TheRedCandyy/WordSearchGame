@@ -63,7 +63,7 @@ namespace WordSearchGame
             this.About_OkayButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.About_OkayButton.FlatAppearance.BorderSize = 0;
             this.About_OkayButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.About_OkayButton.Location = new System.Drawing.Point(184, 197);
+            this.About_OkayButton.Location = new System.Drawing.Point(152, 197);
             this.About_OkayButton.Margin = new System.Windows.Forms.Padding(5);
             this.About_OkayButton.Name = "About_OkayButton";
             this.About_OkayButton.Size = new System.Drawing.Size(40, 39);
@@ -77,10 +77,10 @@ namespace WordSearchGame
             this.About_QuitButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.About_QuitButton.FlatAppearance.BorderSize = 0;
             this.About_QuitButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.About_QuitButton.Location = new System.Drawing.Point(366, 3);
+            this.About_QuitButton.Location = new System.Drawing.Point(202, 197);
             this.About_QuitButton.Margin = new System.Windows.Forms.Padding(5);
             this.About_QuitButton.Name = "About_QuitButton";
-            this.About_QuitButton.Size = new System.Drawing.Size(30, 30);
+            this.About_QuitButton.Size = new System.Drawing.Size(43, 39);
             this.About_QuitButton.TabIndex = 12;
             this.About_QuitButton.UseVisualStyleBackColor = true;
             this.About_QuitButton.Click += new System.EventHandler(this.About_QuitButton_Click);
