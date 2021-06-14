@@ -16,7 +16,6 @@ namespace WordSearchGame
         List<Player> lp2;
         string[] nome = new string[] { };
         string separador = "  ............................................  ";
-
         public statisticsForm(List<Player> lp)
         {
             InitializeComponent();
