@@ -12,10 +12,6 @@
  */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace WordSearchGame
 {
@@ -46,5 +42,9 @@ namespace WordSearchGame
         public string Nome { get => name; set => name = value; }
         public string PlayTimes { get => playTimes; set => playTimes = value; }
         public int PlaySeconds { get => playSeconds; set => playSeconds = value; }
+        public override string ToString()
+        {
+            return String.Format("    {0,-20} {1,-30} {2,5}", Nome, "..............................", playTimes);
+        }
     }
 }

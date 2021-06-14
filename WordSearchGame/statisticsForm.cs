@@ -1,11 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace WordSearchGame
@@ -29,18 +23,18 @@ namespace WordSearchGame
 
             Player pl1 = new Player("Diogo", "2:34", 20);
             lp2.Add(pl1);
-            Player pl2 = new Player("Alex", "2:36",  30);
+            Player pl2 = new Player("Alex", "2:36", 30);
             lp2.Add(pl2);
-            Player pl3 = new Player("Joao", "1:34",15);
+            Player pl3 = new Player("Joao", "1:34", 15);
             lp2.Add(pl3);
-            Player pl4 = new Player("Ana", "2:34",60);
+            Player pl4 = new Player("Ana", "2:34", 60);
             lp2.Add(pl4);
 
-            Player pl5 = new Player("Mario", "2:36",55);
+            Player pl5 = new Player("Mario", "2:36", 55);
             lp2.Add(pl5);
             Player pl6 = new Player("Antonio", "1:34");
             lp2.Add(pl6);
-            Player pl7 = new Player("Bruna", "2:34",27);
+            Player pl7 = new Player("Bruna", "2:34", 27);
             lp2.Add(pl7);
 
 
@@ -68,10 +62,10 @@ namespace WordSearchGame
             string recordTime = "";
             int timeAux = 0;
 
-            foreach(Player p in lp2)
+            foreach (Player p in lp2)
             {
-                if (timeAux < p.PlaySeconds) 
-                { 
+                if (timeAux < p.PlaySeconds)
+                {
                     timeAux = p.PlaySeconds;
                     recordName = p.Nome;
                     recordTime = p.PlayTimes;
@@ -88,16 +82,15 @@ namespace WordSearchGame
          **/
         public void loadListBox()
         {
-            string espaco = "\n";
-
             listBox_players_times.ResetText();
 
             try
             {
+                listBox_players_times.Items.Add("\n");
                 foreach (Player p in lp2)
                 {
-                    listBox_players_times.Items.Add(espaco);
-                    listBox_players_times.Items.Add(" " + p.Nome + separador + p.PlayTimes);
+                    listBox_players_times.Items.Add(p);
+                    listBox_players_times.Items.Add("\n");
                 }
             }
             catch (Exception e)
@@ -108,11 +101,7 @@ namespace WordSearchGame
 
         private void QuitButton_Click(object sender, EventArgs e)
         {
-            var quitMsgBox = MessageBox.Show("Are you sure you want to leave?", "Quit Game", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-            if (quitMsgBox == DialogResult.Yes)
-            {
-                this.Close();
-            }
+            this.Close();
         }
 
         private void MinimizeButton_Click(object sender, EventArgs e)
@@ -123,7 +112,6 @@ namespace WordSearchGame
         private void listBox_players_times_SelectedIndexChanged(object sender, EventArgs e)
         {
             string nomeAux;
-            Int32 count = 2;
 
             nomeAux = listBox_players_times.SelectedIndex.ToString();
 

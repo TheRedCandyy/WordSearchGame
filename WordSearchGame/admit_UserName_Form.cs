@@ -1,20 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Collections;
 
 namespace WordSearchGame
 {
     public partial class admit_UserName_Form : Form
     {
         bool checkForUser;
-        int ct = 0;
         public admit_UserName_Form()
         {
             InitializeComponent();
@@ -41,7 +33,7 @@ namespace WordSearchGame
                 this.Close();
             }
         }
-        
+
         private void admit_UserName_Form_Load(object sender, EventArgs e)
         {
             if (Form1.playerName.Equals(""))
@@ -69,16 +61,13 @@ namespace WordSearchGame
 
         private void Button_UserName_Apply_Click_1(object sender, EventArgs e)
         {
-            if(checkForUser == false)
+            if (checkForUser == false)
             {
                 Form1.playerName = txt_box_UserName.Text;
                 checkForUser = true;
-
-                MessageBox.Show("Welcome " + txt_box_UserName.Text + "\nHave a good Game ", "Succsess", MessageBoxButtons.OK);
-                   
                 this.Close();
             }
-            else 
+            else
             {
                 checkForUser = false;
                 this.Controls.Clear();
