@@ -113,7 +113,7 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="UserControlPlayer.Designer.cs">
-      <DependentUpon>UserControlPlayer.cs</DependentUpon
+      <DependentUpon>UserControlPlayer.cs</DependentUpon>
     </Compile>
     <Compile Include="Words.cs" />
     <EmbeddedResource Include="AboutForm.resx">
