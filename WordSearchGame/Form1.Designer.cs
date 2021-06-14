@@ -46,6 +46,7 @@ namespace WordSearchGame
             this.placeWordsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.wordsListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.fileNameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.deleteLettersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -75,7 +76,7 @@ namespace WordSearchGame
             // 
             // menuStrip1
             // 
-            this.menuStrip1.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.menuStrip1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.beACreatorToolStripMenuItem,
             this.creatorToolStripMenuItem,
@@ -83,7 +84,7 @@ namespace WordSearchGame
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(10, 3, 0, 3);
-            this.menuStrip1.Size = new System.Drawing.Size(1024, 31);
+            this.menuStrip1.Size = new System.Drawing.Size(1024, 30);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -101,68 +102,67 @@ namespace WordSearchGame
             this.toolStripSeparator3,
             this.quitGameToolStripMenuItem});
             this.beACreatorToolStripMenuItem.Name = "beACreatorToolStripMenuItem";
-            this.beACreatorToolStripMenuItem.Size = new System.Drawing.Size(46, 25);
+            this.beACreatorToolStripMenuItem.Size = new System.Drawing.Size(46, 24);
             this.beACreatorToolStripMenuItem.Text = "File";
             // 
             // newGameToolStripMenuItem
             // 
             this.newGameToolStripMenuItem.Name = "newGameToolStripMenuItem";
-            this.newGameToolStripMenuItem.Size = new System.Drawing.Size(198, 26);
+            this.newGameToolStripMenuItem.Size = new System.Drawing.Size(190, 24);
             this.newGameToolStripMenuItem.Text = "New Game";
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(195, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(187, 6);
             // 
             // playerNameToolStripMenuItem
             // 
             this.playerNameToolStripMenuItem.Name = "playerNameToolStripMenuItem";
-            this.playerNameToolStripMenuItem.Size = new System.Drawing.Size(198, 26);
+            this.playerNameToolStripMenuItem.Size = new System.Drawing.Size(190, 24);
             this.playerNameToolStripMenuItem.Text = "Player Name";
             this.playerNameToolStripMenuItem.Click += new System.EventHandler(this.playerNameToolStripMenuItem_Click);
             // 
             // playerStatisticsToolStripMenuItem
             // 
             this.playerStatisticsToolStripMenuItem.Name = "playerStatisticsToolStripMenuItem";
-            this.playerStatisticsToolStripMenuItem.Size = new System.Drawing.Size(198, 26);
+            this.playerStatisticsToolStripMenuItem.Size = new System.Drawing.Size(190, 24);
             this.playerStatisticsToolStripMenuItem.Text = "Player Statistics";
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(195, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(187, 6);
             // 
             // administrationToolStripMenuItem
             // 
             this.administrationToolStripMenuItem.Name = "administrationToolStripMenuItem";
-            this.administrationToolStripMenuItem.Size = new System.Drawing.Size(198, 26);
+            this.administrationToolStripMenuItem.Size = new System.Drawing.Size(190, 24);
             this.administrationToolStripMenuItem.Text = "Administration";
             this.administrationToolStripMenuItem.Click += new System.EventHandler(this.administrationToolStripMenuItem_Click);
             // 
             // createToolStripMenuItem
             // 
             this.createToolStripMenuItem.Name = "createToolStripMenuItem";
-            this.createToolStripMenuItem.Size = new System.Drawing.Size(198, 26);
+            this.createToolStripMenuItem.Size = new System.Drawing.Size(190, 24);
             this.createToolStripMenuItem.Text = "Create Demo";
             // 
             // playDemoToolStripMenuItem
             // 
             this.playDemoToolStripMenuItem.Name = "playDemoToolStripMenuItem";
-            this.playDemoToolStripMenuItem.Size = new System.Drawing.Size(198, 26);
+            this.playDemoToolStripMenuItem.Size = new System.Drawing.Size(190, 24);
             this.playDemoToolStripMenuItem.Text = "Play Demo";
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(195, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(187, 6);
             // 
             // quitGameToolStripMenuItem
             // 
             this.quitGameToolStripMenuItem.Name = "quitGameToolStripMenuItem";
-            this.quitGameToolStripMenuItem.Size = new System.Drawing.Size(198, 26);
+            this.quitGameToolStripMenuItem.Size = new System.Drawing.Size(190, 24);
             this.quitGameToolStripMenuItem.Text = "Quit Game";
-            this.quitGameToolStripMenuItem.Click += new System.EventHandler(this.quitGameToolStripMenuItem_Click);
             // 
             // creatorToolStripMenuItem
             // 
@@ -171,6 +171,7 @@ namespace WordSearchGame
             this.placeWordsToolStripMenuItem,
             this.wordsListToolStripMenuItem,
             this.toolStripSeparator4,
+            this.fileNameToolStripMenuItem,
             this.saveFileToolStripMenuItem,
             this.toolStripSeparator5,
             this.deleteLettersToolStripMenuItem,
@@ -180,76 +181,76 @@ namespace WordSearchGame
             this.createAnimationToolStripMenuItem});
             this.creatorToolStripMenuItem.Enabled = false;
             this.creatorToolStripMenuItem.Name = "creatorToolStripMenuItem";
-            this.creatorToolStripMenuItem.Size = new System.Drawing.Size(118, 25);
+            this.creatorToolStripMenuItem.Size = new System.Drawing.Size(108, 24);
             this.creatorToolStripMenuItem.Text = "Be a creator";
             // 
             // newWordToolStripMenuItem
             // 
             this.newWordToolStripMenuItem.Name = "newWordToolStripMenuItem";
-            this.newWordToolStripMenuItem.Size = new System.Drawing.Size(222, 26);
+            this.newWordToolStripMenuItem.Size = new System.Drawing.Size(204, 24);
             this.newWordToolStripMenuItem.Text = "New Word";
-            this.newWordToolStripMenuItem.Click += new System.EventHandler(this.newWordToolStripMenuItem_Click);
             // 
             // placeWordsToolStripMenuItem
             // 
             this.placeWordsToolStripMenuItem.Name = "placeWordsToolStripMenuItem";
-            this.placeWordsToolStripMenuItem.Size = new System.Drawing.Size(222, 26);
+            this.placeWordsToolStripMenuItem.Size = new System.Drawing.Size(204, 24);
             this.placeWordsToolStripMenuItem.Text = "Place Words";
-            this.placeWordsToolStripMenuItem.Click += new System.EventHandler(this.placeWordsToolStripMenuItem_Click);
             // 
             // wordsListToolStripMenuItem
             // 
             this.wordsListToolStripMenuItem.Name = "wordsListToolStripMenuItem";
-            this.wordsListToolStripMenuItem.Size = new System.Drawing.Size(222, 26);
+            this.wordsListToolStripMenuItem.Size = new System.Drawing.Size(204, 24);
             this.wordsListToolStripMenuItem.Text = "Words List";
-            this.wordsListToolStripMenuItem.Click += new System.EventHandler(this.wordsListToolStripMenuItem_Click);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(219, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(201, 6);
+            // 
+            // fileNameToolStripMenuItem
+            // 
+            this.fileNameToolStripMenuItem.Name = "fileNameToolStripMenuItem";
+            this.fileNameToolStripMenuItem.Size = new System.Drawing.Size(204, 24);
+            this.fileNameToolStripMenuItem.Text = "File Name";
             // 
             // saveFileToolStripMenuItem
             // 
             this.saveFileToolStripMenuItem.Name = "saveFileToolStripMenuItem";
-            this.saveFileToolStripMenuItem.Size = new System.Drawing.Size(222, 26);
+            this.saveFileToolStripMenuItem.Size = new System.Drawing.Size(204, 24);
             this.saveFileToolStripMenuItem.Text = "Save File";
-            this.saveFileToolStripMenuItem.Click += new System.EventHandler(this.saveFileToolStripMenuItem_Click);
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(219, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(201, 6);
             // 
             // deleteLettersToolStripMenuItem
             // 
             this.deleteLettersToolStripMenuItem.Name = "deleteLettersToolStripMenuItem";
-            this.deleteLettersToolStripMenuItem.Size = new System.Drawing.Size(222, 26);
+            this.deleteLettersToolStripMenuItem.Size = new System.Drawing.Size(204, 24);
             this.deleteLettersToolStripMenuItem.Text = "Delete Letters";
-            this.deleteLettersToolStripMenuItem.Click += new System.EventHandler(this.deleteLettersToolStripMenuItem_Click);
             // 
             // goBackToolStripMenuItem
             // 
             this.goBackToolStripMenuItem.Name = "goBackToolStripMenuItem";
-            this.goBackToolStripMenuItem.Size = new System.Drawing.Size(222, 26);
+            this.goBackToolStripMenuItem.Size = new System.Drawing.Size(204, 24);
             this.goBackToolStripMenuItem.Text = "Go Back";
             // 
             // fillEmptySpacesToolStripMenuItem
             // 
             this.fillEmptySpacesToolStripMenuItem.Name = "fillEmptySpacesToolStripMenuItem";
-            this.fillEmptySpacesToolStripMenuItem.Size = new System.Drawing.Size(222, 26);
+            this.fillEmptySpacesToolStripMenuItem.Size = new System.Drawing.Size(204, 24);
             this.fillEmptySpacesToolStripMenuItem.Text = "Fill Empty Spaces";
-            this.fillEmptySpacesToolStripMenuItem.Click += new System.EventHandler(this.fillEmptySpacesToolStripMenuItem_Click);
             // 
             // toolStripSeparator6
             // 
             this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(219, 6);
+            this.toolStripSeparator6.Size = new System.Drawing.Size(201, 6);
             // 
             // createAnimationToolStripMenuItem
             // 
             this.createAnimationToolStripMenuItem.Name = "createAnimationToolStripMenuItem";
-            this.createAnimationToolStripMenuItem.Size = new System.Drawing.Size(222, 26);
+            this.createAnimationToolStripMenuItem.Size = new System.Drawing.Size(204, 24);
             this.createAnimationToolStripMenuItem.Text = "Create Animation";
             // 
             // aboutToolStripMenuItem
@@ -260,32 +261,32 @@ namespace WordSearchGame
             this.toolStripSeparator7,
             this.authorsToolStripMenuItem});
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(73, 25);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(64, 24);
             this.aboutToolStripMenuItem.Text = "About";
             // 
             // devLanguageToolStripMenuItem
             // 
             this.devLanguageToolStripMenuItem.Name = "devLanguageToolStripMenuItem";
-            this.devLanguageToolStripMenuItem.Size = new System.Drawing.Size(197, 26);
+            this.devLanguageToolStripMenuItem.Size = new System.Drawing.Size(182, 24);
             this.devLanguageToolStripMenuItem.Text = "Dev Language";
             this.devLanguageToolStripMenuItem.Click += new System.EventHandler(this.devLanguageToolStripMenuItem_Click);
             // 
             // softwareToolStripMenuItem
             // 
             this.softwareToolStripMenuItem.Name = "softwareToolStripMenuItem";
-            this.softwareToolStripMenuItem.Size = new System.Drawing.Size(197, 26);
+            this.softwareToolStripMenuItem.Size = new System.Drawing.Size(182, 24);
             this.softwareToolStripMenuItem.Text = "Software";
             this.softwareToolStripMenuItem.Click += new System.EventHandler(this.softwareToolStripMenuItem_Click);
             // 
             // toolStripSeparator7
             // 
             this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(194, 6);
+            this.toolStripSeparator7.Size = new System.Drawing.Size(179, 6);
             // 
             // authorsToolStripMenuItem
             // 
             this.authorsToolStripMenuItem.Name = "authorsToolStripMenuItem";
-            this.authorsToolStripMenuItem.Size = new System.Drawing.Size(197, 26);
+            this.authorsToolStripMenuItem.Size = new System.Drawing.Size(182, 24);
             this.authorsToolStripMenuItem.Text = "Authors";
             this.authorsToolStripMenuItem.Click += new System.EventHandler(this.authorsToolStripMenuItem_Click);
             // 
@@ -307,7 +308,7 @@ namespace WordSearchGame
             this.Quit_Button_Bottom.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(174)))), ((int)(((byte)(32)))), ((int)(((byte)(18)))));
             this.Quit_Button_Bottom.FlatAppearance.BorderSize = 0;
             this.Quit_Button_Bottom.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Quit_Button_Bottom.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Quit_Button_Bottom.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Quit_Button_Bottom.ForeColor = System.Drawing.Color.White;
             this.Quit_Button_Bottom.Location = new System.Drawing.Point(840, 24);
             this.Quit_Button_Bottom.Name = "Quit_Button_Bottom";
@@ -320,9 +321,10 @@ namespace WordSearchGame
             // LastMove_Button
             // 
             this.LastMove_Button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(85)))), ((int)(((byte)(57)))));
+            this.LastMove_Button.Enabled = false;
             this.LastMove_Button.FlatAppearance.BorderSize = 0;
             this.LastMove_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.LastMove_Button.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LastMove_Button.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LastMove_Button.ForeColor = System.Drawing.Color.White;
             this.LastMove_Button.Location = new System.Drawing.Point(640, 24);
             this.LastMove_Button.Name = "LastMove_Button";
@@ -337,7 +339,7 @@ namespace WordSearchGame
             this.Stats_Button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(85)))), ((int)(((byte)(57)))));
             this.Stats_Button.FlatAppearance.BorderSize = 0;
             this.Stats_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Stats_Button.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Stats_Button.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Stats_Button.ForeColor = System.Drawing.Color.Transparent;
             this.Stats_Button.Location = new System.Drawing.Point(440, 24);
             this.Stats_Button.Name = "Stats_Button";
@@ -345,13 +347,14 @@ namespace WordSearchGame
             this.Stats_Button.TabIndex = 2;
             this.Stats_Button.Text = "Statistics";
             this.Stats_Button.UseVisualStyleBackColor = false;
+            this.Stats_Button.Click += new System.EventHandler(this.Stats_Button_Click);
             // 
             // PlayerName_Button
             // 
             this.PlayerName_Button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(85)))), ((int)(((byte)(57)))));
             this.PlayerName_Button.FlatAppearance.BorderSize = 0;
             this.PlayerName_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.PlayerName_Button.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PlayerName_Button.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.PlayerName_Button.ForeColor = System.Drawing.Color.White;
             this.PlayerName_Button.Location = new System.Drawing.Point(240, 24);
             this.PlayerName_Button.Name = "PlayerName_Button";
@@ -366,7 +369,7 @@ namespace WordSearchGame
             this.NewGame_Button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(85)))), ((int)(((byte)(57)))));
             this.NewGame_Button.FlatAppearance.BorderSize = 0;
             this.NewGame_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.NewGame_Button.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.NewGame_Button.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.NewGame_Button.ForeColor = System.Drawing.Color.White;
             this.NewGame_Button.Location = new System.Drawing.Point(30, 24);
             this.NewGame_Button.Name = "NewGame_Button";
@@ -380,11 +383,11 @@ namespace WordSearchGame
             // 
             this.Label_clock.AutoSize = true;
             this.Label_clock.Enabled = false;
-            this.Label_clock.Font = new System.Drawing.Font("Century Gothic", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Label_clock.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Label_clock.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(85)))), ((int)(((byte)(57)))));
             this.Label_clock.Location = new System.Drawing.Point(250, 24);
             this.Label_clock.Name = "Label_clock";
-            this.Label_clock.Size = new System.Drawing.Size(170, 56);
+            this.Label_clock.Size = new System.Drawing.Size(158, 55);
             this.Label_clock.TabIndex = 5;
             this.Label_clock.Text = "label1";
             this.Label_clock.Visible = false;
@@ -488,7 +491,7 @@ namespace WordSearchGame
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(224)))), ((int)(((byte)(212)))));
             this.ClientSize = new System.Drawing.Size(1024, 819);
@@ -498,7 +501,7 @@ namespace WordSearchGame
             this.Controls.Add(this.MinimizeButton);
             this.Controls.Add(this.QuitButton);
             this.Controls.Add(this.menuStrip1);
-            this.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(5);
@@ -533,6 +536,7 @@ namespace WordSearchGame
         private System.Windows.Forms.ToolStripMenuItem placeWordsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem wordsListToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.ToolStripMenuItem fileNameToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveFileToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripMenuItem deleteLettersToolStripMenuItem;

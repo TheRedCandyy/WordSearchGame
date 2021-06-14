@@ -52,30 +52,6 @@
     <Compile Include="AboutForm.Designer.cs">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="AdminForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AdminForm.Designer.cs">
-      <DependentUpon>AdminForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Admin_ListWords.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Admin_ListWords.Designer.cs">
-      <DependentUpon>Admin_ListWords.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Admin_NewWord.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Admin_NewWord.Designer.cs">
-      <DependentUpon>Admin_NewWord.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Admin_PlaceWords.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Admin_PlaceWords.Designer.cs">
-      <DependentUpon>Admin_PlaceWords.cs</DependentUpon>
-    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -88,6 +64,12 @@
     <Compile Include="admit_UserName_Form.Designer.cs">
       <DependentUpon>admit_UserName_Form.cs</DependentUpon>
     </Compile>
+    <Compile Include="statisticsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="statisticsForm.Designer.cs">
+      <DependentUpon>statisticsForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -98,27 +80,15 @@
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SelectCategory.cs">
-      <SubType>Form</SubType>
+    <Compile Include="UserControlPlayer.cs">
+      <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="SelectCategory.Designer.cs">
-      <DependentUpon>SelectCategory.cs</DependentUpon>
+    <Compile Include="UserControlPlayer.Designer.cs">
+      <DependentUpon>UserControlPlayer.cs</DependentUpon>
     </Compile>
     <Compile Include="Words.cs" />
     <EmbeddedResource Include="AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AdminForm.resx">
-      <DependentUpon>AdminForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Admin_ListWords.resx">
-      <DependentUpon>Admin_ListWords.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Admin_NewWord.resx">
-      <DependentUpon>Admin_NewWord.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Admin_PlaceWords.resx">
-      <DependentUpon>Admin_PlaceWords.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="admit_UserName_Form.resx">
       <DependentUpon>admit_UserName_Form.cs</DependentUpon>
@@ -139,8 +109,11 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="SelectCategory.resx">
-      <DependentUpon>SelectCategory.cs</DependentUpon>
+    <EmbeddedResource Include="statisticsForm.resx">
+      <DependentUpon>statisticsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControlPlayer.resx">
+      <DependentUpon>UserControlPlayer.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

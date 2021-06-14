@@ -41,10 +41,6 @@ namespace WordSearchGame
                     Text_Label.Text = "Please insert a userName";
 
                     break;
-                case 5:
-                    Title_Label.Text = "Administration Mode";
-                    Text_Label.Text = "When entering this mode you will cancel any\ngame active at this moment!";
-                    break;
                 default:
                     Title_Label.Text = "Title";
                     Text_Label.Text = "Text";
