@@ -20,7 +20,7 @@ using System.Threading.Tasks;
 
 namespace WordSearchGame
 {
-    class Moves
+    public class Moves
     {
         private int moveId;         //Guarda o id da jogada
         private string playerName;  //Nome do jogador

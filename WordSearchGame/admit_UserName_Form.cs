@@ -72,10 +72,7 @@ namespace WordSearchGame
             if(checkForUser == false)
             {
                 Form1.playerName = txt_box_UserName.Text;
-                checkForUser = true;
-
-                MessageBox.Show("Welcome " + txt_box_UserName.Text + "\nHave a good Game ", "Succsess", MessageBoxButtons.OK);
-                   
+                checkForUser = true;                   
                 this.Close();
             }
             else 

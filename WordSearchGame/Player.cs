@@ -19,7 +19,7 @@ using System.Threading.Tasks;
 
 namespace WordSearchGame
 {
-    class Player
+    public class Player
     {
         private string name;        //Player's Name
         private string playTimes;   //Play's history
