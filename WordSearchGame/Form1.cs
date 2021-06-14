@@ -1,12 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace WordSearchGame
@@ -110,7 +105,7 @@ namespace WordSearchGame
         };
 
         Color cor = Color.FromArgb(100, 100, 100);
-        
+
         //Administration credentials
         public string adminUserName = "admin";
         public string adminPassword = "1234";
@@ -225,7 +220,7 @@ namespace WordSearchGame
             //Receber as coordenadas do butao clicado
             int x = Convert.ToInt32(clickedButton.Name.Split(',')[1]);
             int y = Convert.ToInt32(clickedButton.Name.Split(',')[0]);
-            
+
             if (jogadas != 0)
             {
                 if (x == lm[lm.Count - 1].CoordX && y == lm[lm.Count - 1].CoordY)
@@ -234,16 +229,17 @@ namespace WordSearchGame
                 }
                 if (jogadas == 1)
                 {
-                    if (x > lm[lm.Count-1].CoordX + 1 || x < lm[lm.Count-1].CoordX -1)
-                    {
-                        resetWord();
-                        return;
-                    }else if(y > lm[lm.Count - 1].CoordY + 1 || y < lm[lm.Count - 1].CoordY - 1)
+                    if (x > lm[lm.Count - 1].CoordX + 1 || x < lm[lm.Count - 1].CoordX - 1)
                     {
                         resetWord();
                         return;
                     }
-                    if(x - 1 == lm[lm.Count - 1].CoordX && y == lm[lm.Count - 1].CoordY)
+                    else if (y > lm[lm.Count - 1].CoordY + 1 || y < lm[lm.Count - 1].CoordY - 1)
+                    {
+                        resetWord();
+                        return;
+                    }
+                    if (x - 1 == lm[lm.Count - 1].CoordX && y == lm[lm.Count - 1].CoordY)
                     {
                         direcaoPalavra = "Direita";
                     }
@@ -345,7 +341,7 @@ namespace WordSearchGame
             {
                 for (int y = 0; y < 15; y++)
                 {
-                    if(gameBtn[x,y].BackColor == btnColors[colorIndex])
+                    if (gameBtn[x, y].BackColor == btnColors[colorIndex])
                     {
                         jogadas--;
                         gameBtn[x, y].BackColor = Color.Transparent;
@@ -365,9 +361,9 @@ namespace WordSearchGame
             wordsCheck[checkBoxIndex].Checked = true;
             string tempoJogada = "";
 
-            for(int ct = 0; ct<wordsCheck.Length; ct++)
+            for (int ct = 0; ct < wordsCheck.Length; ct++)
             {
-                if(wordsCheck[ct].Checked == true) //Verifica se ainda há palavras por concluir 
+                if (wordsCheck[ct].Checked == true) //Verifica se ainda há palavras por concluir 
                     return;
 
                 else //Se as palavras estiverem todas concluidas
@@ -433,7 +429,7 @@ namespace WordSearchGame
         private void QuitButton_Click(object sender, EventArgs e)
         {
             var quitMsgBox = MessageBox.Show("Are you sure you want to leave?", "Quit Game", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-            if(quitMsgBox == DialogResult.Yes)
+            if (quitMsgBox == DialogResult.Yes)
             {
                 Application.Exit();
             }
@@ -444,7 +440,7 @@ namespace WordSearchGame
          **/
         private void Quit_Button_Bottom_Click(object sender, EventArgs e)
         {
-            if(gameState == false)
+            if (gameState == false)
             {
                 var quitMsgBox = MessageBox.Show("Are you sure you want to leave?", "Quit Game", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (quitMsgBox == DialogResult.Yes)
@@ -531,7 +527,8 @@ namespace WordSearchGame
                 AboutForm about = new AboutForm(4);
                 about.ShowDialog();
             }
-            else { //Se existir username 
+            else
+            { //Se existir username 
 
                 //Ativar o botão do last move
                 LastMove_Button.Enabled = true;
@@ -596,7 +593,7 @@ namespace WordSearchGame
          **/
         private void LastMove_Button_Click(object sender, EventArgs e)
         {
-            if(jogadas != 0)
+            if (jogadas != 0)
             {
                 jogadas--;
                 word = word.Substring(0, word.Length - 1);

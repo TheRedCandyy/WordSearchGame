@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace WordSearchGame
@@ -38,7 +31,7 @@ namespace WordSearchGame
         /*
          * Top left quit button
          */
-        private void QuitButton_Click(object sender, EventArgs e) 
+        private void QuitButton_Click(object sender, EventArgs e)
         {
             var quitMsgBox = MessageBox.Show("Are you Sure?", "Cancel Login", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (quitMsgBox == DialogResult.Yes)
@@ -63,7 +56,7 @@ namespace WordSearchGame
         private void Button_Login_Click(object sender, EventArgs e)
         {
             //Check if the login credentials match the ones for admin control
-            if ( txt_box_Login_UserName.Text.Equals( adminUserName ) && txt_box_Login_Password.Text.Equals( adminPassword ) )  //Check if the username and password match
+            if (txt_box_Login_UserName.Text.Equals(adminUserName) && txt_box_Login_Password.Text.Equals(adminPassword))  //Check if the username and password match
             {
                 //Success Message
                 MessageBox.Show("Login Successful !\n\nBem Vindo " + adminUserName, "Login complete", MessageBoxButtons.OK);
@@ -72,10 +65,11 @@ namespace WordSearchGame
             else { numTrys--; } //Decrease the number of attempts left
 
             //If the credentials dont match, an erro message is displayed
-            if ( numTrys < 3 && numTrys > 0)
+            if (numTrys < 3 && numTrys > 0)
             {
                 var quitMsgBox = MessageBox.Show("\nUnknown UserName or Password ", "Login Failed", MessageBoxButtons.RetryCancel, MessageBoxIcon.Warning); //Error Message
-                if ( quitMsgBox == DialogResult.Retry ){ //If there are attemps left and the user wants to retry
+                if (quitMsgBox == DialogResult.Retry)
+                { //If there are attemps left and the user wants to retry
                     txt_box_Login_UserName.Text = "";    //Reset textbox text
                     txt_box_Login_Password.Text = "";    //Reset textbox text
                     txt_box_Login_UserName.Focus();      //Focus on username textbox
@@ -86,7 +80,7 @@ namespace WordSearchGame
                     this.Close();
                 }
             }
-            if ( numTrys <=0 ) //If there are no more attempts left
+            if (numTrys <= 0) //If there are no more attempts left
             {
                 MessageBox.Show("\nThere are no more attempts left\n\nLogin Faild", "Too Many Attempts", MessageBoxButtons.OK, MessageBoxIcon.Error); //Erro Message
                 this.Close();
