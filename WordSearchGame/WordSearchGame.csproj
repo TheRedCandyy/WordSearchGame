@@ -152,6 +152,7 @@
     </Compile>
     <EmbeddedResource Include="SelectCategory.resx">
       <DependentUpon>SelectCategory.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="statisticsForm.resx">
       <DependentUpon>statisticsForm.cs</DependentUpon>
     </EmbeddedResource>
