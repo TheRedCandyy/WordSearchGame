@@ -88,6 +88,12 @@
     <Compile Include="admit_UserName_Form.Designer.cs">
       <DependentUpon>admit_UserName_Form.cs</DependentUpon>
     </Compile>
+    <Compile Include="statisticsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="statisticsForm.Designer.cs">
+      <DependentUpon>statisticsForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -103,6 +109,11 @@
     </Compile>
     <Compile Include="SelectCategory.Designer.cs">
       <DependentUpon>SelectCategory.cs</DependentUpon>
+    <Compile Include="UserControlPlayer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControlPlayer.Designer.cs">
+      <DependentUpon>UserControlPlayer.cs</DependentUpon
     </Compile>
     <Compile Include="Words.cs" />
     <EmbeddedResource Include="AboutForm.resx">
@@ -141,6 +152,11 @@
     </Compile>
     <EmbeddedResource Include="SelectCategory.resx">
       <DependentUpon>SelectCategory.cs</DependentUpon>
+    <EmbeddedResource Include="statisticsForm.resx">
+      <DependentUpon>statisticsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControlPlayer.resx">
+      <DependentUpon>UserControlPlayer.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

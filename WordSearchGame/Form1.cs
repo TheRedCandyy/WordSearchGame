@@ -34,7 +34,7 @@ namespace WordSearchGame
         public static List<Moves> lm = new List<Moves>();
         public static List<Player> lp = new List<Player>();
         public static List<Words> lw = new List<Words>();
-
+      
         //Instanciador de randoms
         Random rd;
 
@@ -60,6 +60,7 @@ namespace WordSearchGame
         private int segundos = 0;
         private int minutos = 0;
         private int pseudoSegundos = 0;
+        private int tempoReal = 0;
 
         //Indicador de jogo Ativo
         private static bool gameState = false;
@@ -249,6 +250,7 @@ namespace WordSearchGame
                     return;
                 }
                 segundos++;
+                tempoReal++;
 
                 if (segundos % 10 == 0)
                 {
@@ -256,13 +258,11 @@ namespace WordSearchGame
                     segundos = 0;
                 }
 
-
                 if (pseudoSegundos > 5)
                 {
                     segundos = 0;
                     pseudoSegundos = 0;
                     minutos++;
-
                 }
 
                 //A cada tick do relógio (1 segundo)
@@ -462,6 +462,9 @@ namespace WordSearchGame
             jogadas = 0;
             bool allWordsFound = true;
             foreach (CheckBox c in WordsPanel.Controls.OfType<CheckBox>())
+            string tempoJogada = "";
+
+            for(int ct = 0; ct<wordsCheck.Length; ct++)
             {
                 if (c.Checked == false)
                 {
@@ -480,6 +483,11 @@ namespace WordSearchGame
                 Player newPlayer = new Player(playerName, tempoJogada, jogadas);
                 //Adiciona-se o jogador à lista de jogadores 
                 lp.Add(newPlayer);
+                    //Criado um novo registo de jogador
+                    Player newPlayer = new Player(playerName, tempoJogada, tempoReal);
+                    //Adiciona-se o jogador à lista de jogadores 
+                    lp.Add(newPlayer);
+                }
             }
         }
 
@@ -552,6 +560,16 @@ namespace WordSearchGame
             }
             else
             {
+                //Desativa o botão de last Move
+                LastMove_Button.Enabled = false;
+                //Limpa os butões
+                for (int x = 0; x < 15; x++)
+                {
+                    for (int y = 0; y < 15; y++)
+                    {
+                        gameBtn[x, y].Enabled = false;
+                    }
+                }
                 gameState = false;
                 //timer2.Stop();
                 cts.Cancel();
@@ -624,6 +642,10 @@ namespace WordSearchGame
                 SelectCategory selectCatForm = new SelectCategory();
                 selectCatForm.ShowDialog();
                 string category = SelectCategory.category;
+            else { //Se existir username 
+
+                //Ativar o botão do last move
+                LastMove_Button.Enabled = true;
                 //Se a thread ainda estiver a correr
                 if (gameState == true)
                 {
@@ -738,15 +760,14 @@ namespace WordSearchGame
                 quitGameToolStripMenuItem.Text = "Quit Game";
             }
         }
-
-
-
         /**
         * Butão do menu bar que permite inserir um username
         **/
         private void playerNameToolStripMenuItem_Click(object sender, EventArgs e)
         {
             newUserName();
+            admit_UserName_Form userNameForm = new admit_UserName_Form();
+            userNameForm.ShowDialog();
         }
 
         /**
@@ -780,7 +801,8 @@ namespace WordSearchGame
          **/
         private void PlayerName_Button_Click(object sender, EventArgs e)
         {
-            newUserName();
+            admit_UserName_Form userNameForm = new admit_UserName_Form();
+            userNameForm.ShowDialog();
         }
         private void quitGameToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -953,6 +975,14 @@ namespace WordSearchGame
         {
             saveInFile();
             MessageBox.Show("All the words where saved in a file at your Desktop.");
+        }
+
+        private void Stats_Button_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            statisticsForm stcsForm = new statisticsForm(lp);
+            stcsForm.ShowDialog();
+            this.Show();
         }
     }
 }
