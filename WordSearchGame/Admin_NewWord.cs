@@ -9,9 +9,31 @@ namespace WordSearchGame
         public Admin_NewWord()
         {
             InitializeComponent();
+            loadCategorys();
             radioButton1.Checked = true;
             normalRadioButton.Checked = true;
             disableWord();
+        }
+
+        public void loadCategorys()
+        {
+            foreach (Words word in Form1.lw)
+            {
+                bool exists = false;
+                for (int i = 0; i < categoryTextBox.Items.Count; i++)
+                {
+                    if (word.Category.Equals(categoryTextBox.Items[i]))
+                    {
+                        exists = true;
+                    }
+                }
+                if (!exists)
+                {
+
+                    categoryTextBox.Items.Add(word.Category);
+                }
+            }
+            categoryTextBox.SelectedIndex = 0;
         }
 
         private void confirmCatButton_Click(object sender, EventArgs e)
@@ -29,7 +51,7 @@ namespace WordSearchGame
                 MessageBox.Show("This category is full, try another category.", "Category Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            category = categoryTextBox.Text;
+            category = categoryTextBox.SelectedItem.ToString();
             enableWord();
             MessageBox.Show("Using the selected category!", "Success", MessageBoxButtons.OK);
         }
@@ -64,7 +86,7 @@ namespace WordSearchGame
             }
             foreach (Words w in Form1.lw)
             {
-                if (w.Word.Equals(wordTextBox.Text))
+                if (w.Word.Equals(wordTextBox.Text) && w.Category.Equals(categoryTextBox.SelectedItem))
                 {
                     MessageBox.Show("There already exists an equal word in this category!", "Word Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
@@ -88,7 +110,7 @@ namespace WordSearchGame
 
         private void clearFieldsButton_Click(object sender, EventArgs e)
         {
-            categoryTextBox.Text = "";
+            categoryTextBox.SelectedIndex = 0;
             wordTextBox.Text = "";
             dimensionTextBox.Text = "";
             lineTextBox.Text = "";

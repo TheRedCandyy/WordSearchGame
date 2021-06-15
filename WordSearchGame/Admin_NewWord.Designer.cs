@@ -30,7 +30,6 @@ namespace WordSearchGame
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.categoryTextBox = new System.Windows.Forms.TextBox();
             this.confirmCatButton = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
@@ -54,6 +53,7 @@ namespace WordSearchGame
             this.label3 = new System.Windows.Forms.Label();
             this.wordTextBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.categoryTextBox = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -69,14 +69,6 @@ namespace WordSearchGame
             this.label1.TabIndex = 0;
             this.label1.Text = "Category";
             // 
-            // categoryTextBox
-            // 
-            this.categoryTextBox.Font = new System.Drawing.Font("Century Gothic", 12F);
-            this.categoryTextBox.Location = new System.Drawing.Point(287, 13);
-            this.categoryTextBox.Name = "categoryTextBox";
-            this.categoryTextBox.Size = new System.Drawing.Size(174, 27);
-            this.categoryTextBox.TabIndex = 1;
-            // 
             // confirmCatButton
             // 
             this.confirmCatButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(85)))), ((int)(((byte)(57)))));
@@ -84,7 +76,7 @@ namespace WordSearchGame
             this.confirmCatButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.confirmCatButton.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.confirmCatButton.ForeColor = System.Drawing.Color.White;
-            this.confirmCatButton.Location = new System.Drawing.Point(467, 13);
+            this.confirmCatButton.Location = new System.Drawing.Point(471, 16);
             this.confirmCatButton.Name = "confirmCatButton";
             this.confirmCatButton.Size = new System.Drawing.Size(156, 27);
             this.confirmCatButton.TabIndex = 2;
@@ -347,14 +339,23 @@ namespace WordSearchGame
             this.label2.TabIndex = 4;
             this.label2.Text = "Word";
             // 
+            // categoryTextBox
+            // 
+            this.categoryTextBox.Font = new System.Drawing.Font("Century Gothic", 12F);
+            this.categoryTextBox.FormattingEnabled = true;
+            this.categoryTextBox.Location = new System.Drawing.Point(287, 15);
+            this.categoryTextBox.Name = "categoryTextBox";
+            this.categoryTextBox.Size = new System.Drawing.Size(178, 29);
+            this.categoryTextBox.TabIndex = 9;
+            // 
             // Admin_NewWord
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(224)))), ((int)(((byte)(212)))));
+            this.Controls.Add(this.categoryTextBox);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.confirmCatButton);
-            this.Controls.Add(this.categoryTextBox);
             this.Controls.Add(this.label1);
             this.Name = "Admin_NewWord";
             this.Size = new System.Drawing.Size(800, 404);
@@ -372,7 +373,6 @@ namespace WordSearchGame
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox categoryTextBox;
         private System.Windows.Forms.Button confirmCatButton;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.RadioButton radioButton4;
@@ -396,5 +396,6 @@ namespace WordSearchGame
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.ComboBox categoryTextBox;
     }
 }
