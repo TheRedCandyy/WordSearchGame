@@ -67,8 +67,6 @@ namespace WordSearchGame
         //Guarda a direcao que a palavra atual esta a tomar
         String direcaoPalavra = "";
 
-        Color cor = Color.FromArgb(100, 100, 100);
-
         //Administration credentials
         public string adminUserName = "admin";
         public string adminPassword = "1234";

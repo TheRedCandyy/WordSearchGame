@@ -17,9 +17,9 @@ namespace WordSearchGame
 {
     public class Player
     {
-        private string name;        //Nome do Jogador
-        private string playTimes;   //String qua guarda o tempo do jogo (min:segundos)
-        private int playSeconds;    //Total de segundos que demorou jogo
+        private string name;        //Nome do jogador
+        private string playTimes;   //String que guarda o tempo de jogo
+        private int playSeconds;    //Integer que guarda os segundo do jogo
         private int game;           //ID do jogo 
 
         public Player(string name)
