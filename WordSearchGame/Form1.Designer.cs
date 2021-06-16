@@ -163,6 +163,7 @@ namespace WordSearchGame
             this.quitGameToolStripMenuItem.Name = "quitGameToolStripMenuItem";
             this.quitGameToolStripMenuItem.Size = new System.Drawing.Size(190, 24);
             this.quitGameToolStripMenuItem.Text = "Quit Game";
+            this.quitGameToolStripMenuItem.Click += new System.EventHandler(this.quitGameToolStripMenuItem_Click);
             // 
             // creatorToolStripMenuItem
             // 
