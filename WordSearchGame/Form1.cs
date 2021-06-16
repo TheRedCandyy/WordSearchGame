@@ -46,6 +46,9 @@ namespace WordSearchGame
         //Contador de jogadas
         int jogadas = 0;
 
+        //Id do jogo
+        int gameID = 0;
+
         //Cancel token
         CancellationTokenSource cts;
 
@@ -54,6 +57,9 @@ namespace WordSearchGame
         private int minutos = 0;
         private int pseudoSegundos = 0;
         private int tempoReal = 0;
+
+        //Move Counter
+        private int moveCounter = 0;
 
         //Indicador de jogo Ativo
         private static bool gameState = false;
@@ -86,7 +92,6 @@ namespace WordSearchGame
                 }
             }
         }
-
 
         public void readFromFile()
         {
@@ -149,61 +154,17 @@ namespace WordSearchGame
        **/
         private void newUserName()
         {
-            string AuxPlayerName = "";
+            string auxUserName = playerName;
 
             admit_UserName_Form userNameForm = new admit_UserName_Form();
             userNameForm.ShowDialog();
 
-            while (true)
-            {
-                if (lp.Count == 0) //If there is no names on the list
-                {
-                    //A new player is added to the list
-                    Player newPLyr = new Player(playerName); //A new player is created
-                    lp.Add(newPLyr); //The new player is added to the list
-
-                    //Success Message
-                    var newPlayerSuccsess = MessageBox.Show("Welcome " + playerName + "\nHave a good Game ", "Succsess", MessageBoxButtons.OK);
-                    return;
-                }
-                else
-                {
-                    foreach (Player Plyr in lp)  //Runs all the players in class player and see if that username is already in use
-                    {
-                        AuxPlayerName = Plyr.Nome;
-
-                        //Check if the name already exists
-                        if (AuxPlayerName.Equals(playerName)) //If there is a match
-                        {
-                            //That name is already taken
-                            //Error message
-                            var nameAlreadyExists = MessageBox.Show("This name is already in use\nPlease insert another name ?", "UserName already Exists", MessageBoxButtons.RetryCancel, MessageBoxIcon.Warning);
-
-                            if (nameAlreadyExists == DialogResult.Cancel)// If the user wants to cancel the operation
-                            {
-                                return;
-                            }
-                            if (nameAlreadyExists == DialogResult.Retry) //If the user wants to retray to insert a name
-                            {
-                                userNameForm.ShowDialog();
-                            }
-                        }//End Main IF
-                        else
-                        {
-                            //If the name is NOT taken
-                            //A new player is added to the list
-                            Player newPLyr = new Player(playerName); //A new player is created
-                            lp.Add(newPLyr); //The new player is added to the list
-
-                            //Success Message
-                            var newPlayerSuccsess = MessageBox.Show("Welcome " + playerName + "\nHave a good Game ", "Succsess", MessageBoxButtons.OK);
-
-                            return;
-                        }
-                    }//End Foreach
-                }//End Main ELSE
-            }//End While
-
+            if (playerName.Equals("") || auxUserName.Equals(playerName)) { return; }
+            else
+            {   
+                //Mensagem de Sucesso
+                MessageBox.Show("Welcome " + playerName + "\nHave a good Game ", "Succsess", MessageBoxButtons.OK);
+           }
         }
 
         /**
@@ -265,7 +226,7 @@ namespace WordSearchGame
                 //A cada tick do relógio (1 segundo)
                 Invoke((MethodInvoker)delegate ()
                 {
-                    Label_clock.Text = "Tempo: " + minutos.ToString() + ":" + pseudoSegundos.ToString() + segundos.ToString();
+                    Label_clock.Text = "Time: " + minutos.ToString() + ":" + pseudoSegundos.ToString() + segundos.ToString();
                 });
                 Thread.Sleep(1000);
             }
@@ -414,8 +375,9 @@ namespace WordSearchGame
             }
             clickedButton.BackColor = btnColors[colorIndex];
             word += clickedButton.Text.ToLower(); //Adiciona o texto do botao à palavra a ser construida
+            moveCounter++;
             //Adiciona esta jogada à classe `moves` que guarda todas as jogadas
-            move = new Moves(jogadas, "PLAYER", x, y, word);
+            move = new Moves(jogadas, x, y, word, gameID);
             lm.Add(move);
 
             jogadas++;
@@ -475,9 +437,11 @@ namespace WordSearchGame
                 string tempoJogada = minutos + ":" + pseudoSegundos + segundos;
 
                 //Criado um novo registo de jogador
-                Player newPlayer = new Player(playerName, tempoJogada, jogadas);
+                Player newPlayer = new Player(playerName, tempoJogada, jogadas, gameID);
                 //Adiciona-se o jogador à lista de jogadores 
                 lp.Add(newPlayer);
+                gameID++;
+                moveCounter = 0;
             }
         }
 
@@ -514,6 +478,53 @@ namespace WordSearchGame
                 btnColors[count] = colorPallet[count];
             }
         }
+        /**
+         * Função que guarda os records do jogo
+         * Guarda toda a informação das listas de jogadores e de jogadas em dois respetivos ficheiros
+         **/
+        private void saveGameRecord()
+        {
+            int ct = 0;
+            string separador = ",";
+            string[] jogadores = new string[lp.Count];
+            string[] jogadas = new string[lm.Count];
+
+            //String com o path do ficheiro 
+            string docPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
+            //Prencher o array com as informações de todos os jogadores
+            foreach (Player pl in lp)
+            {
+                jogadores[ct] = pl.Nome + separador + pl.PlayTimes + separador + pl.PlaySeconds.ToString() + separador + pl.Game.ToString();
+                ct++;
+            }
+
+            ct = 0;
+            //Preencher o array com todas as informações das jogadas
+            foreach(Moves mv in lm)
+            {
+                jogadas[ct] = mv.MoveId.ToString() + separador + mv.CoordX.ToString() + separador + mv.CoordY.ToString() + separador + mv.Word + separador + mv.Game.ToString() + separador;
+            }
+
+            //Criar e escrever os ficheiros
+            //Jogadores
+            using (StreamWriter outputFile = new StreamWriter(Path.Combine(docPath, "Jogadores.txt")))
+            {
+                foreach(string line in jogadores)
+                {
+                    outputFile.WriteLine(line);
+                }
+            }
+
+            //Jogadas
+            using (StreamWriter outputFile = new StreamWriter(Path.Combine(docPath, "Jogadas.txt")))
+            {
+                foreach (string line in jogadas)
+                {
+                    outputFile.WriteLine(line);
+                }
+            }
+        }
 
         /**
          * Butão do menu superior direito que minimiza a janela
@@ -545,11 +556,19 @@ namespace WordSearchGame
                 var quitMsgBox = MessageBox.Show("Are you sure you want to leave?", "Quit Game", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (quitMsgBox == DialogResult.Yes)
                 {
-                    Application.Exit();
+                    var saveMsgBox = MessageBox.Show("Do you want to save the record of the game?","Save Records", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    if (saveMsgBox == DialogResult.Yes)
+                    {
+                        saveGameRecord();
+                        Application.Exit();
+                    }
                 }
             }
             else
             {
+                int lmSize = lm.Count;
+                int countLastPlay = lm.Count - moveCounter;
+
                 //Desativa o botão de last Move
                 LastMove_Button.Enabled = false;
                 //Limpa os butões
@@ -570,6 +589,14 @@ namespace WordSearchGame
                 Stats_Button.Visible = true;
                 Label_clock.Visible = false;
                 Quit_Button_Bottom.Text = "Quit Game";
+
+                //Apagada da lista todas as ultimas jogadas efetuadas
+                for (int i = lmSize; i > countLastPlay; i--)
+                {
+                    lm.RemoveAt(i);
+                }
+
+                moveCounter = 0;
 
             }
         }
@@ -687,6 +714,12 @@ namespace WordSearchGame
                     c.Checked = false;
                 }
             }
+
+            foreach(Moves m in lm)
+            {
+                MessageBox.Show(m.Game.ToString());
+                MessageBox.Show(m.MoveId.ToString());
+            }
         }
 
         /**
@@ -783,7 +816,7 @@ namespace WordSearchGame
         }
 
         /**
-         * Botão do menu sul que adiciona um utilizador novo ou faz login como admin
+         * Botão do menu sul que permite que o utilizador insira ou mude o nome
          **/
         private void PlayerName_Button_Click(object sender, EventArgs e)
         {

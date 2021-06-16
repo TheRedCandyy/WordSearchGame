@@ -17,9 +17,10 @@ namespace WordSearchGame
 {
     public class Player
     {
-        private string name;        //Player's Name
-        private string playTimes;   //String with the time of the play
-        private int playSeconds;
+        private string name;        //Nome do Jogador
+        private string playTimes;   //String qua guarda o tempo do jogo (min:segundos)
+        private int playSeconds;    //Total de segundos que demorou jogo
+        private int game;           //ID do jogo 
 
         public Player(string name)
         {
@@ -32,19 +33,22 @@ namespace WordSearchGame
             this.playTimes = playTimes;
         }
 
-        public Player(string nome, string playTimes, int playSeconds)
+        public Player(string nome, string playTimes, int playSeconds, int game)
         {
             this.name = nome;
             this.playTimes = playTimes;
             this.playSeconds = playSeconds;
+            this.game = game;
         }
 
         public string Nome { get => name; set => name = value; }
         public string PlayTimes { get => playTimes; set => playTimes = value; }
         public int PlaySeconds { get => playSeconds; set => playSeconds = value; }
+        public int Game { get => game; set => game = value; }
+
         public override string ToString()
         {
-            return String.Format("    {0,-20} {1,-30} {2,5}", Nome, "..............................", playTimes);
+            return String.Format("   {0,-15} {1,-15} {2,5}", Nome, "ˍˍˍˍˍˍˍˍˍˍˍˍ", playTimes);
         }
     }
 }
