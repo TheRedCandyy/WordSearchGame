@@ -61,21 +61,22 @@ namespace WordSearchGame
         //Guarda a direcao que a palavra atual esta a tomar
         String direcaoPalavra = "";
 
-        Color cor = Color.FromArgb(100, 100, 100);
-
         //Administration credentials
         public string adminUserName = "admin";
         public string adminPassword = "1234";
         public static bool adminMode = true;
+
+        //Tipo de jogo (Normal, replay ou demo)
         public string typeOfGame;
+        //Guarda a categoria do jogo atual
         string category;
 
         public Form1()
         {
-            readFromFile();
+            readFromFile(); //Se o ficheiro com as palavras para popular a classe
             InitializeComponent();
             menuStrip1.BackColor = backgroundColor; //Colocar a cor de fundo do menu strip com o castanho claro
-            drawButtons();
+            drawButtons(); //Desenha os butoes de jogo no form
 
             if (adminMode.Equals(true)) //Se o utilizador entrar em modo de administrador ativa todos os botões da aba "Be A Creator"
             {
@@ -87,49 +88,60 @@ namespace WordSearchGame
             }
         }
 
-
+        /*
+         * Se o ficheiro com as palavras para popular a classe
+         */
         public void readFromFile()
         {
-            var msg = MessageBox.Show("Do you want to load any files?", "Load Files", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (msg == DialogResult.Yes)
+            try
             {
-                var fileContent = string.Empty;
-                var filePath = string.Empty;
-
-                using (OpenFileDialog openFileDialog = new OpenFileDialog())
+                //Pergunta se o utilizador quer fazer o upload de algum ficheiro com palavras
+                var msg = MessageBox.Show("Do you want to load any files to populate the words?", "Load Files", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (msg == DialogResult.Yes)
                 {
-                    openFileDialog.InitialDirectory = "c:\\";
-                    openFileDialog.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
-                    openFileDialog.FilterIndex = 2;
-                    openFileDialog.RestoreDirectory = true;
+                    var fileContent = string.Empty;
+                    var filePath = string.Empty;
 
-                    if (openFileDialog.ShowDialog() == DialogResult.OK)
+                    //Abre um FileDialog para selecionar o ficheiro a ser utilizado
+                    using (OpenFileDialog openFileDialog = new OpenFileDialog())
                     {
-                        //Get the path of specified file
-                        filePath = openFileDialog.FileName;
+                        openFileDialog.InitialDirectory = "c:\\"; //Diretorio inicial
+                        openFileDialog.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*"; //Ficheiros permitidos
+                        openFileDialog.FilterIndex = 2; //Index de filtragem
+                        openFileDialog.RestoreDirectory = true; //Restauração do ultimo diretorio selecionado
 
-                        //Read the contents of the file into a stream
-                        var fileStream = openFileDialog.OpenFile();
-
-                        using (StreamReader reader = new StreamReader(fileStream))
+                        //Se for inserido um ficheiro
+                        if (openFileDialog.ShowDialog() == DialogResult.OK)
                         {
-                            fileContent = reader.ReadToEnd();
+                            //Guarda o caminho do ficheiro selecionado
+                            filePath = openFileDialog.FileName;
+
+                            //Lê as linhas do ficheiro para um array de strings
+                            string[] lines = File.ReadAllLines(filePath);
+                            foreach (string line in lines)
+                            {
+                                string[] col = line.Split(','); //Separa os conteudos desta linha por colunas usando a virgula como separador
+                                                                //Faz a população da lista da classe words com os dados da linha
+                                Words word = new Words(col[0], Convert.ToInt32(col[1]), Convert.ToInt32(col[2]), Convert.ToInt32(col[3]), col[4], col[5], col[6]);
+                                lw.Add(word);
+                            }
                         }
                     }
                 }
-
-                string[] lines = File.ReadAllLines(filePath);
-                foreach (string line in lines)
-                {
-                    string[] col = line.Split(',');
-                    Words word = new Words(col[0], Convert.ToInt32(col[1]), Convert.ToInt32(col[2]), Convert.ToInt32(col[3]), col[4], col[5], col[6]);
-                    lw.Add(word);
-                }
             }
-            this.Activate();
-            this.WindowState = FormWindowState.Normal;
+            catch(Exception)
+            {
+                MessageBox.Show("There was an error loading the selected file!", "Load Files", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                MessageBox.Show("Successfully loaded the file selected into the program!", "Load Files", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+            }
         }
 
+        /*
+         * Guarda todas as palavras na classe words num ficheiro com o nome WordSearchGame_Words.txt no Desktop do utilizador
+         */
         public void saveInFile()
         {
             string filePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
@@ -144,9 +156,9 @@ namespace WordSearchGame
 
 
         /**
-       * Função que chama um form que adminte um username
-       * Verifica se esse username já se encontra registado ou não
-       **/
+         * Função que chama um form que adminte um username
+         * Verifica se esse username já se encontra registado ou não
+         **/
         private void newUserName()
         {
             string AuxPlayerName = "";
@@ -435,6 +447,9 @@ namespace WordSearchGame
             }
         }
 
+        /*
+         * Se o clico do utilizador nao for correto, a palavra selecionada é anulada
+         */
         public void resetWord()
         {
             for (int x = 0; x < 15; x++)
@@ -626,7 +641,7 @@ namespace WordSearchGame
         }
 
         /**
-         * Função que roda a matriz que contem as letras 
+         * Função que roda a matriz que contem as letras segundo um numero aleatorio
          **/
         private string[,] rotateBoard(int randNum, string[,] board)
         {
@@ -937,6 +952,13 @@ namespace WordSearchGame
          **/
         private void fillEmptySpacesToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            for (int i = 0; i < 15; i++)
+            {
+                for (int j = 0; j < 15; j++)
+                {
+                    gameBtn[i, j].Text = "";
+                }
+            }
             fillEmptyButtons();
         }
 
@@ -948,32 +970,31 @@ namespace WordSearchGame
             clearGame();
         }
 
+        /*
+         * Ocupa todos os espaços que nao teem palavras
+         */
         private void fillEmptyButtons()
         {
-            try
+            var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            char randomChar;
+            var random = new Random();
+            for (int i = 0; i < 15; i++)
             {
-                var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-                char randomChar;
-                var random = new Random();
-                for (int i = 0; i < 15; i++)
+                for (int j = 0; j < 15; j++)
                 {
-                    for (int j = 0; j < 15; j++)
+                    if (gameBtn[i, j].Text.Equals("") || gameBtn[i, j].Text.Equals(null))
                     {
-                        if (gameBtn[i, j].Text.Equals("") || gameBtn[i, j].Text.Equals(null) || gameBtn[i, j].Text.Equals("X"))
-                        {
-                            randomChar = chars[random.Next(chars.Length)];
-                            gameBtn[i, j].Text = randomChar.ToString();
-                            board[i, j] = randomChar.ToString();
-                        }
+                        randomChar = chars[random.Next(chars.Length)];
+                        gameBtn[i, j].Text = randomChar.ToString();
+                        board[i, j] = randomChar.ToString();
                     }
                 }
             }
-            catch (Exception)
-            {
-
-            }
         }
 
+        /*
+         * Limpa o jogo, coloca todos os botoes com um "X" e limpa o painel de palavras
+         */
         private void clearGame()
         {
             for (int i = 0; i < 15; i++)
@@ -987,10 +1008,20 @@ namespace WordSearchGame
             WordsPanel.Controls.Clear();
         }
 
+        /*
+         * Coloca as palavras da classe selecionada
+         */
         private void placeWords(string category)
         {
             try
             {
+                for (int i = 0; i < 15; i++)
+                {
+                    for (int j = 0; j < 15; j++)
+                    {
+                        gameBtn[i, j].Text = "";
+                    }
+                }
                 int x = 0, y = 0, charCount = 0;
                 foreach (Words w in lw)
                 {
@@ -1004,7 +1035,7 @@ namespace WordSearchGame
                             board[w.Col + y - 1, w.Line + x - 1] = w.Word.Substring(charCount, 1).ToUpper();
                             gameBtn[w.Col + y - 1, w.Line + x - 1].Text = w.Word.Substring(charCount, 1).ToUpper();
                             charCount++;
-
+                            //Segundo o modo de escrita e a direção da palavra, segue uma determinada direçao
                             switch (w.WritingMode)
                             {
                                 case "Normal":
@@ -1055,13 +1086,13 @@ namespace WordSearchGame
                 MessageBox.Show(e.ToString());
             }
         }
-
-
+        //Mostra o menu de administração para adicionar uma nova palavra
         private void newWordToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AdminForm admForm = new AdminForm(1);
             admForm.ShowDialog();
         }
+        //Coloca as palavras da categoria selecionada no jogo
         private void placeWordsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AdminForm admForm = new AdminForm(2);
@@ -1072,43 +1103,46 @@ namespace WordSearchGame
             fillEmptyButtons();
             drawWords(category);
         }
+
+        //Mostra o menu de administração com as palavras listadas
         private void wordsListToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AdminForm admForm = new AdminForm(3);
             admForm.ShowDialog();
         }
-
+        //Guarda as palavras da classe Words num ficheiro no Desktop do utilizador
         private void saveFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             saveInFile();
             MessageBox.Show("All the words where saved in a file at your Desktop.");
         }
+        //Popula a classe Words apartir de um ficheiro selecionado 
         private void loadFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             readFromFile();
         }
+        //Começa a thread de demonstração de conclusão de jogo
         private void StartDemo(object obj)
         {
             int charCount, x, y;
-
-            foreach (Words w in lw)
+            foreach (Words w in lw) //Percorre as palavras da classe
             {
                 charCount = 0;
                 x = 0;
                 y = 0;
-                if (w.Category.Equals(category))
+                if (w.Category.Equals(category)) //Se a palavra pertencer a categoria selecionada
                 {
-                    for (int i = 0; i < w.Word.Length; i++)
+                    for (int i = 0; i < w.Word.Length; i++) //Loop por cada caracter da palavra
                     {
                         //A cada tick do relógio (1 segundo)
                         Invoke((MethodInvoker)delegate ()
                         {
-                            gameBtn[w.Col + y - 1, w.Line + x - 1].PerformClick();
+                            gameBtn[w.Col + y - 1, w.Line + x - 1].PerformClick(); //Faz o clique do butao em que o caracter atual da palavra está
                             LastMove_Button.Enabled = false;
                         });
-                        Thread.Sleep(500);
+                        Thread.Sleep(500); //Espera 500 milesimos...
                         charCount++;
-
+                        //Segundo o modo de escrita e a direção da palavra, segue uma determinada direçao
                         switch (w.WritingMode)
                         {
                             case "Normal":
@@ -1153,9 +1187,7 @@ namespace WordSearchGame
                     }
                 }
             }
-            
         }
-
         private void playDemoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
@@ -1172,7 +1204,6 @@ namespace WordSearchGame
                     cts = new CancellationTokenSource();
                     //Inicalizacao da thread
                     ThreadPool.QueueUserWorkItem(new WaitCallback(StartDemo), cts.Token);
-                    
                 }
                 else
                 {
