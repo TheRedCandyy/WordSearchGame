@@ -16,7 +16,7 @@ namespace WordSearchGame
                     newWordToolStripMenuItem.PerformClick();
                     break;
                 case 2:
-                    placeWords();
+                    placeWordsToolStripMenuItem.PerformClick();
                     break;
                 case 3:
                     wordsListToolStripMenuItem.PerformClick();
@@ -99,6 +99,9 @@ namespace WordSearchGame
             this.Close();
         }
 
+        /*
+         * Mostra o usercontrol para inserção de nova palavra
+         */
         private void newWordToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Admin_NewWord newWord = new Admin_NewWord();
@@ -110,7 +113,9 @@ namespace WordSearchGame
             }
             newWord.Visible = true;
         }
-
+        /*
+         * Mostra o usercontrol para listagem de todas as palavras
+         */
         private void wordsListToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Admin_ListWords listWords = new Admin_ListWords();
@@ -122,12 +127,10 @@ namespace WordSearchGame
             }
             listWords.Visible = true;
         }
-
+        /*
+         * Mostra o usercontrol para colocar as palavras no jogo
+         */
         private void placeWordsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            placeWords();
-        }
-        private void placeWords()
         {
             Admin_PlaceWords placeWords = new Admin_PlaceWords();
             placeWords.Visible = false;

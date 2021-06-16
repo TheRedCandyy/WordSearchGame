@@ -53,7 +53,6 @@ namespace WordSearchGame
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(178, 29);
             this.comboBox1.TabIndex = 3;
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // PlaceWordsButton
             // 
@@ -68,7 +67,7 @@ namespace WordSearchGame
             this.PlaceWordsButton.TabIndex = 5;
             this.PlaceWordsButton.Text = "Place Words";
             this.PlaceWordsButton.UseVisualStyleBackColor = false;
-            this.PlaceWordsButton.Click += new System.EventHandler(this.addWordButton_Click);
+            this.PlaceWordsButton.Click += new System.EventHandler(this.PlaceWordsButton_Click);
             // 
             // label2
             // 
