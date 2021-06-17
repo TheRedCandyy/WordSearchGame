@@ -18,7 +18,7 @@ namespace WordSearchGame
         public static Color backgroundColor = Color.FromArgb(237, 224, 212); //Castanho claro
         Color buttonColorNormal = Color.FromArgb(127, 85, 57); //Castanho escuro
         Color buttonColorRed = Color.FromArgb(174, 32, 18); //Vermelho
-        Color[] btnColors = new Color[19]; //Array para guardar as cores que vao ser utilizadas nos butões
+        Color[] btnColors; //Array para guardar as cores que vao ser utilizadas nos butões
         static int colorIndex = 0; //Variavel que guarda o index das cores
 
         //Arrays de objetos dinamicos
@@ -93,11 +93,11 @@ namespace WordSearchGame
          */
         public void readFromFile()
         {
-            try
+            //Pergunta se o utilizador quer fazer o upload de algum ficheiro com palavras
+            var msg = MessageBox.Show("Do you want to load any files to populate the words?", "Load Files", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (msg == DialogResult.Yes)
             {
-                //Pergunta se o utilizador quer fazer o upload de algum ficheiro com palavras
-                var msg = MessageBox.Show("Do you want to load any files to populate the words?", "Load Files", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (msg == DialogResult.Yes)
+                try
                 {
                     var fileContent = string.Empty;
                     var filePath = string.Empty;
@@ -128,14 +128,14 @@ namespace WordSearchGame
                         }
                     }
                 }
-            }
-            catch(Exception)
-            {
-                MessageBox.Show("There was an error loading the selected file!", "Load Files", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
-            }
-            finally
-            {
-                MessageBox.Show("Successfully loaded the file selected into the program!", "Load Files", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                catch(Exception)
+                {
+                    MessageBox.Show("There was an error loading the selected file!", "Load Files", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                finally
+                {
+                    MessageBox.Show("Successfully loaded the file selected into the program!", "Load Files", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
         }
 
@@ -145,7 +145,7 @@ namespace WordSearchGame
         public void saveInFile()
         {
             string filePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            using (StreamWriter outputFile = new StreamWriter(Path.Combine(filePath, "WordSearchGame_Words.txt"), true))
+            using (StreamWriter outputFile = new StreamWriter(Path.Combine(filePath, "WordSearchGame_Words.txt"), false))
             {
                 foreach (Words w in lw)
                 {
@@ -551,6 +551,7 @@ namespace WordSearchGame
          **/
         public void generateColors()
         {
+            btnColors = new Color[19];
             Color[] colorPallet =
             {
                 Color.FromArgb(255, 173, 173),
@@ -816,12 +817,19 @@ namespace WordSearchGame
          **/
         private void LastMove_Button_Click(object sender, EventArgs e)
         {
-            if (jogadas != 0)
+            try
             {
-                jogadas--;
-                word = word.Substring(0, word.Length - 1);
-                gameBtn[lm[lm.Count - 1].CoordY, lm[lm.Count - 1].CoordX].BackColor = Color.Transparent;
-                lm.RemoveAt(lm.Count - 1);
+                if (jogadas != 0)
+                {
+                    jogadas--;
+                    word = word.Substring(0, word.Length - 1);
+                    gameBtn[lm[lm.Count - 1].CoordY, lm[lm.Count - 1].CoordX].BackColor = Color.Transparent;
+                    lm.RemoveAt(lm.Count - 1);
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("An error has ocurred. If this keeps on happening, restart the application.", "ERROR");
             }
         }
 
@@ -1132,7 +1140,7 @@ namespace WordSearchGame
                 y = 0;
                 if (w.Category.Equals(category)) //Se a palavra pertencer a categoria selecionada
                 {
-                    for (int i = 0; i < w.Word.Length; i++) //Loop por cada caracter da palavra
+                    for (int i = 0; i < w.Dim; i++) //Loop por cada caracter da palavra
                     {
                         //A cada tick do relógio (1 segundo)
                         Invoke((MethodInvoker)delegate ()
@@ -1140,7 +1148,7 @@ namespace WordSearchGame
                             gameBtn[w.Col + y - 1, w.Line + x - 1].PerformClick(); //Faz o clique do butao em que o caracter atual da palavra está
                             LastMove_Button.Enabled = false;
                         });
-                        Thread.Sleep(500); //Espera 500 milesimos...
+                        Thread.Sleep(100); //Espera 500 milesimos...
                         charCount++;
                         //Segundo o modo de escrita e a direção da palavra, segue uma determinada direçao
                         switch (w.WritingMode)
