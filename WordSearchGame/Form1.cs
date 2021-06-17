@@ -46,6 +46,9 @@ namespace WordSearchGame
         //Contador de jogadas
         int jogadas = 0;
 
+        //Id do jogo
+        int gameID = 0;
+
         //Cancel token
         CancellationTokenSource cts;
 
@@ -54,6 +57,9 @@ namespace WordSearchGame
         private int minutos = 0;
         private int pseudoSegundos = 0;
         private int tempoReal = 0;
+
+        //Move Counter
+        private int moveCounter = 0;
 
         //Indicador de jogo Ativo
         private static bool gameState = false;
@@ -428,8 +434,9 @@ namespace WordSearchGame
             }
             clickedButton.BackColor = btnColors[colorIndex];
             word += clickedButton.Text.ToLower(); //Adiciona o texto do botao à palavra a ser construida
+            moveCounter++;
             //Adiciona esta jogada à classe `moves` que guarda todas as jogadas
-            move = new Moves(jogadas, playerName, x, y, word);
+            move = new Moves(jogadas, x, y, word, gameID);
             lm.Add(move);
 
             jogadas++;
@@ -493,8 +500,9 @@ namespace WordSearchGame
 
                     string tempoJogada = minutos + ":" + pseudoSegundos + segundos;
 
+                    moveCounter = 0;
                     //Criado um novo registo de jogador
-                    Player newPlayer = new Player(playerName, tempoJogada, jogadas);
+                    Player newPlayer = new Player(playerName, tempoJogada, jogadas, gameID);
                     //Adiciona-se o jogador à lista de jogadores 
                     lp.Add(newPlayer);
                     MessageBox.Show("Demonstration finished.", "Demo Ended");
@@ -518,8 +526,9 @@ namespace WordSearchGame
 
                     string tempoJogada = minutos + ":" + pseudoSegundos + segundos;
 
+                    moveCounter = 0;
                     //Criado um novo registo de jogador
-                    Player newPlayer = new Player(playerName, tempoJogada, jogadas);
+                    Player newPlayer = new Player(playerName, tempoJogada, jogadas, gameID);
                     //Adiciona-se o jogador à lista de jogadores 
                     lp.Add(newPlayer);
                     MessageBox.Show("Congratulations you finished in: " + tempoJogada, "Game Ended");
@@ -580,6 +589,109 @@ namespace WordSearchGame
                 count++;
             }
         }
+        /**
+         * Função que guarda os records do jogo
+         * Guarda toda a informação das listas de jogadores e de jogadas em dois respetivos ficheiros
+         **/
+        private void saveGameRecord()
+        {
+            int ct = 0;
+            string separador = ",";
+            string[] jogadores = new string[lp.Count];
+            string[] jogadas = new string[lm.Count];
+
+            //String com o path do ficheiro 
+            string docPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
+            //Prencher o array com as informações de todos os jogadores
+            foreach (Player pl in lp)
+            {
+                jogadores[ct] = pl.Nome + separador + pl.PlayTimes + separador + pl.PlaySeconds.ToString() + separador + pl.Game.ToString();
+                ct++;
+            }
+
+            ct = 0;
+            //Preencher o array com todas as informações das jogadas
+            foreach (Moves mv in lm)
+            {
+                jogadas[ct] = mv.MoveId.ToString() + separador + mv.CoordX.ToString() + separador + mv.CoordY.ToString() + separador + mv.Word + separador + mv.Game.ToString() + separador;
+            }
+
+            //Criar e escrever os ficheiros
+            //Jogadores
+            using (StreamWriter outputFile = new StreamWriter(Path.Combine(docPath, "Jogadores.txt")))
+            {
+                foreach (string line in jogadores)
+                {
+                    outputFile.WriteLine(line);
+                }
+            }
+
+            //Jogadas
+            using (StreamWriter outputFile = new StreamWriter(Path.Combine(docPath, "Jogadas.txt")))
+            {
+                foreach (string line in jogadas)
+                {
+                    outputFile.WriteLine(line);
+                }
+            }
+        }
+
+        /**
+        * função que retira da lista de jogadas as ultimas jogadas 
+        * caso o jogo termine sem vencedor (Cancel Game)
+        **/
+        private void rolbackLastPlays()
+        {
+            int lmSize = lm.Count;
+            int countLastPlay = lm.Count - moveCounter;
+
+            //Apaga da da lista todas as ultimas jogadas efetuadas
+            for (int i = lmSize; i > countLastPlay; i--)
+            {
+                lm.RemoveAt(i);
+            }
+
+            moveCounter = 0;
+        }
+        /**
+        * Função que permite ao jogador abandonar o jogo
+        * Dá ao jogador a escolha de guardar os record do jogo
+        **/
+        private void exitGame()
+        {
+            var quitMsgBox = MessageBox.Show("Are you sure you want to leave?", "Quit Game", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (quitMsgBox == DialogResult.Yes)
+            {
+                if (gameState == false)
+                {
+                    var saveMsgBox = MessageBox.Show("Do you want to save the record of the game?", "Save Records", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    if (saveMsgBox == DialogResult.Yes)
+                    {
+                        saveGameRecord();
+                        Application.Exit();
+                    }
+                    else
+                    {
+                        Application.Exit();
+                    }
+                }
+                else
+                {
+                    var saveMsgBox = MessageBox.Show("Do you want to save the record of the game?", "Save Records", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    if (saveMsgBox == DialogResult.Yes)
+                    {
+                        rolbackLastPlays();
+                        saveGameRecord();
+                        Application.Exit();
+                    }
+                    else
+                    {
+                        Application.Exit();
+                    }
+                }
+            }
+        }
 
         /**
          * Butão do menu superior direito que minimiza a janela
@@ -608,11 +720,7 @@ namespace WordSearchGame
         {
             if (gameState == false)
             {
-                var quitMsgBox = MessageBox.Show("Are you sure you want to leave?", "Quit Game", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                if (quitMsgBox == DialogResult.Yes)
-                {
-                    Application.Exit();
-                }
+                exitGame();
             }
             else
             {
@@ -637,6 +745,8 @@ namespace WordSearchGame
                 Label_clock.Visible = false;
                 Quit_Button_Bottom.Text = "Quit Game";
 
+                //Caso o jogo seja cancelado, eliminam-se as ultimas jogadas
+                rolbackLastPlays();
             }
         }
 
@@ -922,27 +1032,7 @@ namespace WordSearchGame
 
         private void quitGameToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (gameState == false)
-            {
-                var quitMsgBox = MessageBox.Show("Are you sure you want to leave?", "Quit Game", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                if (quitMsgBox == DialogResult.Yes)
-                {
-                    Application.Exit();
-                }
-            }
-            else
-            {
-                gameState = false;
-                cts.Cancel();
-                cts.Dispose();
-
-                //Torna os Botões visiveis e acessiveis
-                PlayerName_Button.Visible = true;
-                Stats_Button.Visible = true;
-                Label_clock.Visible = false;
-                Quit_Button_Bottom.Text = "Quit Game";
-                quitGameToolStripMenuItem.Text = "Quit Game";
-            }
+            exitGame();
         }
 
         /* ------------------------ BE A CREATOR MENU ------------------------ */

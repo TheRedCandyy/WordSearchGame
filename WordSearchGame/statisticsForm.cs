@@ -6,9 +6,10 @@ namespace WordSearchGame
 {
     public partial class statisticsForm : Form
     {
-        UserControlPlayer ctrlPlayer;
+
         List<Player> lp2;
         string[] nome = new string[] { };
+
 
         public statisticsForm(List<Player> lp)
         {
@@ -18,8 +19,9 @@ namespace WordSearchGame
 
             comboBxStatsOrderBy.Items.Add("Name");
             comboBxStatsOrderBy.Items.Add("Time");
+            
 
-
+            /*
             Player pl1 = new Player("Diogo", "2:34", 20);
             lp2.Add(pl1);
             Player pl2 = new Player("Alex", "2:36", 30);
@@ -35,6 +37,7 @@ namespace WordSearchGame
             lp2.Add(pl6);
             Player pl7 = new Player("Bruna", "2:34", 27);
             lp2.Add(pl7);
+            */
 
 
             //Ordenar a lista de jogadores por ordem alfabetica (Default)
@@ -43,13 +46,6 @@ namespace WordSearchGame
             loadListBox();
             //Carregar o record do jogo
             loadRecord();
-        }
-        public void loadControlPlayer(string playerName)
-        {
-
-            ctrlPlayer = new UserControlPlayer();
-            ctrlPlayer.Visible = true;
-            statisticsMainPanel.Visible = false;
         }
 
         /**
@@ -71,11 +67,10 @@ namespace WordSearchGame
                 }
             }
 
-            //Preencher o texto dos botões
-            bt_record_Name.Text = recordName;
-            bt_record_time.Text = recordTime;
-
+            //Preencher o texto da Label de Record
+            label_record_Player.Text = recordName + "   -   " + recordTime;
         }
+
         /**
          * Carrega a listbox com o nome de todos os jogadores e respetivas jogadas
          **/
@@ -88,7 +83,7 @@ namespace WordSearchGame
                 listBox_players_times.Items.Add("\n");
                 foreach (Player p in lp2)
                 {
-                    listBox_players_times.Items.Add(p);
+                    listBox_players_times.Items.Add("﹥" + p);
                     listBox_players_times.Items.Add("\n");
                 }
             }
@@ -103,22 +98,21 @@ namespace WordSearchGame
             this.Close();
         }
 
-        private void MinimizeButton_Click(object sender, EventArgs e)
-        {
-            this.WindowState = FormWindowState.Minimized;
-        }
-
         private void listBox_players_times_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string nomeAux;
+            //Ativar o botão de replay quando um registo é selecionado
+            if (listBox_players_times.SelectedIndex % 2 == 0)
+            {
+                bt_replay.Enabled = false;
+                bt_replay.Visible = false;
 
-            nomeAux = listBox_players_times.SelectedIndex.ToString();
+            }
+            else
+            {
+                bt_replay.Enabled = true;
+                bt_replay.Visible = true;
+            }
 
-
-            //nome[] = nomeAux.Split(separador, count, StringSplitOptions.RemoveEmptyEntries);
-            //nomeAux.Split(nome[],"  ............................................  ");
-
-            loadControlPlayer("Diogo");
         }
         private void comboBxStatsOrderBy_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -145,6 +139,16 @@ namespace WordSearchGame
         private void Button_Back_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void bt_replay_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void bt_save_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
