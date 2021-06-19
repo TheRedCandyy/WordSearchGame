@@ -38,8 +38,24 @@ namespace WordSearchGame
         String word = "";
 
         //Letras no jogo
-        string[,] board = new string[15, 15];
-
+        //string[,] board = new string[15, 15];
+        
+        string[,] board = new string[15, 15] {  {"a","b","c","a","b","c","a","b","c","a","b","c","a","b","c"},
+                                                {"d","e","f","a","b","c","a","b","c","a","b","c","a","b","c"},
+                                                {"g","h","i","a","b","c","a","b","c","a","b","c","a","b","c"},
+                                                {"g","h","i","a","b","c","a","b","c","a","b","c","a","b","c"},
+                                                {"g","h","i","a","b","c","a","b","c","a","b","c","a","b","c"},
+                                                {"d","e","f","a","b","c","a","b","c","a","b","c","a","b","c"},
+                                                {"g","h","i","a","b","c","a","b","c","a","b","c","a","b","c"},
+                                                {"g","h","i","a","b","c","a","b","c","a","b","c","a","b","c"},
+                                                {"g","h","i","a","b","c","a","b","c","a","b","c","a","b","c"},
+                                                {"d","e","f","a","b","c","a","b","c","a","b","c","a","b","c"},
+                                                {"g","h","i","a","b","c","a","b","c","a","b","c","a","b","c"},
+                                                {"g","h","i","a","b","c","a","b","c","a","b","c","a","b","c"},
+                                                {"g","h","i","a","b","c","a","b","c","a","b","c","a","b","c"},
+                                                {"d","e","f","a","b","c","a","b","c","a","b","c","a","b","c"},
+                                                {"g","h","i","a","b","c","a","b","c","a","b","c","a","b","c"} };
+        
         //Nome do jogador 
         public static string playerName = "";
 
@@ -49,8 +65,10 @@ namespace WordSearchGame
         //Id do jogo
         int gameID = 0;
 
+        //
         public static bool replayToken = false;
 
+        //
         public static string replayPlayerName = "";
 
         //Cancel token
@@ -87,7 +105,7 @@ namespace WordSearchGame
             //readFromFile(); //Se o ficheiro com as palavras para popular a classe
             InitializeComponent();
             menuStrip1.BackColor = backgroundColor; //Colocar a cor de fundo do menu strip com o castanho claro
-            drawButtons(); //Desenha os butoes de jogo no form
+            //drawButtons(); //Desenha os butoes de jogo no form
 
             if (adminMode.Equals(true)) //Se o utilizador entrar em modo de administrador ativa todos os botões da aba "Be A Creator"
             {
@@ -109,15 +127,28 @@ namespace WordSearchGame
                 string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
                 string fullPathPlayers = System.IO.Path.Combine(desktopPath, "jogadores.txt");
                 string fullPathPlays = System.IO.Path.Combine(desktopPath, "jogadas.txt");
+                string fullPathBoard = System.IO.Path.Combine(desktopPath, "Tabuleiros.txt");
 
                 using (StreamReader steamReader = new StreamReader(fullPathPlayers))
                 {
-                    string[] lines = File.ReadAllLines(fullPathPlayers);
+                    string[] PlayerLines = File.ReadAllLines(fullPathPlayers);
+                    string[] PlaysLines = File.ReadAllLines(fullPathPlays);
+                    string[] BoardLines = File.ReadAllLines(fullPathBoard);
 
-                    foreach (string line  in lines)
+                    //Popular a class `moves` e adicionar à lista 
+                    foreach (string line in PlaysLines)
                     {
                         string[] col = line.Split(','); //Separa os conteudos desta linha por colunas usando a virgula como separador
-                        Player pl = new Player( col[0], col[1], Convert.ToInt32(col[2]), Convert.ToInt32(col[3]));
+                        Moves mv = new Moves(Convert.ToInt32(col[0]), Convert.ToInt32(col[1]), Convert.ToInt32(col[2]),col[4], Convert.ToInt32(col[4]));
+                        lm.Add(mv);
+                    }
+
+                    //Popular a class `Player` e adicionar à lista 
+                    for (int i=0; i < PlayerLines.Length; i++)
+                    {
+                        string[] plr = PlayerLines[0].Split(',');
+
+                        Player pl = new Player(plr[0], plr[1], Convert.ToInt32(plr[2]), Convert.ToInt32(plr[3]), plr[4], BoardLines[i]);
                         lp.Add(pl);
                     }
                 }
@@ -126,8 +157,7 @@ namespace WordSearchGame
             {
                 MessageBox.Show(e.Message.ToString());
             }
-            Player p = new Player("Diogo", "5:00", 100, 10);
-            lp.Add(p);
+            
         }
 
         /*
@@ -171,7 +201,7 @@ namespace WordSearchGame
                     }
                 }
             }
-            catch(Exception)
+            catch (Exception)
             {
                 MessageBox.Show("There was an error loading the selected file!", "Load Files", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
             }
@@ -473,6 +503,8 @@ namespace WordSearchGame
             }
             clickedButton.BackColor = btnColors[colorIndex];
             word += clickedButton.Text.ToLower(); //Adiciona o texto do botao à palavra a ser construida
+
+            //Conta quantas jogadas foram efetuadas até ao momento
             moveCounter++;
             //Adiciona esta jogada à classe `moves` que guarda todas as jogadas
             move = new Moves(jogadas, x, y, word, gameID);
@@ -517,6 +549,17 @@ namespace WordSearchGame
          **/
         public void wordFound(int checkBoxIndex)
         {
+            string boardAuxiliar = "";
+            //Preencher a board auxiliar string[,]->string
+            for (int i = 0; i < 15; i++)
+            {
+                for (int j = 0; j < 15; j++)
+                {
+                    boardAuxiliar += board[i, j];
+                }
+                boardAuxiliar += ",";
+            }
+
             colorIndex++;
             word = "";
             wordsCheck[checkBoxIndex].Checked = true;
@@ -541,7 +584,7 @@ namespace WordSearchGame
 
                     moveCounter = 0;
                     //Criado um novo registo de jogador
-                    Player newPlayer = new Player(playerName, tempoJogada, tempoReal, gameID);
+                    Player newPlayer = new Player(playerName, tempoJogada, tempoReal, gameID, category, boardAuxiliar);
                     //Adiciona-se o jogador à lista de jogadores 
                     lp.Add(newPlayer);
                     MessageBox.Show("Demonstration finished.", "Demo Ended");
@@ -557,7 +600,7 @@ namespace WordSearchGame
                     Label_clock.Visible = false;
                     gameState = false;
                 }
-                else if(typeOfGame == "Normal")
+                else if (typeOfGame == "Normal")
                 {
                     //Reset a thread
                     cts.Cancel();
@@ -567,7 +610,7 @@ namespace WordSearchGame
 
                     moveCounter = 0;
                     //Criado um novo registo de jogador
-                    Player newPlayer = new Player(playerName, tempoJogada, tempoReal, gameID);
+                    Player newPlayer = new Player(playerName, tempoJogada, tempoReal, gameID, category, boardAuxiliar);
                     //Adiciona-se o jogador à lista de jogadores 
                     lp.Add(newPlayer);
                     MessageBox.Show("Congratulations you finished in: " + tempoJogada, "Game Ended");
@@ -638,6 +681,7 @@ namespace WordSearchGame
             string separador = ",";
             string[] jogadores = new string[lp.Count];
             string[] jogadas = new string[lm.Count];
+            string[] tabuleiros = new string[lp.Count];
 
             //String com o path do ficheiro 
             string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
@@ -645,7 +689,8 @@ namespace WordSearchGame
             //Prencher o array com as informações de todos os jogadores
             foreach (Player pl in lp)
             {
-                jogadores[ct] = pl.Nome + separador + pl.PlayTimes + separador + pl.PlaySeconds.ToString() + separador + pl.Game.ToString();
+                jogadores[ct] = pl.Nome + separador + pl.PlayTimes + separador + pl.PlaySeconds.ToString() + separador + pl.Game.ToString() + separador + pl.Category;
+                tabuleiros[ct] = pl.Board;
                 ct++;
             }
 
@@ -654,25 +699,59 @@ namespace WordSearchGame
             foreach (Moves mv in lm)
             {
                 jogadas[ct] = mv.MoveId.ToString() + separador + mv.CoordX.ToString() + separador + mv.CoordY.ToString() + separador + mv.Word + separador + mv.Game.ToString() + separador;
+                ct++;
             }
 
             //Criar e escrever os ficheiros
-            //Jogadores
-            using (StreamWriter outputFile = new StreamWriter(Path.Combine(desktopPath, "Jogadores.txt")))
+            try
             {
-                foreach (string line in jogadores)
+                //Jogadores
+                using (StreamWriter outputFile = new StreamWriter(Path.Combine(desktopPath, "Jogadores.txt")))
                 {
-                    outputFile.WriteLine(line);
+                    foreach (string line in jogadores)
+                    {
+                        outputFile.WriteLine(line);
+                    }
                 }
             }
-            
-            //Jogadas
-            using (StreamWriter outputFile = new StreamWriter(Path.Combine(desktopPath, "Jogadas.txt")))
+            catch (Exception e)
             {
-                foreach (string line in jogadas)
+                MessageBox.Show(e.Message);
+                throw;
+            }
+
+            try
+            {
+                //Jogadas
+                using (StreamWriter outputFile = new StreamWriter(Path.Combine(desktopPath, "Jogadas.txt")))
                 {
-                    outputFile.WriteLine(line);
+                    foreach (string line in jogadas)
+                    {
+                        outputFile.WriteLine(line);
+                    }
                 }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+                throw;
+            }
+
+            try
+            {
+                //Tabuleiros
+                using (StreamWriter outputFile = new StreamWriter(Path.Combine(desktopPath, "Tabuleiros.txt")))
+                {
+                    foreach (string line in tabuleiros)
+                    {
+                        outputFile.WriteLine(line);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+                throw;
             }
         }
 
@@ -745,11 +824,7 @@ namespace WordSearchGame
          **/
         private void QuitButton_Click(object sender, EventArgs e)
         {
-            var quitMsgBox = MessageBox.Show("Are you sure you want to leave?", "Quit Game", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-            if (quitMsgBox == DialogResult.Yes)
-            {
-                Application.Exit();
-            }
+            exitGame();
         }
 
         /**
@@ -840,7 +915,7 @@ namespace WordSearchGame
             selectCatForm.ShowDialog();
             string category = SelectCategory.category;
             typeOfGame = "Normal";
-            startGame(category);   
+            startGame(category);
         }
         /**
          * Começa o jogo
@@ -1342,6 +1417,21 @@ namespace WordSearchGame
             catch (Exception)
             {
                 throw;
+            }
+        }
+
+        /**
+         * Botão do menu superrior
+         * Elimina todos os registos de jogadas existentes
+         **/
+        private void deleteAllRecordsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var msg = MessageBox.Show("Are you sure that you want to delete all Records?\nThis will delete all record PERMANENTLY", "Delete All Records", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (msg == DialogResult.Yes)
+            {
+                lp.Clear();
+                lm.Clear();
+                saveGameRecord();
             }
         }
     }

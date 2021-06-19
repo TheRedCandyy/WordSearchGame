@@ -8,6 +8,7 @@ namespace WordSearchGame
     {
 
         List<Player> lp2;
+        List<String> lstCategory;
         string[] nome = new string[] { };
 
 
@@ -24,9 +25,44 @@ namespace WordSearchGame
             loadRecord();
             //Carregar todos os jogadores
             loadListBox();
+            //Carregar todas as categorias
+            loadCategorys();    
 
         }
+        public void loadCategorys()
+        {
+            lstCategory = new List<string>();
 
+
+            foreach (Player pl in lp2)
+            {
+                string categoria = pl.Category;
+                lstCategory.Add(categoria);
+            }
+            MessageBox.Show(lstCategory.Count.ToString());
+            foreach (Player pl2 in lp2)
+            {
+                for (int i = 0; i < lstCategory.Count; i++)
+                {
+                    if (i == 0)
+                    {
+                        comboBox_category.Items.Add(pl2.Category);
+                    }
+                    else
+                    {
+                        if (pl2.Category.Equals(lstCategory[i]))
+                        {
+
+                        }
+                        else
+                        {
+                            comboBox_category.Items.Add(pl2.Category);
+                        }
+                    }
+
+                }
+            }
+        }
         /**
          * Funcao que corre a lista de jogadores e guarda a melhor jogada para record
          **/
@@ -54,7 +90,8 @@ namespace WordSearchGame
          **/
         public void loadListBox()
         {
-            listBox_players_times.ResetText();
+            //Limpar os items da listBox
+            listBox_players_times.Items.Clear(); 
 
             try
             {
@@ -97,8 +134,6 @@ namespace WordSearchGame
             {
                 //Ordenar a lista de jogadores por nome
                 lp2.Sort((x, y) => string.Compare(x.Nome, y.Nome));
-                //Limpar os items da listbox
-                listBox_players_times.Items.Clear();
                 //Carregar os Items da listbox
                 loadListBox();
             }
@@ -106,8 +141,6 @@ namespace WordSearchGame
             {
                 //Ordenar a lista de jogadores por tempo
                 lp2.Sort((x, y) => x.PlaySeconds.CompareTo(y.PlaySeconds));
-                //Limpar os items da listbox
-                listBox_players_times.Items.Clear();
                 //Carregar os Items da listbox
                 loadListBox();
             }

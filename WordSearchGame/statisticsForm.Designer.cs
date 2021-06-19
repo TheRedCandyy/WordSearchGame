@@ -42,11 +42,15 @@ namespace WordSearchGame
             this.listBox_players_times = new System.Windows.Forms.ListBox();
             this.label_record_time = new System.Windows.Forms.Label();
             this.labelStatistics = new System.Windows.Forms.Label();
+            this.comboBox_category = new System.Windows.Forms.ComboBox();
+            this.label_category = new System.Windows.Forms.Label();
             this.statisticsMainPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // statisticsMainPanel
             // 
+            this.statisticsMainPanel.Controls.Add(this.label_category);
+            this.statisticsMainPanel.Controls.Add(this.comboBox_category);
             this.statisticsMainPanel.Controls.Add(this.label_record_Player);
             this.statisticsMainPanel.Controls.Add(this.bt_replay);
             this.statisticsMainPanel.Controls.Add(this.Button_Back);
@@ -141,9 +145,9 @@ namespace WordSearchGame
             this.comboBxStatsOrderBy.Items.AddRange(new object[] {
             "Name",
             "Time"});
-            this.comboBxStatsOrderBy.Location = new System.Drawing.Point(691, 286);
+            this.comboBxStatsOrderBy.Location = new System.Drawing.Point(691, 274);
             this.comboBxStatsOrderBy.Name = "comboBxStatsOrderBy";
-            this.comboBxStatsOrderBy.Size = new System.Drawing.Size(225, 45);
+            this.comboBxStatsOrderBy.Size = new System.Drawing.Size(247, 45);
             this.comboBxStatsOrderBy.TabIndex = 8;
             this.comboBxStatsOrderBy.SelectedIndexChanged += new System.EventHandler(this.comboBxStatsOrderBy_SelectedIndexChanged);
             // 
@@ -152,7 +156,7 @@ namespace WordSearchGame
             this.label_orderBy.AutoSize = true;
             this.label_orderBy.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label_orderBy.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(174)))), ((int)(((byte)(32)))), ((int)(((byte)(18)))));
-            this.label_orderBy.Location = new System.Drawing.Point(691, 244);
+            this.label_orderBy.Location = new System.Drawing.Point(691, 232);
             this.label_orderBy.Name = "label_orderBy";
             this.label_orderBy.Size = new System.Drawing.Size(175, 39);
             this.label_orderBy.TabIndex = 7;
@@ -221,6 +225,30 @@ namespace WordSearchGame
             this.labelStatistics.TabIndex = 0;
             this.labelStatistics.Text = "Game Statistics";
             // 
+            // comboBox_category
+            // 
+            this.comboBox_category.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(224)))), ((int)(((byte)(212)))));
+            this.comboBox_category.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_category.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.comboBox_category.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBox_category.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(174)))), ((int)(((byte)(32)))), ((int)(((byte)(18)))));
+            this.comboBox_category.FormattingEnabled = true;
+            this.comboBox_category.Location = new System.Drawing.Point(691, 405);
+            this.comboBox_category.Name = "comboBox_category";
+            this.comboBox_category.Size = new System.Drawing.Size(247, 45);
+            this.comboBox_category.TabIndex = 33;
+            // 
+            // label_category
+            // 
+            this.label_category.AutoSize = true;
+            this.label_category.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_category.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(174)))), ((int)(((byte)(32)))), ((int)(((byte)(18)))));
+            this.label_category.Location = new System.Drawing.Point(691, 363);
+            this.label_category.Name = "label_category";
+            this.label_category.Size = new System.Drawing.Size(166, 39);
+            this.label_category.TabIndex = 34;
+            this.label_category.Text = "Category";
+            // 
             // statisticsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -256,5 +284,7 @@ namespace WordSearchGame
         private System.Windows.Forms.Button Button_Back;
         private System.Windows.Forms.Button bt_replay;
         private System.Windows.Forms.Label label_record_Player;
+        private System.Windows.Forms.Label label_category;
+        private System.Windows.Forms.ComboBox comboBox_category;
     }
 }
