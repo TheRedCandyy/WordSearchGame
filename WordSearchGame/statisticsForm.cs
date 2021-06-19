@@ -16,36 +16,15 @@ namespace WordSearchGame
             InitializeComponent();
 
             lp2 = lp;
-
-            comboBxStatsOrderBy.Items.Add("Name");
-            comboBxStatsOrderBy.Items.Add("Time");
-            
-
-            /*
-            Player pl1 = new Player("Diogo", "2:34", 20);
-            lp2.Add(pl1);
-            Player pl2 = new Player("Alex", "2:36", 30);
-            lp2.Add(pl2);
-            Player pl3 = new Player("Joao", "1:34", 15);
-            lp2.Add(pl3);
-            Player pl4 = new Player("Ana", "2:34", 60);
-            lp2.Add(pl4);
-
-            Player pl5 = new Player("Mario", "2:36", 55);
-            lp2.Add(pl5);
-            Player pl6 = new Player("Antonio", "1:34");
-            lp2.Add(pl6);
-            Player pl7 = new Player("Bruna", "2:34", 27);
-            lp2.Add(pl7);
-            */
-
+            comboBxStatsOrderBy.Text = "Name";
 
             //Ordenar a lista de jogadores por ordem alfabetica (Default)
             lp2.Sort((x, y) => string.Compare(x.Nome, y.Nome));
-            //Carregar todos os jogadores
-            loadListBox();
             //Carregar o record do jogo
             loadRecord();
+            //Carregar todos os jogadores
+            loadListBox();
+
         }
 
         /**
@@ -66,7 +45,6 @@ namespace WordSearchGame
                     recordTime = p.PlayTimes;
                 }
             }
-
             //Preencher o texto da Label de Record
             label_record_Player.Text = recordName + "   -   " + recordTime;
         }
@@ -112,7 +90,6 @@ namespace WordSearchGame
                 bt_replay.Enabled = true;
                 bt_replay.Visible = true;
             }
-
         }
         private void comboBxStatsOrderBy_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -143,12 +120,10 @@ namespace WordSearchGame
 
         private void bt_replay_Click(object sender, EventArgs e)
         {
+            string playerName;
 
-        }
-
-        private void bt_save_Click(object sender, EventArgs e)
-        {
-
+            Form1.replayToken = true;
+            Form1.replayPlayerName = listBox_players_times.SelectedItem.ToString();
         }
     }
 }

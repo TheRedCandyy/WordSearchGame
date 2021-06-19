@@ -31,7 +31,6 @@ namespace WordSearchGame
         {
             this.statisticsMainPanel = new System.Windows.Forms.Panel();
             this.label_record_Player = new System.Windows.Forms.Label();
-            this.bt_save = new System.Windows.Forms.Button();
             this.bt_replay = new System.Windows.Forms.Button();
             this.Button_Back = new System.Windows.Forms.Button();
             this.label_time = new System.Windows.Forms.Label();
@@ -49,7 +48,6 @@ namespace WordSearchGame
             // statisticsMainPanel
             // 
             this.statisticsMainPanel.Controls.Add(this.label_record_Player);
-            this.statisticsMainPanel.Controls.Add(this.bt_save);
             this.statisticsMainPanel.Controls.Add(this.bt_replay);
             this.statisticsMainPanel.Controls.Add(this.Button_Back);
             this.statisticsMainPanel.Controls.Add(this.label_time);
@@ -78,21 +76,6 @@ namespace WordSearchGame
             this.label_record_Player.Text = "Player/Time";
             this.label_record_Player.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // bt_save
-            // 
-            this.bt_save.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(85)))), ((int)(((byte)(57)))));
-            this.bt_save.FlatAppearance.BorderSize = 0;
-            this.bt_save.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.bt_save.Font = new System.Drawing.Font("Century Gothic", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bt_save.ForeColor = System.Drawing.Color.White;
-            this.bt_save.Location = new System.Drawing.Point(691, 501);
-            this.bt_save.Name = "bt_save";
-            this.bt_save.Size = new System.Drawing.Size(247, 50);
-            this.bt_save.TabIndex = 31;
-            this.bt_save.Text = "Save";
-            this.bt_save.UseVisualStyleBackColor = false;
-            this.bt_save.Visible = false;
-            // 
             // bt_replay
             // 
             this.bt_replay.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(85)))), ((int)(((byte)(57)))));
@@ -101,13 +84,14 @@ namespace WordSearchGame
             this.bt_replay.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bt_replay.Font = new System.Drawing.Font("Century Gothic", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bt_replay.ForeColor = System.Drawing.Color.White;
-            this.bt_replay.Location = new System.Drawing.Point(691, 377);
+            this.bt_replay.Location = new System.Drawing.Point(691, 501);
             this.bt_replay.Name = "bt_replay";
             this.bt_replay.Size = new System.Drawing.Size(247, 50);
             this.bt_replay.TabIndex = 30;
             this.bt_replay.Text = "Replay  ⟲";
             this.bt_replay.UseVisualStyleBackColor = false;
             this.bt_replay.Visible = false;
+            this.bt_replay.Click += new System.EventHandler(this.bt_replay_Click);
             // 
             // Button_Back
             // 
@@ -149,15 +133,18 @@ namespace WordSearchGame
             // comboBxStatsOrderBy
             // 
             this.comboBxStatsOrderBy.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(224)))), ((int)(((byte)(212)))));
+            this.comboBxStatsOrderBy.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBxStatsOrderBy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.comboBxStatsOrderBy.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBxStatsOrderBy.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(174)))), ((int)(((byte)(32)))), ((int)(((byte)(18)))));
             this.comboBxStatsOrderBy.FormattingEnabled = true;
+            this.comboBxStatsOrderBy.Items.AddRange(new object[] {
+            "Name",
+            "Time"});
             this.comboBxStatsOrderBy.Location = new System.Drawing.Point(691, 286);
             this.comboBxStatsOrderBy.Name = "comboBxStatsOrderBy";
             this.comboBxStatsOrderBy.Size = new System.Drawing.Size(225, 45);
             this.comboBxStatsOrderBy.TabIndex = 8;
-            this.comboBxStatsOrderBy.Text = "Name";
             this.comboBxStatsOrderBy.SelectedIndexChanged += new System.EventHandler(this.comboBxStatsOrderBy_SelectedIndexChanged);
             // 
             // label_orderBy
@@ -267,7 +254,6 @@ namespace WordSearchGame
         private System.Windows.Forms.Label label_time;
         private System.Windows.Forms.Label label_player;
         private System.Windows.Forms.Button Button_Back;
-        private System.Windows.Forms.Button bt_save;
         private System.Windows.Forms.Button bt_replay;
         private System.Windows.Forms.Label label_record_Player;
     }
