@@ -39,8 +39,7 @@ namespace WordSearchGame
 
         //Letras no jogo
         string[,] board = new string[15, 15];
-        
-        
+
         //Nome do jogador 
         public static string playerName = "";
 
@@ -50,10 +49,10 @@ namespace WordSearchGame
         //Id do jogo
         int gameID = 0;
 
-        //
+        //Token que identifica se o modo de jogo passa para replay
         public static bool replayToken = false;
 
-        //
+        //Index da lista de jogadores do jogador que se vai realizar o replay
         public static int replayPlayerIndex = new int();
 
         //Cancel token
@@ -77,16 +76,19 @@ namespace WordSearchGame
         //Administration credentials
         public string adminUserName = "admin";
         public string adminPassword = "1234";
-        public static bool adminMode = true;
+        public static bool adminMode = false;
 
         //Tipo de jogo (Normal, replay ou demo)
         public string typeOfGame;
+
         //Guarda a categoria do jogo atual
         string category;
 
         public Form1()
         {
             readRecords(); //Carrega de um ficheiro externo os records dos jogadores
+            gameID = lp.Count();
+
             //readFromFile(); //Se o ficheiro com as palavras para popular a classe
             InitializeComponent();
             menuStrip1.BackColor = backgroundColor; //Colocar a cor de fundo do menu strip com o castanho claro
@@ -109,9 +111,10 @@ namespace WordSearchGame
         {
             try
             {
+                //Procura dos path dos ficheiros
                 string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-                string fullPathPlayers = System.IO.Path.Combine(desktopPath, "jogadores.txt");
-                string fullPathPlays = System.IO.Path.Combine(desktopPath, "jogadas.txt");
+                string fullPathPlayers = System.IO.Path.Combine(desktopPath, "Jogadores.txt");
+                string fullPathPlays = System.IO.Path.Combine(desktopPath, "Jogadas.txt");
                 string fullPathBoard = System.IO.Path.Combine(desktopPath, "Tabuleiros.txt");
 
                 using (StreamReader steamReader = new StreamReader(fullPathPlayers))
@@ -153,7 +156,7 @@ namespace WordSearchGame
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message.ToString(),"Erro ao ler os Ficheiros");
+                MessageBox.Show(e.Message.ToString(), "Erro geral ao ler os Ficheiros");
             }
         }
 
@@ -235,61 +238,17 @@ namespace WordSearchGame
          **/
         private void newUserName()
         {
-            string AuxPlayerName = "";
+            string auxUserName = playerName;
 
             admit_UserName_Form userNameForm = new admit_UserName_Form();
             userNameForm.ShowDialog();
 
-            while (true)
+            if (playerName.Equals("") || auxUserName.Equals(playerName)) { return; }
+            else
             {
-                if (lp.Count == 0) //If there is no names on the list
-                {
-                    //A new player is added to the list
-                    Player newPLyr = new Player(playerName); //A new player is created
-                    lp.Add(newPLyr); //The new player is added to the list
-
-                    //Success Message
-                    var newPlayerSuccsess = MessageBox.Show("Welcome " + playerName + "\nHave a good Game ", "Succsess", MessageBoxButtons.OK);
-                    return;
-                }
-                else
-                {
-                    foreach (Player Plyr in lp)  //Runs all the players in class player and see if that username is already in use
-                    {
-                        AuxPlayerName = Plyr.Nome;
-
-                        //Check if the name already exists
-                        if (AuxPlayerName.Equals(playerName)) //If there is a match
-                        {
-                            //That name is already taken
-                            //Error message
-                            var nameAlreadyExists = MessageBox.Show("This name is already in use\nPlease insert another name ?", "UserName already Exists", MessageBoxButtons.RetryCancel, MessageBoxIcon.Warning);
-
-                            if (nameAlreadyExists == DialogResult.Cancel)// If the user wants to cancel the operation
-                            {
-                                return;
-                            }
-                            if (nameAlreadyExists == DialogResult.Retry) //If the user wants to retray to insert a name
-                            {
-                                userNameForm.ShowDialog();
-                            }
-                        }//End Main IF
-                        else
-                        {
-                            //If the name is NOT taken
-                            //A new player is added to the list
-                            Player newPLyr = new Player(playerName); //A new player is created
-                            lp.Add(newPLyr); //The new player is added to the list
-
-                            //Success Message
-                            var newPlayerSuccsess = MessageBox.Show("Welcome " + playerName + "\nHave a good Game ", "Succsess", MessageBoxButtons.OK);
-
-                            return;
-                        }
-                    }//End Foreach
-                }//End Main ELSE
-            }//End While
-
+                //Mensagem de Sucesso
+                MessageBox.Show("Welcome " + playerName + "\nHave a good Game ", "Succsess", MessageBoxButtons.OK);
+            }
         }
 
         /**
@@ -355,7 +314,7 @@ namespace WordSearchGame
                 //A cada tick do relógio (1 segundo)
                 Invoke((MethodInvoker)delegate ()
                 {
-                    Label_clock.Text = "Tempo: " + minutos.ToString() + ":" + pseudoSegundos.ToString() + segundos.ToString();
+                    Label_clock.Text = "Time: " + minutos.ToString() + ":" + pseudoSegundos.ToString() + segundos.ToString();
                 });
                 Thread.Sleep(1000);
             }
@@ -508,9 +467,13 @@ namespace WordSearchGame
 
             //Conta quantas jogadas foram efetuadas até ao momento
             moveCounter++;
-            //Adiciona esta jogada à classe `moves` que guarda todas as jogadas
-            move = new Moves(jogadas, x, y, word, gameID);
-            lm.Add(move);
+
+            if (typeOfGame.Equals("Normal"))
+            {
+                //Adiciona esta jogada à classe `moves` que guarda todas as jogadas
+                move = new Moves(jogadas, x, y, word, gameID);
+                lm.Add(move);
+            }
 
             jogadas++;
 
@@ -589,10 +552,6 @@ namespace WordSearchGame
                     string tempoJogada = minutos + ":" + pseudoSegundos + segundos;
 
                     moveCounter = 0;
-                    //Criado um novo registo de jogador
-                    Player newPlayer = new Player(playerName, tempoJogada, tempoReal, gameID, category, boardAuxiliar);
-                    //Adiciona-se o jogador à lista de jogadores 
-                    lp.Add(newPlayer);
                     MessageBox.Show("Demonstration finished.", "Demo Ended");
                     //Mostrar os Butões
                     PlayerName_Button.Show();
@@ -617,6 +576,9 @@ namespace WordSearchGame
                     moveCounter = 0;
                     //Criado um novo registo de jogador
                     Player newPlayer = new Player(playerName, tempoJogada, tempoReal, gameID, category, boardAuxiliar);
+                    gameID++;
+
+                    MessageBox.Show(category, "Categoria");
                     //Adiciona-se o jogador à lista de jogadores 
                     lp.Add(newPlayer);
                     MessageBox.Show("Congratulations you finished in: " + tempoJogada, "Game Ended");
@@ -680,19 +642,49 @@ namespace WordSearchGame
             }
         }
 
+        private void startReplay(object obj)
+        {
+            try
+            {
+                //A cada tick do relógio (1 segundo)
+                foreach (Moves mv in lm)
+                {
+                    if (mv.Game == lp[replayPlayerIndex].Game)
+                    {
+                        //MessageBox.Show(mv.CoordX.ToString() + "-X" + "  " + mv.CoordY.ToString() + "-Y");
+                        Invoke((MethodInvoker)delegate ()
+                        {
+                            gameBtn[mv.CoordX, mv.CoordY].PerformClick();
+                        });
+                        Thread.Sleep(800); //Espera 500 milesimos...
+                    }
+                }
+            }
+            catch (Exception )
+            {
+
+            }
+
+        }
+
         /*
          * Função que inicia o replay da jogada
          */
         private void playReplay()
         {
-            //Passar a string que está no jogador com o tabuleiro para uma string[,]
-            string[] tabuleiro = lp[replayPlayerIndex].Board.Split(',');
-            for (int i = 0; i < 15; i++)
+            typeOfGame = "Replay";
+            startGame(category);
+            var msg = MessageBox.Show("Start Replay?", "Replay", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+            if (msg == DialogResult.Yes)
             {
-                for (int j = 0; j < 15; j++)
-                {
-                    gameBtn[i, j].Text = tabuleiro[i].Substring(j, 1).ToUpper();
-                }
+                //Instanciacao do Token
+                cts = new CancellationTokenSource();
+                //Inicalizacao da thread
+                ThreadPool.QueueUserWorkItem(new WaitCallback(startReplay), cts.Token);
+            }
+            else
+            {
+                clearGame();
             }
         }
 
@@ -723,7 +715,7 @@ namespace WordSearchGame
             //Preencher o array com todas as informações das jogadas
             foreach (Moves mv in lm)
             {
-                jogadas[ct] = mv.MoveId.ToString() + separador + mv.CoordX.ToString() + separador + mv.CoordY.ToString() + separador + mv.Word + separador + mv.Game.ToString() + separador;
+                jogadas[ct] = mv.MoveId.ToString() + separador + mv.CoordY.ToString() + separador + mv.CoordX.ToString() + separador + mv.Word + separador + mv.Game.ToString() + separador;
                 ct++;
             }
 
@@ -741,7 +733,7 @@ namespace WordSearchGame
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                MessageBox.Show(e.Message, "Erro ao descarregar o ficheiro Jogadores");
                 throw;
             }
 
@@ -758,7 +750,7 @@ namespace WordSearchGame
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                MessageBox.Show(e.Message, "Erro ao descarregar o ficheiro Jogadas");
                 throw;
             }
 
@@ -775,7 +767,7 @@ namespace WordSearchGame
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                MessageBox.Show(e.Message, "Erro ao descarregar o ficheiro Tabuleiros");
                 throw;
             }
         }
@@ -787,12 +779,12 @@ namespace WordSearchGame
         private void rolbackLastPlays()
         {
             int lmSize = lm.Count;
-            int countLastPlay = lm.Count - moveCounter;
+            int countLastPlay = (lm.Count - moveCounter);
 
             //Apaga da da lista todas as ultimas jogadas efetuadas
             for (int i = lmSize; i > countLastPlay; i--)
             {
-                lm.RemoveAt(i);
+                lm.RemoveAt(i - 1);
             }
 
             moveCounter = 0;
@@ -890,6 +882,21 @@ namespace WordSearchGame
         }
 
         /**
+         * Função que mostra as estatisticas
+         **/
+        private void statistics()
+        {
+            statisticsForm stcsForm = new statisticsForm(lp);
+            stcsForm.ShowDialog();
+
+            if (replayToken == true)
+            {
+                playReplay();
+            }
+            replayToken = false;
+        }
+
+        /**
          * Função que roda a matriz que contem as letras segundo um numero aleatorio
          **/
         private string[,] rotateBoard(int randNum, string[,] board)
@@ -940,9 +947,10 @@ namespace WordSearchGame
             {
                 SelectCategory selectCatForm = new SelectCategory();
                 selectCatForm.ShowDialog();
-                string category = SelectCategory.category;
+                category = SelectCategory.category;
                 typeOfGame = "Normal";
                 startGame(category);
+
             }
             else
             {
@@ -1066,6 +1074,52 @@ namespace WordSearchGame
                     }
                 }
             }
+            else if (typeOfGame.Equals("Replay")) //Se for um pedido de replay
+            {
+                //Se a thread ainda estiver a correr
+                if (gameState == true)
+                {
+                    //Stop a thread
+                    cts.Cancel();
+                    cts.Dispose();
+                }
+
+                //Modo de jogo passa a ser true = Em jogo
+                gameState = true;
+
+                //Esconder os Butões
+                PlayerName_Button.Hide();
+                Stats_Button.Hide();
+
+                //Muda o texto do botão de "Sair"
+                Quit_Button_Bottom.Text = "Stop";
+                quitGameToolStripMenuItem.Text = "Stop";
+
+                clearGame();
+                drawWords(lp[replayPlayerIndex].Category);
+                generateColors();
+                jogadas = 0;
+                word = "";
+
+                //Passar a string que está no jogador com o tabuleiro para uma string[,]
+                string[] tabuleiro = lp[replayPlayerIndex].Board.Split(',');
+
+                //Muda o texto dos botões para o jogo do replay
+                for (int i = 0; i < 15; i++)
+                {
+                    for (int j = 0; j < 15; j++)
+                    {
+                        gameBtn[i, j].Text = tabuleiro[i].Substring(j, 1).ToUpper();
+                        gameBtn[i, j].Enabled = true;
+                        gameBtn[i, j].BackColor = Color.Transparent;
+                    }
+                }
+                //Limpa as palavras
+                foreach (CheckBox c in WordsPanel.Controls.OfType<CheckBox>())
+                {
+                    c.Checked = false;
+                }
+            }
         }
         /**
          * Butão do menu sul que faz o rewind da ultima jogada
@@ -1093,8 +1147,6 @@ namespace WordSearchGame
         **/
         private void administrationToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AboutForm about = new AboutForm(5);
-            about.ShowDialog();
             LoginForm LoginFrm = new LoginForm(adminUserName, adminPassword); //Instance Login Form
             LoginFrm.ShowDialog();  //Call Login Form
             if (adminMode.Equals(true)) //Se o utilizador entrar em modo de administrador ativa todos os botões da aba "Be A Creator"
@@ -1177,14 +1229,7 @@ namespace WordSearchGame
 
         private void Stats_Button_Click(object sender, EventArgs e)
         {
-            statisticsForm stcsForm = new statisticsForm(lp);
-            stcsForm.ShowDialog();
-
-            if (replayToken == true)
-            {
-                playReplay();
-                stcsForm.ShowDialog();
-            }
+            statistics();
         }
 
         private void quitGameToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1512,67 +1557,79 @@ namespace WordSearchGame
             wordData[5] = alignment;
             wordData[6] = category;
             int x = 0, y = 0, charCount = 0;
-            for (int i = 0; i < dim; i++) //Loop por cada caracter da palavra
+            
+            try
             {
-                gameBtn[col + y - 1, line + x - 1].Text = word.Substring(charCount, 1).ToUpper(); ; //Faz o clique do butao em que o caracter atual da palavra está
-                charCount++;
-                //Segundo o modo de escrita e a direção da palavra, segue uma determinada direçao
-                switch (writingMode)
+                for (int i = 0; i < dim; i++) //Loop por cada caracter da palavra
                 {
-                    case "Normal":
-                        switch (alignment)
-                        {
-                            case "[Horizontal] L -> R":
-                                x++;
-                                break;
-                            case "[Vertical] U -> D":
-                                y++;
-                                break;
-                            case "[Oblique] U -> D":
-                                x++;
-                                y++;
-                                break;
-                            case "[Oblique] D -> U":
-                                x++;
-                                y--;
-                                break;
-                        }
-                        break;
-                    case "Reverse":
-                        switch (alignment)
-                        {
-                            case "[Horizontal] L -> R":
-                                x--;
-                                break;
-                            case "[Vertical] U -> D":
-                                y--;
-                                break;
-                            case "[Oblique] U -> D":
-                                x--;
-                                y++;
-                                break;
-                            case "[Oblique] D -> U":
-                                x--;
-                                y--;
-                                break;
-                        }
-                        break;
+                    gameBtn[line + x - 1, col + y - 1].Text = word.Substring(charCount, 1).ToUpper(); ; //Faz o clique do butao em que o caracter atual da palavra está
+                    charCount++;
+                    //Segundo o modo de escrita e a direção da palavra, segue uma determinada direçao
+                    switch (writingMode)
+                    {
+                        case "Normal":
+                            switch (alignment)
+                            {
+                                case "[Horizontal] L -> R":
+                                    x++;
+                                    break;
+                                case "[Vertical] U -> D":
+                                    y++;
+                                    break;
+                                case "[Oblique] U -> D":
+                                    x++;
+                                    y++;
+                                    break;
+                                case "[Oblique] D -> U":
+                                    x++;
+                                    y--;
+                                    break;
+                            }
+                            break;
+                        case "Reverse":
+                            switch (alignment)
+                            {
+                                case "[Horizontal] L -> R":
+                                    x--;
+                                    break;
+                                case "[Vertical] U -> D":
+                                    y--;
+                                    break;
+                                case "[Oblique] U -> D":
+                                    x--;
+                                    y++;
+                                    break;
+                                case "[Oblique] D -> U":
+                                    x--;
+                                    y--;
+                                    break;
+                            }
+                            break;
+                    }
                 }
+                foreach (Control c in ButtonsPanel.Controls)
+                {
+                    c.Visible = false;
+                }
+                foreach (Button b in Controls.OfType<Button>())
+                {
+                    b.Enabled = false;
+                }
+                foreach (MenuItem mi in Controls.OfType<MenuItem>())
+                {
+                    mi.Enabled = false;
+                }
+                GoBack_Button.Visible = true;
+                GoBack_Button.Enabled = true;
+                
+               
             }
-            foreach (Control c in ButtonsPanel.Controls)
+            catch (Exception e)
             {
-                c.Visible = false;
+                MessageBox.Show("Error!!  Word out of bounderies of the board","Bounderies exceded", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(e.Message);
             }
-            foreach (Button b in Controls.OfType<Button>())
-            {
-                b.Enabled = false;
-            }
-            foreach (MenuItem mi in Controls.OfType<MenuItem>())
-            {
-                mi.Enabled = false;
-            }
-            GoBack_Button.Visible = true;
-            GoBack_Button.Enabled = true;
+            
         }
 
         //Pára a demonstração de uma palavra
@@ -1611,6 +1668,14 @@ namespace WordSearchGame
                 lm.Clear();
                 saveGameRecord();
             }
+        }
+        /**
+         * Botaão do menu superiro
+         * Abre as estatisticas do jogo
+         **/
+        private void playerStatisticsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            statistics();
         }
     }
 }

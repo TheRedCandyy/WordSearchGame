@@ -127,6 +127,7 @@ namespace WordSearchGame
             this.playerStatisticsToolStripMenuItem.Name = "playerStatisticsToolStripMenuItem";
             this.playerStatisticsToolStripMenuItem.Size = new System.Drawing.Size(190, 24);
             this.playerStatisticsToolStripMenuItem.Text = "Player Statistics";
+            this.playerStatisticsToolStripMenuItem.Click += new System.EventHandler(this.playerStatisticsToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 

@@ -22,7 +22,7 @@ namespace WordSearchGame
         private int playSeconds;    //Integer que guarda os segundo do jogo
         private int game;           //ID do jogo 
         private string category;    //Categoria do jogo
-        private string board;     
+        private string board;
 
         public Player(string name)
         {
