@@ -38,23 +38,8 @@ namespace WordSearchGame
         String word = "";
 
         //Letras no jogo
-        //string[,] board = new string[15, 15];
+        string[,] board = new string[15, 15];
         
-        string[,] board = new string[15, 15] {  {"a","b","c","a","b","c","a","b","c","a","b","c","a","b","c"},
-                                                {"d","e","f","a","b","c","a","b","c","a","b","c","a","b","c"},
-                                                {"g","h","i","a","b","c","a","b","c","a","b","c","a","b","c"},
-                                                {"g","h","i","a","b","c","a","b","c","a","b","c","a","b","c"},
-                                                {"g","h","i","a","b","c","a","b","c","a","b","c","a","b","c"},
-                                                {"d","e","f","a","b","c","a","b","c","a","b","c","a","b","c"},
-                                                {"g","h","i","a","b","c","a","b","c","a","b","c","a","b","c"},
-                                                {"g","h","i","a","b","c","a","b","c","a","b","c","a","b","c"},
-                                                {"g","h","i","a","b","c","a","b","c","a","b","c","a","b","c"},
-                                                {"d","e","f","a","b","c","a","b","c","a","b","c","a","b","c"},
-                                                {"g","h","i","a","b","c","a","b","c","a","b","c","a","b","c"},
-                                                {"g","h","i","a","b","c","a","b","c","a","b","c","a","b","c"},
-                                                {"g","h","i","a","b","c","a","b","c","a","b","c","a","b","c"},
-                                                {"d","e","f","a","b","c","a","b","c","a","b","c","a","b","c"},
-                                                {"g","h","i","a","b","c","a","b","c","a","b","c","a","b","c"} };
         
         //Nome do jogador 
         public static string playerName = "";
@@ -69,7 +54,7 @@ namespace WordSearchGame
         public static bool replayToken = false;
 
         //
-        public static string replayPlayerName = "";
+        public static int replayPlayerIndex = new int();
 
         //Cancel token
         CancellationTokenSource cts;
@@ -105,7 +90,7 @@ namespace WordSearchGame
             //readFromFile(); //Se o ficheiro com as palavras para popular a classe
             InitializeComponent();
             menuStrip1.BackColor = backgroundColor; //Colocar a cor de fundo do menu strip com o castanho claro
-            //drawButtons(); //Desenha os butoes de jogo no form
+            drawButtons(); //Desenha os butoes de jogo no form
 
             if (adminMode.Equals(true)) //Se o utilizador entrar em modo de administrador ativa todos os botões da aba "Be A Creator"
             {
@@ -135,29 +120,41 @@ namespace WordSearchGame
                     string[] PlaysLines = File.ReadAllLines(fullPathPlays);
                     string[] BoardLines = File.ReadAllLines(fullPathBoard);
 
-                    //Popular a class `moves` e adicionar à lista 
-                    foreach (string line in PlaysLines)
+                    try
                     {
-                        string[] col = line.Split(','); //Separa os conteudos desta linha por colunas usando a virgula como separador
-                        Moves mv = new Moves(Convert.ToInt32(col[0]), Convert.ToInt32(col[1]), Convert.ToInt32(col[2]),col[4], Convert.ToInt32(col[4]));
-                        lm.Add(mv);
+                        //Popular a class `moves` e adicionar à lista 
+                        foreach (string line in PlaysLines)
+                        {
+                            string[] col = line.Split(','); //Separa os conteudos desta linha por colunas usando a virgula como separador
+                            Moves mv = new Moves(Convert.ToInt32(col[0]), Convert.ToInt32(col[1]), Convert.ToInt32(col[2]), col[4], Convert.ToInt32(col[4]));
+                            lm.Add(mv);
+                        }
                     }
-
-                    //Popular a class `Player` e adicionar à lista 
-                    for (int i=0; i < PlayerLines.Length; i++)
+                    catch (Exception e)
                     {
-                        string[] plr = PlayerLines[0].Split(',');
+                        MessageBox.Show(e.Message.ToString(), "Erro ao carregar as jogadas");
+                    }
+                    try
+                    {
+                        //Popular a class `Player` e adicionar à lista 
+                        for (int i = 0; i < PlayerLines.Length; i++)
+                        {
+                            string[] plr = PlayerLines[i].Split(',');
 
-                        Player pl = new Player(plr[0], plr[1], Convert.ToInt32(plr[2]), Convert.ToInt32(plr[3]), plr[4], BoardLines[i]);
-                        lp.Add(pl);
+                            Player pl = new Player(plr[0], plr[1], Convert.ToInt32(plr[2]), Convert.ToInt32(plr[3]), plr[4], BoardLines[0]);
+                            lp.Add(pl);
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBox.Show(e.Message.ToString(), "Erro ao carregar os jogadores");
                     }
                 }
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message.ToString());
+                MessageBox.Show(e.Message.ToString(),"Erro ao ler os Ficheiros");
             }
-            
         }
 
         /*
@@ -671,6 +668,26 @@ namespace WordSearchGame
                 count++;
             }
         }
+
+        /*
+         * Função que inicia o replay da jogada
+         */
+        private void playReplay()
+        {
+            //Passar a string que está no jogador com o tabuleiro para uma string[,]
+            string[] tabuleiro = lp[replayPlayerIndex].Board.Split(',');
+
+            int ct = 0;
+
+            for (int i = 0; i < 15; i++)
+            {
+                for (int j = 0; j < 15; j++)
+                {
+                    gameBtn[i, j].Text = tabuleiro[i].Substring(j, 1).ToUpper();
+                }
+            }
+        }
+
         /**
          * Função que guarda os records do jogo
          * Guarda toda a informação das listas de jogadores e de jogadas em dois respetivos ficheiros
@@ -1138,10 +1155,14 @@ namespace WordSearchGame
 
         private void Stats_Button_Click(object sender, EventArgs e)
         {
-            this.Hide();
             statisticsForm stcsForm = new statisticsForm(lp);
             stcsForm.ShowDialog();
-            this.Show();
+
+            if (replayToken = true)
+            {
+                playReplay();
+                stcsForm.ShowDialog();
+            }
         }
 
         private void quitGameToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1433,6 +1454,11 @@ namespace WordSearchGame
                 lm.Clear();
                 saveGameRecord();
             }
+        }
+
+        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
         }
     }
 }
