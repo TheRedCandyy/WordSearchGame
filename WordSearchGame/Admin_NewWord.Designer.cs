@@ -277,7 +277,7 @@ namespace WordSearchGame
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Century Gothic", 12F);
-            this.label5.Location = new System.Drawing.Point(499, 49);
+            this.label5.Location = new System.Drawing.Point(354, 46);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(71, 21);
             this.label5.TabIndex = 9;
@@ -286,7 +286,7 @@ namespace WordSearchGame
             // lineTextBox
             // 
             this.lineTextBox.Font = new System.Drawing.Font("Century Gothic", 12F);
-            this.lineTextBox.Location = new System.Drawing.Point(416, 43);
+            this.lineTextBox.Location = new System.Drawing.Point(431, 43);
             this.lineTextBox.MaxLength = 2;
             this.lineTextBox.Name = "lineTextBox";
             this.lineTextBox.Size = new System.Drawing.Size(44, 27);
@@ -296,7 +296,7 @@ namespace WordSearchGame
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Century Gothic", 12F);
-            this.label4.Location = new System.Drawing.Point(370, 49);
+            this.label4.Location = new System.Drawing.Point(530, 46);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(40, 21);
             this.label4.TabIndex = 7;

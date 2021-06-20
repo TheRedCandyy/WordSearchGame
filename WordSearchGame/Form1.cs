@@ -89,7 +89,7 @@ namespace WordSearchGame
             readRecords(); //Carrega de um ficheiro externo os records dos jogadores
             gameID = lp.Count();
 
-            //readFromFile(); //Se o ficheiro com as palavras para popular a classe
+            readFromFile(); //Se o ficheiro com as palavras para popular a classe
             InitializeComponent();
             menuStrip1.BackColor = backgroundColor; //Colocar a cor de fundo do menu strip com o castanho claro
             drawButtons(); //Desenha os butoes de jogo no form
@@ -177,7 +177,7 @@ namespace WordSearchGame
                     //Abre um FileDialog para selecionar o ficheiro a ser utilizado
                     using (OpenFileDialog openFileDialog = new OpenFileDialog())
                     {
-                        openFileDialog.InitialDirectory = "c:\\"; //Diretorio inicial
+                        openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop); //Diretorio inicial
                         openFileDialog.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*"; //Ficheiros permitidos
                         openFileDialog.FilterIndex = 2; //Index de filtragem
                         openFileDialog.RestoreDirectory = true; //Restauração do ultimo diretorio selecionado
@@ -481,7 +481,7 @@ namespace WordSearchGame
             int count = 0;
             foreach (Label l in WordsPanel.Controls.OfType<Label>())
             {
-                if (word.Equals(l.Text))
+                if (word.Equals(l.Text.ToLower()))
                 {
                     wordFound(count);
                     break;
@@ -578,7 +578,6 @@ namespace WordSearchGame
                     Player newPlayer = new Player(playerName, tempoJogada, tempoReal, gameID, category, boardAuxiliar);
                     gameID++;
 
-                    MessageBox.Show(category, "Categoria");
                     //Adiciona-se o jogador à lista de jogadores 
                     lp.Add(newPlayer);
                     MessageBox.Show("Congratulations you finished in: " + tempoJogada, "Game Ended");
@@ -804,6 +803,7 @@ namespace WordSearchGame
                     if (saveMsgBox == DialogResult.Yes)
                     {
                         saveGameRecord();
+                        saveInFile();
                         Application.Exit();
                     }
                     else
@@ -818,6 +818,7 @@ namespace WordSearchGame
                     {
                         rolbackLastPlays();
                         saveGameRecord();
+                        saveInFile();
                         Application.Exit();
                     }
                     else
@@ -1540,6 +1541,21 @@ namespace WordSearchGame
             menuStrip1.BackColor = backgroundColor; //Colocar a cor de fundo do menu strip com o castanho claro
             drawButtons(); //Desenha os butoes de jogo no form
 
+            foreach (Control c in ButtonsPanel.Controls)
+            {
+                c.Visible = false;
+            }
+            foreach (Button b in Controls.OfType<Button>())
+            {
+                b.Enabled = false;
+            }
+            foreach (MenuItem mi in Controls.OfType<MenuItem>())
+            {
+                mi.Enabled = false;
+            }
+            GoBack_Button.Visible = true;
+            GoBack_Button.Enabled = true;
+
             if (adminMode.Equals(true)) //Se o utilizador entrar em modo de administrador ativa todos os botões da aba "Be A Creator"
             {
                 creatorToolStripMenuItem.Enabled = true;
@@ -1560,9 +1576,10 @@ namespace WordSearchGame
             
             try
             {
-                for (int i = 0; i < dim; i++) //Loop por cada caracter da palavra
+                placeWords(category);
+                for (int i = 0; i < word.Length; i++) //Loop por cada caracter da palavra
                 {
-                    gameBtn[line + x - 1, col + y - 1].Text = word.Substring(charCount, 1).ToUpper(); ; //Faz o clique do butao em que o caracter atual da palavra está
+                    gameBtn[col + y - 1, line + x - 1].Text = word.Substring(charCount, 1).ToUpper(); //Faz o clique do butao em que o caracter atual da palavra está
                     charCount++;
                     //Segundo o modo de escrita e a direção da palavra, segue uma determinada direçao
                     switch (writingMode)
@@ -1606,23 +1623,7 @@ namespace WordSearchGame
                             }
                             break;
                     }
-                }
-                foreach (Control c in ButtonsPanel.Controls)
-                {
-                    c.Visible = false;
-                }
-                foreach (Button b in Controls.OfType<Button>())
-                {
-                    b.Enabled = false;
-                }
-                foreach (MenuItem mi in Controls.OfType<MenuItem>())
-                {
-                    mi.Enabled = false;
-                }
-                GoBack_Button.Visible = true;
-                GoBack_Button.Enabled = true;
-                
-               
+                }               
             }
             catch (Exception e)
             {

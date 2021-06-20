@@ -102,6 +102,8 @@ namespace WordSearchGame
             }
             //Se nao estiver cheia continua com o programa...
             category = categoryTextBox.Text;
+            categoryTextBox.Items.Add(category);
+            categoryTextBox.SelectedIndex = 0;
             enableWord();//Ativa todos os elementos dentro do panel1
             MessageBox.Show("Using the selected category!", "Success", MessageBoxButtons.OK); //Mesnage de sucesso
         }
@@ -138,6 +140,7 @@ namespace WordSearchGame
             {
                 writingMode = "Reverse";
             }
+            int wordCount = 0;
             //Percorre a classe para verificar se a palavra ja existe na categoria selecionada ou na posição inserida
             foreach (Words w in Form1.lw)
             {
@@ -151,10 +154,19 @@ namespace WordSearchGame
                     MessageBox.Show("There already exists a word in this position!", "Word Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
+                if (w.Category.Equals(categoryTextBox.SelectedItem))
+                {
+                    wordCount++;
+                }
+            }
+            if (wordCount == 19)
+            {
+                MessageBox.Show("This category is full, try another category.", "Category Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
             Words words;
             //Cria uma nova classe words populada com os dados inseridos
-            words = new Words(wordTextBox.Text, Convert.ToInt32(lineTextBox.Text), Convert.ToInt32(colTextBox.Text), Convert.ToInt32(dimensionTextBox.Text), writingMode, alignment, category);
+            words = new Words(wordTextBox.Text, Convert.ToInt32(lineTextBox.Text), Convert.ToInt32(colTextBox.Text), Convert.ToInt32(dimensionTextBox.Text), writingMode, alignment, categoryTextBox.SelectedItem.ToString());
             //Adiciona esta classe à lista
             Form1.lw.Add(words);
             //Mensagem de sucesso
@@ -225,7 +237,7 @@ namespace WordSearchGame
             int col = Convert.ToInt32(colTextBox.Text);
             int line = Convert.ToInt32(lineTextBox.Text);
             int dim = Convert.ToInt32(dimensionTextBox.Text);
-            string category = categoryTextBox.Text;
+            string category = categoryTextBox.SelectedItem.ToString();
             //Verifica qual o radiobutton selecionado para o alinhamento da palavra
             if (radioButton1.Checked)
             {
