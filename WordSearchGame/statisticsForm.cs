@@ -6,53 +6,40 @@ namespace WordSearchGame
 {
     public partial class statisticsForm : Form
     {
-        UserControlPlayer ctrlPlayer;
+
         List<Player> lp2;
         string[] nome = new string[] { };
-        string separador = "  ............................................  ";
+
 
         public statisticsForm(List<Player> lp)
         {
             InitializeComponent();
 
             lp2 = lp;
-
-            comboBxStatsOrderBy.Items.Add("Name");
-            comboBxStatsOrderBy.Items.Add("Time");
-
-
-            Player pl1 = new Player("Diogo", "2:34", 20);
-            lp2.Add(pl1);
-            Player pl2 = new Player("Alex", "2:36", 30);
-            lp2.Add(pl2);
-            Player pl3 = new Player("Joao", "1:34", 15);
-            lp2.Add(pl3);
-            Player pl4 = new Player("Ana", "2:34", 60);
-            lp2.Add(pl4);
-
-            Player pl5 = new Player("Mario", "2:36", 55);
-            lp2.Add(pl5);
-            Player pl6 = new Player("Antonio", "1:34");
-            lp2.Add(pl6);
-            Player pl7 = new Player("Bruna", "2:34", 27);
-            lp2.Add(pl7);
-
+            comboBxStatsOrderBy.Text = "Name";
 
             //Ordenar a lista de jogadores por ordem alfabetica (Default)
             lp2.Sort((x, y) => string.Compare(x.Nome, y.Nome));
-            //Carregar todos os jogadores
-            loadListBox();
             //Carregar o record do jogo
             loadRecord();
+            //Carregar todos os jogadores
+            loadListBox("All");
+            //Carregar todas as categorias
+            loadCategorys();    
+
         }
-        public void loadControlPlayer(string playerName)
+        public void loadCategorys()
         {
-
-            ctrlPlayer = new UserControlPlayer();
-            ctrlPlayer.Visible = true;
-            statisticsMainPanel.Visible = false;
+            comboBox_category.Items.Add("All");
+            foreach (Player pl in lp2)
+            {
+                if (!comboBox_category.Items.Contains(pl.Category))
+                {
+                    comboBox_category.Items.Add(pl.Category);
+                }
+            }
+            comboBox_category.SelectedIndex = 0;
         }
-
         /**
          * Funcao que corre a lista de jogadores e guarda a melhor jogada para record
          **/
@@ -71,32 +58,88 @@ namespace WordSearchGame
                     recordTime = p.PlayTimes;
                 }
             }
-
-            //Preencher o texto dos botões
-            bt_record_Name.Text = recordName;
-            bt_record_time.Text = recordTime;
-
+            //Preencher o texto da Label de Record
+            label_record_Player.Text = recordName + "   -   " + recordTime;
         }
+
         /**
          * Carrega a listbox com o nome de todos os jogadores e respetivas jogadas
          **/
-        public void loadListBox()
+        public void loadListBox(string categoria)
         {
-            listBox_players_times.ResetText();
+            //Limpar os items da listBox
+            listBox_players_times.Items.Clear();
 
-            try
+            if (categoria.Equals("All"))
             {
-                listBox_players_times.Items.Add("\n");
-                foreach (Player p in lp2)
+                try
                 {
-                    listBox_players_times.Items.Add(p);
                     listBox_players_times.Items.Add("\n");
+                    foreach (Player p in lp2)
+                    {
+                        listBox_players_times.Items.Add(p);
+                        listBox_players_times.Items.Add("\n");
+                    }
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message);
                 }
             }
-            catch (Exception e)
+            else
             {
-                MessageBox.Show(e.Message);
+                try
+                {
+                    listBox_players_times.Items.Add("\n");
+                    foreach (Player p in lp2)
+                    {
+                        if (p.Category.Equals(categoria))
+                        {
+                            listBox_players_times.Items.Add(p);
+                            listBox_players_times.Items.Add("\n");
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message);
+                }
             }
+        }
+
+        /**
+        * Corre a lista de jogadores e encontra qual o jogador pretendido para efetuar o replay
+        * Devolve o indice desse mesmo jogador na lista de jogadores
+        **/
+        private int findPlrIndex()
+        {
+            int plyrIndex = new int();
+            string player = listBox_players_times.SelectedItem.ToString();
+
+            string auxPlayerName = "";
+            string auxPlayerTime = "";
+            int ct = 0;
+
+            string[] playerInfo = player.Split('ˍ'); //Separa os conteudos desta linha por colunas usando a virgula como separador
+
+            auxPlayerName = playerInfo[0];
+            auxPlayerTime = playerInfo[playerInfo.Length - 1];
+
+
+            auxPlayerName = auxPlayerName.TrimStart();
+            auxPlayerName = auxPlayerName.TrimEnd();
+            auxPlayerTime = auxPlayerTime.TrimEnd();
+            auxPlayerTime = auxPlayerTime.TrimStart();
+
+            foreach (Player pl in lp2)
+            {
+                if (pl.Nome.Equals(auxPlayerName) && pl.PlayTimes.Equals(auxPlayerTime))
+                {
+                    plyrIndex = ct;
+                }
+                ct++;
+            }
+            return plyrIndex;
         }
 
         private void QuitButton_Click(object sender, EventArgs e)
@@ -104,48 +147,70 @@ namespace WordSearchGame
             this.Close();
         }
 
-        private void MinimizeButton_Click(object sender, EventArgs e)
-        {
-            this.WindowState = FormWindowState.Minimized;
-        }
-
         private void listBox_players_times_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string nomeAux;
+            //Ativar o botão de replay quando um registo é selecionado
+            if (listBox_players_times.SelectedIndex % 2 == 0)
+            {
+                bt_replay.Enabled = false;
+                bt_replay.Visible = false;
 
-            nomeAux = listBox_players_times.SelectedIndex.ToString();
-
-
-            //nome[] = nomeAux.Split(separador, count, StringSplitOptions.RemoveEmptyEntries);
-            //nomeAux.Split(nome[],"  ............................................  ");
-
-            loadControlPlayer("Diogo");
+            }
+            else
+            {
+                bt_replay.Enabled = true;
+                bt_replay.Visible = true;
+            }
+            
         }
         private void comboBxStatsOrderBy_SelectedIndexChanged(object sender, EventArgs e)
         {
+            string categoria = "";
+            if (comboBox_category.Text.Equals(""))
+            {
+                categoria = "All";
+            }
+            else
+            {
+                categoria = comboBox_category.Text;
+            }
+     
             if (comboBxStatsOrderBy.Text.Equals("Name"))//Ordenar por ordem alfabética
             {
                 //Ordenar a lista de jogadores por nome
                 lp2.Sort((x, y) => string.Compare(x.Nome, y.Nome));
-                //Limpar os items da listbox
-                listBox_players_times.Items.Clear();
                 //Carregar os Items da listbox
-                loadListBox();
+                loadListBox(categoria);
             }
             if (comboBxStatsOrderBy.Text.Equals("Time"))//Ordenar por tempos(Crescete)
             {
                 //Ordenar a lista de jogadores por tempo
                 lp2.Sort((x, y) => x.PlaySeconds.CompareTo(y.PlaySeconds));
-                //Limpar os items da listbox
-                listBox_players_times.Items.Clear();
                 //Carregar os Items da listbox
-                loadListBox();
+                loadListBox(categoria);
             }
         }
 
         private void Button_Back_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void bt_replay_Click(object sender, EventArgs e)
+        {
+            int plrIndex = new int();
+            plrIndex = findPlrIndex();
+
+            Form1.replayToken = true;
+            Form1.replayPlayerIndex = plrIndex;
+            this.Close();
+
+        }
+
+        private void comboBox_category_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string categoria = comboBox_category.Text;
+            loadListBox(categoria);
         }
     }
 }

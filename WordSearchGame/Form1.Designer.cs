@@ -46,7 +46,10 @@ namespace WordSearchGame
             this.wordsListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.saveFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.loadFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.deleteAllRecordsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.deleteLettersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fillEmptySpacesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -63,7 +66,6 @@ namespace WordSearchGame
             this.Label_clock = new System.Windows.Forms.Label();
             this.GamePanel = new System.Windows.Forms.TableLayoutPanel();
             this.WordsPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.loadFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MinimizeButton = new System.Windows.Forms.Button();
             this.QuitButton = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
@@ -83,6 +85,7 @@ namespace WordSearchGame
             this.menuStrip1.Size = new System.Drawing.Size(1024, 30);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
+            this.menuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuStrip1_ItemClicked);
             // 
             // beACreatorToolStripMenuItem
             // 
@@ -165,6 +168,8 @@ namespace WordSearchGame
             this.saveFileToolStripMenuItem,
             this.loadFileToolStripMenuItem,
             this.toolStripSeparator5,
+            this.deleteAllRecordsToolStripMenuItem,
+            this.toolStripSeparator6,
             this.deleteLettersToolStripMenuItem,
             this.fillEmptySpacesToolStripMenuItem});
             this.creatorToolStripMenuItem.Enabled = false;
@@ -175,52 +180,71 @@ namespace WordSearchGame
             // newWordToolStripMenuItem
             // 
             this.newWordToolStripMenuItem.Name = "newWordToolStripMenuItem";
-            this.newWordToolStripMenuItem.Size = new System.Drawing.Size(204, 24);
+            this.newWordToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
             this.newWordToolStripMenuItem.Text = "New Word";
             this.newWordToolStripMenuItem.Click += new System.EventHandler(this.newWordToolStripMenuItem_Click);
             // 
             // placeWordsToolStripMenuItem
             // 
             this.placeWordsToolStripMenuItem.Name = "placeWordsToolStripMenuItem";
-            this.placeWordsToolStripMenuItem.Size = new System.Drawing.Size(204, 24);
+            this.placeWordsToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
             this.placeWordsToolStripMenuItem.Text = "Place Words";
             this.placeWordsToolStripMenuItem.Click += new System.EventHandler(this.placeWordsToolStripMenuItem_Click);
             // 
             // wordsListToolStripMenuItem
             // 
             this.wordsListToolStripMenuItem.Name = "wordsListToolStripMenuItem";
-            this.wordsListToolStripMenuItem.Size = new System.Drawing.Size(204, 24);
+            this.wordsListToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
             this.wordsListToolStripMenuItem.Text = "Words List";
             this.wordsListToolStripMenuItem.Click += new System.EventHandler(this.wordsListToolStripMenuItem_Click);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(201, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(207, 6);
             // 
             // saveFileToolStripMenuItem
             // 
             this.saveFileToolStripMenuItem.Name = "saveFileToolStripMenuItem";
-            this.saveFileToolStripMenuItem.Size = new System.Drawing.Size(204, 24);
+            this.saveFileToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
             this.saveFileToolStripMenuItem.Text = "Save File";
             this.saveFileToolStripMenuItem.Click += new System.EventHandler(this.saveFileToolStripMenuItem_Click);
+            // 
+            // loadFileToolStripMenuItem
+            // 
+            this.loadFileToolStripMenuItem.Name = "loadFileToolStripMenuItem";
+            this.loadFileToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
+            this.loadFileToolStripMenuItem.Text = "Load File";
+            this.loadFileToolStripMenuItem.Click += new System.EventHandler(this.loadFileToolStripMenuItem_Click);
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(201, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(207, 6);
+            // 
+            // deleteAllRecordsToolStripMenuItem
+            // 
+            this.deleteAllRecordsToolStripMenuItem.Name = "deleteAllRecordsToolStripMenuItem";
+            this.deleteAllRecordsToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
+            this.deleteAllRecordsToolStripMenuItem.Text = "Delete All Records";
+            this.deleteAllRecordsToolStripMenuItem.Click += new System.EventHandler(this.deleteAllRecordsToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator6
+            // 
+            this.toolStripSeparator6.Name = "toolStripSeparator6";
+            this.toolStripSeparator6.Size = new System.Drawing.Size(207, 6);
             // 
             // deleteLettersToolStripMenuItem
             // 
             this.deleteLettersToolStripMenuItem.Name = "deleteLettersToolStripMenuItem";
-            this.deleteLettersToolStripMenuItem.Size = new System.Drawing.Size(204, 24);
+            this.deleteLettersToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
             this.deleteLettersToolStripMenuItem.Text = "Delete Letters";
             this.deleteLettersToolStripMenuItem.Click += new System.EventHandler(this.deleteLettersToolStripMenuItem_Click);
             // 
             // fillEmptySpacesToolStripMenuItem
             // 
             this.fillEmptySpacesToolStripMenuItem.Name = "fillEmptySpacesToolStripMenuItem";
-            this.fillEmptySpacesToolStripMenuItem.Size = new System.Drawing.Size(204, 24);
+            this.fillEmptySpacesToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
             this.fillEmptySpacesToolStripMenuItem.Text = "Fill Empty Spaces";
             this.fillEmptySpacesToolStripMenuItem.Click += new System.EventHandler(this.fillEmptySpacesToolStripMenuItem_Click);
             // 
@@ -432,13 +456,6 @@ namespace WordSearchGame
             this.WordsPanel.Size = new System.Drawing.Size(261, 684);
             this.WordsPanel.TabIndex = 7;
             // 
-            // loadFileToolStripMenuItem
-            // 
-            this.loadFileToolStripMenuItem.Name = "loadFileToolStripMenuItem";
-            this.loadFileToolStripMenuItem.Size = new System.Drawing.Size(204, 24);
-            this.loadFileToolStripMenuItem.Text = "Load File";
-            this.loadFileToolStripMenuItem.Click += new System.EventHandler(this.loadFileToolStripMenuItem_Click);
-            // 
             // MinimizeButton
             // 
             this.MinimizeButton.BackgroundImage = global::WordSearchGame.Properties.Resources.minimize_window_50px;
@@ -534,6 +551,8 @@ namespace WordSearchGame
         private System.Windows.Forms.TableLayoutPanel WordsPanel;
         private System.Windows.Forms.Label Label_clock;
         private System.Windows.Forms.ToolStripMenuItem loadFileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem deleteAllRecordsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
     }
 }
 
