@@ -94,7 +94,6 @@ namespace WordSearchGame
             // 
             // placeWordsToolStripMenuItem
             // 
-            this.placeWordsToolStripMenuItem.Enabled = false;
             this.placeWordsToolStripMenuItem.Name = "placeWordsToolStripMenuItem";
             this.placeWordsToolStripMenuItem.Size = new System.Drawing.Size(222, 26);
             this.placeWordsToolStripMenuItem.Text = "Place Words";

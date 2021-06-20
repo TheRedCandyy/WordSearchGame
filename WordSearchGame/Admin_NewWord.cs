@@ -15,6 +15,44 @@ namespace WordSearchGame
             normalRadioButton.Checked = true;
             disableWord(); //Desativa todos os elementos dentro do panel1
         }
+        public Admin_NewWord(string word, int col, int line, int dim, string writingMode, string alignment, string category)
+        {
+            InitializeComponent();
+            loadCategorys(); //Carrega as categorias apartir da classe para a combobox
+            categoryTextBox.Items.Add(category);
+            categoryTextBox.SelectedIndex = categoryTextBox.Items.Count - 1;
+            enableWord();
+            wordTextBox.Text = word;
+            colTextBox.Text = col.ToString();
+            lineTextBox.Text = line.ToString();
+            dimensionTextBox.Text = dim.ToString();
+            switch (writingMode)
+            {
+                case "Normal":
+                    normalRadioButton.Checked = true;
+                    break;
+                case "Reverse":
+                    reverseRadioBtn.Checked = true;
+                    break;
+            }
+
+            switch (alignment)
+            {
+                case "[Horizontal] L -> R":
+                    radioButton1.Checked = true;
+                    break;
+                case "[Vertical] U -> D":
+                    radioButton2.Checked = true;
+                    break;
+                case "[Oblique] U -> D":
+                    radioButton3.Checked = true;
+                    break;
+                case "[Oblique] D -> U":
+                    radioButton4.Checked = true;
+                    break;
+            }
+
+        }
 
         /*
          * Carrega as categorias apartir da classe para a combobox
@@ -27,7 +65,7 @@ namespace WordSearchGame
                 for (int i = 0; i < categoryTextBox.Items.Count; i++) //Percorre todos os items da combobox da categoria
                 {
                     //Se a categoria for igual a categoria na combobox a variavel para a true e faz com que esta categoria que vem da classe ja nao seja adicionada.
-                    if (word.Category.Equals(categoryTextBox.Items[i])) 
+                    if (word.Category.Equals(categoryTextBox.Items[i]))
                     {
                         exists = true;
                     }
@@ -39,7 +77,10 @@ namespace WordSearchGame
                 }
             }
             //Seleciona o primeiro elemento da combobox como default
-            categoryTextBox.SelectedIndex = 0;
+            if (categoryTextBox.Items.Count > 0)
+            {
+                categoryTextBox.SelectedIndex = 0;
+            }
         }
         /*
          * Verifica se a categoria selecionada não está completa
@@ -60,7 +101,7 @@ namespace WordSearchGame
                 return;
             }
             //Se nao estiver cheia continua com o programa...
-            category = categoryTextBox.SelectedItem.ToString();
+            category = categoryTextBox.Text;
             enableWord();//Ativa todos os elementos dentro do panel1
             MessageBox.Show("Using the selected category!", "Success", MessageBoxButtons.OK); //Mesnage de sucesso
         }
@@ -119,14 +160,6 @@ namespace WordSearchGame
             //Mensagem de sucesso
             MessageBox.Show("New word added with success!", "Success", MessageBoxButtons.OK);
         }
-
-        /*
-         * Faz uma demonstração da palavra inserida no jogo antes de ser adicionada 
-         */
-        private void previewWordButton_Click(object sender, EventArgs e)
-        {
-
-        }
         /*
          * Faz o reset de todos os campos do formulario
          */
@@ -160,6 +193,69 @@ namespace WordSearchGame
             {
                 control.Enabled = false;
             }
+        }
+        /*
+         * Faz uma demonstração da palavra inserida no jogo antes de ser adicionada 
+         */
+        private void previewWordButton_Click(object sender, EventArgs e)
+        {
+            if (wordTextBox.TextLength == 0)
+            {
+                MessageBox.Show("Word text field is empty.");
+                return;
+            }
+            if (colTextBox.TextLength == 0)
+            {
+                MessageBox.Show("Column text field is empty.");
+                return;
+            }
+            if (lineTextBox.TextLength == 0)
+            {
+                MessageBox.Show("Line text field is empty.");
+                return;
+            }
+            if (dimensionTextBox.TextLength == 0)
+            {
+                MessageBox.Show("Dimension text field is empty.");
+                return;
+            }
+            string alignment = "";
+            string writingMode = "";
+            string word = wordTextBox.Text;
+            int col = Convert.ToInt32(colTextBox.Text);
+            int line = Convert.ToInt32(lineTextBox.Text);
+            int dim = Convert.ToInt32(dimensionTextBox.Text);
+            string category = categoryTextBox.Text;
+            //Verifica qual o radiobutton selecionado para o alinhamento da palavra
+            if (radioButton1.Checked)
+            {
+                alignment = "[Horizontal] L -> R";
+            }
+            else if (radioButton2.Checked)
+            {
+                alignment = "[Vertical] U -> D";
+            }
+            else if (radioButton3.Checked)
+            {
+                alignment = "[Oblique] U -> D";
+            }
+            else if (radioButton4.Checked)
+            {
+                alignment = "[Oblique] D -> U";
+            }
+            //Verifica qual o radiobutton selecionado para o modo de escrita da palavra
+            if (normalRadioButton.Checked)
+            {
+                writingMode = "Normal";
+            }
+            else
+            {
+                writingMode = "Reverse";
+            }
+            Form1 f = new Form1(word, col, line, dim, writingMode, alignment, category);
+            f.Show();
+            f.TopMost = true;
+            Form1.admForm.Close();
         }
     }
 }

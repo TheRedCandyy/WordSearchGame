@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace WordSearchGame
 {
@@ -10,6 +10,9 @@ namespace WordSearchGame
         public Admin_PlaceWords()
         {
             InitializeComponent();
+            label2.Text = "Words will be place as soon as you leave this window!";
+            label2.ForeColor = Color.Green;
+            label2.Visible = false;
             loadCategorys();//Carrega as categorias apartir da classe para a combobox
         }
         /*
@@ -35,7 +38,18 @@ namespace WordSearchGame
                 }
             }
             //Seleciona o primeiro elemento da combobox como default
-            comboBox1.SelectedIndex = 0;
+            if (comboBox1.Items.Count > 0)
+            {
+                comboBox1.SelectedIndex = 0;
+            }
+            else
+            {
+                comboBox1.Enabled = false;
+                label2.Text = "There are no categories to be loaded!";
+                label2.ForeColor = Color.Red;
+                label2.Visible = true;
+                PlaceWordsButton.Enabled = false;
+            }
         }
         private void PlaceWordsButton_Click(object sender, EventArgs e)
         {
