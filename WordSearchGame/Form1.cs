@@ -125,16 +125,13 @@ namespace WordSearchGame
                                 Words word = new Words(col[0], Convert.ToInt32(col[1]), Convert.ToInt32(col[2]), Convert.ToInt32(col[3]), col[4], col[5], col[6]);
                                 lw.Add(word);
                             }
+                            MessageBox.Show("Successfully loaded the file selected into the program!", "Load Files", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                     }
                 }
-                catch(Exception)
+                catch (Exception)
                 {
                     MessageBox.Show("There was an error loading the selected file!", "Load Files", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                finally
-                {
-                    MessageBox.Show("Successfully loaded the file selected into the program!", "Load Files", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
         }
@@ -144,13 +141,21 @@ namespace WordSearchGame
          */
         public void saveInFile()
         {
-            string filePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            using (StreamWriter outputFile = new StreamWriter(Path.Combine(filePath, "WordSearchGame_Words.txt"), false))
+            if (lw.Count > 0)
             {
-                foreach (Words w in lw)
+                string filePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                using (StreamWriter outputFile = new StreamWriter(Path.Combine(filePath, "WordSearchGame_Words.txt"), false))
                 {
-                    outputFile.WriteLine(w.ToString1());
+                    foreach (Words w in lw)
+                    {
+                        outputFile.WriteLine(w.ToString1());
+                    }
                 }
+                MessageBox.Show("All the words where saved in a file at your Desktop.");
+            }
+            else
+            {
+                MessageBox.Show("There are no words to be saved!", "Load Files", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -471,6 +476,10 @@ namespace WordSearchGame
          **/
         public void wordFound(int checkBoxIndex)
         {
+            if (wordsCheck[checkBoxIndex].Checked) //Se esta palavra ja tiver sido descoberta, ignora
+            {
+                return;
+            }
             colorIndex++;
             word = "";
             wordsCheck[checkBoxIndex].Checked = true;
@@ -510,7 +519,7 @@ namespace WordSearchGame
                     Label_clock.Visible = false;
                     gameState = false;
                 }
-                else if(typeOfGame == "Normal")
+                else if (typeOfGame == "Normal")
                 {
                     //Reset a thread
                     cts.Cancel();
@@ -551,6 +560,7 @@ namespace WordSearchGame
          **/
         public void generateColors()
         {
+            colorIndex = 0;
             btnColors = new Color[19];
             Color[] colorPallet =
             {
@@ -692,7 +702,7 @@ namespace WordSearchGame
             selectCatForm.ShowDialog();
             string category = SelectCategory.category;
             typeOfGame = "Normal";
-            startGame(category);   
+            startGame(category);
         }
         /**
          * Começa o jogo
@@ -953,6 +963,15 @@ namespace WordSearchGame
             }
         }
 
+        private void newGameToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SelectCategory selectCatForm = new SelectCategory();
+            selectCatForm.ShowDialog();
+            string category = SelectCategory.category;
+            typeOfGame = "Normal";
+            startGame(category);
+        }
+
         /* ------------------------ BE A CREATOR MENU ------------------------ */
 
         /**
@@ -1094,16 +1113,17 @@ namespace WordSearchGame
                 MessageBox.Show(e.ToString());
             }
         }
+        public static AdminForm admForm;
         //Mostra o menu de administração para adicionar uma nova palavra
         private void newWordToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AdminForm admForm = new AdminForm(1);
+            admForm = new AdminForm(1);
             admForm.ShowDialog();
         }
         //Coloca as palavras da categoria selecionada no jogo
         private void placeWordsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AdminForm admForm = new AdminForm(2);
+            admForm = new AdminForm(2);
             admForm.ShowDialog();
             string category = Admin_PlaceWords.category;
             clearGame();
@@ -1115,14 +1135,13 @@ namespace WordSearchGame
         //Mostra o menu de administração com as palavras listadas
         private void wordsListToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AdminForm admForm = new AdminForm(3);
+            admForm = new AdminForm(3);
             admForm.ShowDialog();
         }
         //Guarda as palavras da classe Words num ficheiro no Desktop do utilizador
         private void saveFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             saveInFile();
-            MessageBox.Show("All the words where saved in a file at your Desktop.");
         }
         //Popula a classe Words apartir de um ficheiro selecionado 
         private void loadFileToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1196,6 +1215,7 @@ namespace WordSearchGame
                 }
             }
         }
+        //Começa a demonstração de solução de uma categoria
         private void playDemoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
@@ -1222,6 +1242,116 @@ namespace WordSearchGame
             {
                 throw;
             }
+        }
+        object[] wordData;
+        //Faz a demonstração de uma palavra
+        public Form1(string word, int col, int line, int dim, string writingMode, string alignment, string category)
+        {
+            InitializeComponent();
+            menuStrip1.BackColor = backgroundColor; //Colocar a cor de fundo do menu strip com o castanho claro
+            drawButtons(); //Desenha os butoes de jogo no form
+
+            if (adminMode.Equals(true)) //Se o utilizador entrar em modo de administrador ativa todos os botões da aba "Be A Creator"
+            {
+                creatorToolStripMenuItem.Enabled = true;
+                foreach (ToolStripMenuItem item in creatorToolStripMenuItem.DropDownItems.OfType<ToolStripMenuItem>()) //Corre todos os items dentro do "creatorToolStripMenuItem" e faz o enable deles
+                {
+                    item.Enabled = true;
+                }
+            }
+            wordData = new object[7];
+            wordData[0] = word;
+            wordData[1] = col;
+            wordData[2] = line;
+            wordData[3] = dim;
+            wordData[4] = writingMode;
+            wordData[5] = alignment;
+            wordData[6] = category;
+            int x = 0, y = 0, charCount = 0;
+            for (int i = 0; i < dim; i++) //Loop por cada caracter da palavra
+            {
+                gameBtn[col + y - 1, line + x - 1].Text = word.Substring(charCount, 1).ToUpper(); ; //Faz o clique do butao em que o caracter atual da palavra está
+                charCount++;
+                //Segundo o modo de escrita e a direção da palavra, segue uma determinada direçao
+                switch (writingMode)
+                {
+                    case "Normal":
+                        switch (alignment)
+                        {
+                            case "[Horizontal] L -> R":
+                                x++;
+                                break;
+                            case "[Vertical] U -> D":
+                                y++;
+                                break;
+                            case "[Oblique] U -> D":
+                                x++;
+                                y++;
+                                break;
+                            case "[Oblique] D -> U":
+                                x++;
+                                y--;
+                                break;
+                        }
+                        break;
+                    case "Reverse":
+                        switch (alignment)
+                        {
+                            case "[Horizontal] L -> R":
+                                x--;
+                                break;
+                            case "[Vertical] U -> D":
+                                y--;
+                                break;
+                            case "[Oblique] U -> D":
+                                x--;
+                                y++;
+                                break;
+                            case "[Oblique] D -> U":
+                                x--;
+                                y--;
+                                break;
+                        }
+                        break;
+                }
+            }
+            foreach (Control c in ButtonsPanel.Controls)
+            {
+                c.Visible = false;
+            }
+            foreach (Button b in Controls.OfType<Button>())
+            {
+                b.Enabled = false;
+            }
+            foreach (MenuItem mi in Controls.OfType<MenuItem>())
+            {
+                mi.Enabled = false;
+            }
+            GoBack_Button.Visible = true;
+            GoBack_Button.Enabled = true;
+        }
+
+        //Pára a demonstração de uma palavra
+        private void GoBack_Button_Click(object sender, EventArgs e)
+        {
+            foreach (Control c in ButtonsPanel.Controls)
+            {
+                c.Visible = true;
+            }
+            foreach (Button b in Controls.OfType<Button>())
+            {
+                b.Enabled = true;
+            }
+            foreach (MenuItem mi in Controls.OfType<MenuItem>())
+            {
+                mi.Enabled = true;
+            }
+            GoBack_Button.Visible = false;
+            GoBack_Button.Enabled = false;
+            admForm = new AdminForm(wordData[0].ToString(), Convert.ToInt32(wordData[1]), Convert.ToInt32(wordData[2]), Convert.ToInt32(wordData[3]), wordData[4].ToString(), wordData[5].ToString(), wordData[6].ToString());
+            admForm.Show();
+            admForm.StartPosition = FormStartPosition.CenterScreen;
+            this.Close();
         }
     }
 }

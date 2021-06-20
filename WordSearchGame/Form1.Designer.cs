@@ -46,6 +46,7 @@ namespace WordSearchGame
             this.wordsListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.saveFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.loadFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.deleteLettersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fillEmptySpacesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -55,6 +56,7 @@ namespace WordSearchGame
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.authorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ButtonsPanel = new System.Windows.Forms.Panel();
+            this.GoBack_Button = new System.Windows.Forms.Button();
             this.Quit_Button_Bottom = new System.Windows.Forms.Button();
             this.LastMove_Button = new System.Windows.Forms.Button();
             this.Stats_Button = new System.Windows.Forms.Button();
@@ -63,7 +65,6 @@ namespace WordSearchGame
             this.Label_clock = new System.Windows.Forms.Label();
             this.GamePanel = new System.Windows.Forms.TableLayoutPanel();
             this.WordsPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.loadFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MinimizeButton = new System.Windows.Forms.Button();
             this.QuitButton = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
@@ -105,6 +106,7 @@ namespace WordSearchGame
             this.newGameToolStripMenuItem.Name = "newGameToolStripMenuItem";
             this.newGameToolStripMenuItem.Size = new System.Drawing.Size(190, 24);
             this.newGameToolStripMenuItem.Text = "New Game";
+            this.newGameToolStripMenuItem.Click += new System.EventHandler(this.newGameToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
@@ -205,6 +207,13 @@ namespace WordSearchGame
             this.saveFileToolStripMenuItem.Text = "Save File";
             this.saveFileToolStripMenuItem.Click += new System.EventHandler(this.saveFileToolStripMenuItem_Click);
             // 
+            // loadFileToolStripMenuItem
+            // 
+            this.loadFileToolStripMenuItem.Name = "loadFileToolStripMenuItem";
+            this.loadFileToolStripMenuItem.Size = new System.Drawing.Size(204, 24);
+            this.loadFileToolStripMenuItem.Text = "Load File";
+            this.loadFileToolStripMenuItem.Click += new System.EventHandler(this.loadFileToolStripMenuItem_Click);
+            // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
@@ -263,6 +272,7 @@ namespace WordSearchGame
             // 
             // ButtonsPanel
             // 
+            this.ButtonsPanel.Controls.Add(this.GoBack_Button);
             this.ButtonsPanel.Controls.Add(this.Quit_Button_Bottom);
             this.ButtonsPanel.Controls.Add(this.LastMove_Button);
             this.ButtonsPanel.Controls.Add(this.Stats_Button);
@@ -273,6 +283,22 @@ namespace WordSearchGame
             this.ButtonsPanel.Name = "ButtonsPanel";
             this.ButtonsPanel.Size = new System.Drawing.Size(1024, 94);
             this.ButtonsPanel.TabIndex = 5;
+            // 
+            // GoBack_Button
+            // 
+            this.GoBack_Button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(85)))), ((int)(((byte)(57)))));
+            this.GoBack_Button.FlatAppearance.BorderSize = 0;
+            this.GoBack_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.GoBack_Button.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GoBack_Button.ForeColor = System.Drawing.Color.White;
+            this.GoBack_Button.Location = new System.Drawing.Point(30, 24);
+            this.GoBack_Button.Name = "GoBack_Button";
+            this.GoBack_Button.Size = new System.Drawing.Size(150, 50);
+            this.GoBack_Button.TabIndex = 6;
+            this.GoBack_Button.Text = "Go Back";
+            this.GoBack_Button.UseVisualStyleBackColor = false;
+            this.GoBack_Button.Visible = false;
+            this.GoBack_Button.Click += new System.EventHandler(this.GoBack_Button_Click);
             // 
             // Quit_Button_Bottom
             // 
@@ -432,13 +458,6 @@ namespace WordSearchGame
             this.WordsPanel.Size = new System.Drawing.Size(261, 684);
             this.WordsPanel.TabIndex = 7;
             // 
-            // loadFileToolStripMenuItem
-            // 
-            this.loadFileToolStripMenuItem.Name = "loadFileToolStripMenuItem";
-            this.loadFileToolStripMenuItem.Size = new System.Drawing.Size(204, 24);
-            this.loadFileToolStripMenuItem.Text = "Load File";
-            this.loadFileToolStripMenuItem.Click += new System.EventHandler(this.loadFileToolStripMenuItem_Click);
-            // 
             // MinimizeButton
             // 
             this.MinimizeButton.BackgroundImage = global::WordSearchGame.Properties.Resources.minimize_window_50px;
@@ -534,6 +553,7 @@ namespace WordSearchGame
         private System.Windows.Forms.TableLayoutPanel WordsPanel;
         private System.Windows.Forms.Label Label_clock;
         private System.Windows.Forms.ToolStripMenuItem loadFileToolStripMenuItem;
+        private System.Windows.Forms.Button GoBack_Button;
     }
 }
 

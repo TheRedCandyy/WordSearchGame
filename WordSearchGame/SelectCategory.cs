@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace WordSearchGame
@@ -36,7 +35,10 @@ namespace WordSearchGame
                 }
             }
             //Seleciona o primeiro elemento da combobox como default
-            comboBox1.SelectedIndex = 0;
+            if (comboBox1.Items.Count > 0)
+            {
+                comboBox1.SelectedIndex = 0;
+            }
         }
         private void StartGameButton_Click(object sender, EventArgs e)
         {

@@ -28,6 +28,19 @@ namespace WordSearchGame
                     break;
             }
         }
+        public AdminForm(string word, int col, int line, int dim, string writingMode, string alignment, string category)
+        {
+            InitializeComponent();
+            this.StartPosition = FormStartPosition.CenterScreen;
+            Admin_NewWord newWord = new Admin_NewWord(word, col, line, dim, writingMode, alignment, category);
+            newWord.Visible = false;
+            panel1.Controls.Add(newWord);
+            foreach (UserControl userControl in panel1.Controls.OfType<UserControl>())
+            {
+                userControl.Visible = false;
+            }
+            newWord.Visible = true;
+        }
 
         /**
          * Abre o form about com os dados da linguagem de desenvolvimento
