@@ -555,6 +555,17 @@ namespace WordSearchGame
             {
                 return;
             }
+            string boardAuxiliar = "";
+            //Preencher a board auxiliar string[,]->string
+            for (int i = 0; i < 15; i++)
+            {
+                for (int j = 0; j < 15; j++)
+                {
+                    boardAuxiliar += board[i, j];
+                }
+                boardAuxiliar += ",";
+            }
+
             colorIndex++;
             word = "";
             wordsCheck[checkBoxIndex].Checked = true;
@@ -676,9 +687,6 @@ namespace WordSearchGame
         {
             //Passar a string que está no jogador com o tabuleiro para uma string[,]
             string[] tabuleiro = lp[replayPlayerIndex].Board.Split(',');
-
-            int ct = 0;
-
             for (int i = 0; i < 15; i++)
             {
                 for (int j = 0; j < 15; j++)
@@ -928,11 +936,18 @@ namespace WordSearchGame
          **/
         private void NewGame_Button_Click(object sender, EventArgs e)
         {
-            SelectCategory selectCatForm = new SelectCategory();
-            selectCatForm.ShowDialog();
-            string category = SelectCategory.category;
-            typeOfGame = "Normal";
-            startGame(category);
+            if (lw.Count > 0)
+            {
+                SelectCategory selectCatForm = new SelectCategory();
+                selectCatForm.ShowDialog();
+                string category = SelectCategory.category;
+                typeOfGame = "Normal";
+                startGame(category);
+            }
+            else
+            {
+                MessageBox.Show("There are no categories to play!", "Categories error", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
         /**
          * Começa o jogo
@@ -1165,7 +1180,7 @@ namespace WordSearchGame
             statisticsForm stcsForm = new statisticsForm(lp);
             stcsForm.ShowDialog();
 
-            if (replayToken = true)
+            if (replayToken == true)
             {
                 playReplay();
                 stcsForm.ShowDialog();
@@ -1179,11 +1194,18 @@ namespace WordSearchGame
 
         private void newGameToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SelectCategory selectCatForm = new SelectCategory();
-            selectCatForm.ShowDialog();
-            string category = SelectCategory.category;
-            typeOfGame = "Normal";
-            startGame(category);
+            if (lw.Count > 0)
+            {
+                SelectCategory selectCatForm = new SelectCategory();
+                selectCatForm.ShowDialog();
+                string category = SelectCategory.category;
+                typeOfGame = "Normal";
+                startGame(category);
+            }
+            else
+            {
+                MessageBox.Show("There are no categories to play!", "Categories error", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         /* ------------------------ BE A CREATOR MENU ------------------------ */
@@ -1434,22 +1456,29 @@ namespace WordSearchGame
         {
             try
             {
-                SelectCategory selectCatForm = new SelectCategory();
-                selectCatForm.ShowDialog();
-                category = SelectCategory.category;
-                typeOfGame = "Demo";
-                startGame(category);
-                var msg = MessageBox.Show("Start demonstration?", "Demonstration", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-                if (msg == DialogResult.Yes)
+                if (lw.Count > 0)
                 {
-                    //Instanciacao do Token
-                    cts = new CancellationTokenSource();
-                    //Inicalizacao da thread
-                    ThreadPool.QueueUserWorkItem(new WaitCallback(StartDemo), cts.Token);
+                    SelectCategory selectCatForm = new SelectCategory();
+                    selectCatForm.ShowDialog();
+                    category = SelectCategory.category;
+                    typeOfGame = "Demo";
+                    startGame(category);
+                    var msg = MessageBox.Show("Start demonstration?", "Demonstration", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                    if (msg == DialogResult.Yes)
+                    {
+                        //Instanciacao do Token
+                        cts = new CancellationTokenSource();
+                        //Inicalizacao da thread
+                        ThreadPool.QueueUserWorkItem(new WaitCallback(StartDemo), cts.Token);
+                    }
+                    else
+                    {
+                        clearGame();
+                    }
                 }
                 else
                 {
-                    clearGame();
+                    MessageBox.Show("There are no categories to play!", "Categories error", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch (Exception)
