@@ -22,7 +22,7 @@ namespace WordSearchGame
             //Ordenar a lista de jogadores por ordem alfabetica (Default)
             lp2.Sort((x, y) => string.Compare(x.Nome, y.Nome));
             //Carregar o record do jogo
-            loadRecord();
+            loadRecord("All");
             //Carregar todos os jogadores
             loadListBox("All");
             //Carregar todas as categorias
@@ -44,23 +44,41 @@ namespace WordSearchGame
         /**
          * Funcao que corre a lista de jogadores e guarda a melhor jogada para record
          **/
-        public void loadRecord()
+        public void loadRecord(string categoria)
         {
             string recordName = "";
             string recordTime = "";
-            int timeAux = 0;
+            int timeAux = 10000000;
 
-            foreach (Player p in lp2)
+            if (categoria.Equals("All"))
             {
-                if (timeAux < p.PlaySeconds)
+                foreach (Player p in lp2)
                 {
-                    timeAux = p.PlaySeconds;
-                    recordName = p.Nome;
-                    recordTime = p.PlayTimes;
+                    if (timeAux > p.PlaySeconds)
+                    {
+                        timeAux = p.PlaySeconds;
+                        recordName = p.Nome;
+                        recordTime = p.PlayTimes;
+                    }
                 }
+                //Preencher o texto da Label de Record
+                label_record_Player.Text = recordName + "   -   " + recordTime;
             }
-            //Preencher o texto da Label de Record
-            label_record_Player.Text = recordName + "   -   " + recordTime;
+            else
+            {
+                foreach (Player p in lp2)
+                {
+                    if (timeAux > p.PlaySeconds && p.Category.Equals(categoria))
+                    {
+                        timeAux = p.PlaySeconds;
+                        recordName = p.Nome;
+                        recordTime = p.PlayTimes;
+                    }
+                }
+                //Preencher o texto da Label de Record
+                label_record_Player.Text = recordName + "   -   " + recordTime;
+            }
+
         }
 
         /**
@@ -212,6 +230,7 @@ namespace WordSearchGame
         {
             string categoria = comboBox_category.Text;
             loadListBox(categoria);
+            loadRecord(categoria);
         }
     }
 }
