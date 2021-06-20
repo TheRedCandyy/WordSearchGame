@@ -1403,7 +1403,7 @@ namespace WordSearchGame
                             gameBtn[w.Col + y - 1, w.Line + x - 1].PerformClick(); //Faz o clique do butao em que o caracter atual da palavra está
                             LastMove_Button.Enabled = false;
                         });
-                        Thread.Sleep(100); //Espera 500 milesimos...
+                        Thread.Sleep(500); //Espera 500 milesimos...
                         charCount++;
                         //Segundo o modo de escrita e a direção da palavra, segue uma determinada direçao
                         switch (w.WritingMode)
