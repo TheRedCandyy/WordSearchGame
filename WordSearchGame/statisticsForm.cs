@@ -17,6 +17,7 @@ namespace WordSearchGame
 
             lp2 = lp;
             comboBxStatsOrderBy.Text = "Name";
+            bt_replay.Enabled = false;
 
             //Ordenar a lista de jogadores por ordem alfabetica (Default)
             lp2.Sort((x, y) => string.Compare(x.Nome, y.Nome));
@@ -25,7 +26,7 @@ namespace WordSearchGame
             //Carregar todos os jogadores
             loadListBox("All");
             //Carregar todas as categorias
-            loadCategorys();    
+            loadCategorys();
 
         }
         public void loadCategorys()
@@ -161,7 +162,7 @@ namespace WordSearchGame
                 bt_replay.Enabled = true;
                 bt_replay.Visible = true;
             }
-            
+
         }
         private void comboBxStatsOrderBy_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -174,7 +175,7 @@ namespace WordSearchGame
             {
                 categoria = comboBox_category.Text;
             }
-     
+
             if (comboBxStatsOrderBy.Text.Equals("Name"))//Ordenar por ordem alfabética
             {
                 //Ordenar a lista de jogadores por nome
